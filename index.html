@@ -106,6 +106,7 @@ details.grown summary{font-family:var(--display);font-weight:700;cursor:pointer}
 .feedback{display:flex;gap:12px;align-items:center;margin-top:14px;min-height:88px}
 .feedback .uni{width:84px;flex:none}
 .bubble{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:12px 16px;flex:1;min-width:0}
+.cheer{display:block;font-family:var(--display);font-size:1.25rem;color:var(--accent);margin-bottom:2px}
 .bubble.good{background:var(--good-bg);border-color:var(--good)}
 .actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
 
@@ -267,7 +268,7 @@ body.calm *,body.calm *::before{animation:none!important;transition:none!importa
       <div class="settings">
         <label>Player name <input type="text" id="setKid" maxlength="20"></label>
         <label>Unicorn name <input type="text" id="setUni" maxlength="20"></label>
-        <label><input type="checkbox" id="setSound"> Soft chime on correct answers</label>
+        <label><input type="checkbox" id="setSound"> Say the cheers out loud (silly animal puns on correct answers)</label>
         <label><input type="checkbox" id="setRead"> Read each question aloud automatically</label>
         <label><input type="checkbox" id="setCalm"> Calm mode (no animations)</label>
         <div class="levels"><button class="btn small" id="resetBtn">Reset gems</button><button class="btn small" id="resetYes" hidden>Yes, reset to 0</button></div>
@@ -307,6 +308,7 @@ body.calm *,body.calm *::before{animation:none!important;transition:none!importa
     <div class="end">
       <div id="endUni" class="uni-wrap"></div>
       <h2>Round complete!</h2>
+      <p class="cheer" id="endCheer"></p>
       <p id="endText"></p>
       <p class="unlock" id="endUnlock" hidden></p>
       <p id="endCookie"></p>
@@ -800,19 +802,22 @@ function correct(msg){
   const q = G.q; q.done = true;
   if (q.tries === 0) G.first++;
   G.earned++; S.gems++; save();
-  updateGems(true); chime();
+  updateGems(true);
+  const cheer = nextCheer();
   renderFigure();
   if (q.type === 'missing') { q.entry = String(q.ans); updatePad(); }
   document.querySelectorAll('#answers button').forEach(b => { if (!b.classList.contains('yes') || q.type==='missing' || q.type==='bridge') b.disabled = true; });
-  setBubble(msg + ' You earned a gem.', true, 'happy');
+  setBubble(msg + ' You earned a gem.', true, 'happy', cheer);
+  if (S.sound) speak(cheer, 1.25);
   $('#hintBtn').hidden = true;
   $('#nextBtn').hidden = false;
   $('#nextBtn').textContent = G.i === N-1 ? 'Finish round' : 'Next question';
   $('#nextBtn').focus();
 }
 
-function setBubble(text, good, mood){
-  const b = $('#bubble'); b.textContent = text; b.classList.toggle('good', !!good);
+function setBubble(text, good, mood, cheer){
+  const b = $('#bubble'); b.classList.toggle('good', !!good);
+  b.innerHTML = (cheer ? `<b class="cheer">${esc(cheer)}</b>` : '') + esc(text);
   const u = $('#miniUni');
   u.innerHTML = unicorn(mood === 'happy' ? 'happy' : 'plain');
   if (mood === 'happy'){ move(u, 'hop'); hearts(u, 2); }
@@ -846,7 +851,7 @@ function petLine(){
   ];
   let l; do { l = pick(lines); } while (l === lastLine); lastLine = l; return l;
 }
-function petStable(){ const u = $('#petUni'); move(u, 'hop'); hearts(u, 3); $('#say').textContent = petLine(); chime(); }
+function petStable(){ const u = $('#petUni'); move(u, 'hop'); hearts(u, 3); const l = petLine(); $('#say').textContent = l; if (S.sound) speak(l); }
 function feed(){
   if (S.treats <= 0) return;
   S.treats--; S.fed++; save();
@@ -869,6 +874,7 @@ function endRound(){
   show('end');
   $('#endUni').innerHTML = unicorn('happy');
   setTimeout(() => { move($('#endUni'), 'hop'); hearts($('#endUni'), 4); }, 150);
+  const ec = nextCheer(); $('#endCheer').textContent = ec; if (S.sound) setTimeout(() => speak(ec, 1.25), 300);
   $('#endCookie').textContent = `You won a star cookie for ${S.uname}!`;
   let t = `You answered ${N} questions and earned ${G.earned} gems. You have ${S.gems} gems now.`;
   if (G.first > 0) t += ` ${G.first} were right on the first try.`;
@@ -947,6 +953,38 @@ function renderBook(){
 }
 
 /* ---------- sound and speech ---------- */
+/* Silly animal cheers for correct answers */
+const CHEERS = [
+  'That was purr-fect! Meow.',
+  'Egg-cellent! Bawk, bawk.',
+  'Unicorn-believable!',
+  'Hoof-ray! Neigh!',
+  'Neigh-ce work!',
+  'Moo-velous! Mooo.',
+  'Fin-tastic! Blub, blub.',
+  'Toad-ally right! Ribbit.',
+  'Owl-standing! Hoo, hoo.',
+  'Un-bear-lievable! Grrr.',
+  'Mane-ificent!',
+  'Horn-derful!',
+  'Quack-tastic! Quack, quack.',
+  'Dino-mite! Roar!',
+  'Paw-sitively right! Woof!',
+  'You otter be proud!',
+  'Sheep-tacular! Baa.',
+  'Bee-autiful! Bzzz.',
+  'Whale done! Splash.',
+  'Hog-tastic! Oink, oink.',
+  'Hiss-torically good! Sssss.',
+  'Fox-tastic! Yip, yip.',
+  'Gecko-licious! Lick, lick.',
+  'What a-cute answer!',
+  'Right on, like a right angle!',
+  'You nailed it, like a woodpecker! Tap tap tap.',
+];
+let cheerBag = [];
+function nextCheer(){ if (!cheerBag.length) cheerBag = shuffle(CHEERS); return cheerBag.pop(); }
+
 let actx;
 function chime(){
   if (!S.sound) return;
@@ -961,12 +999,12 @@ function chime(){
     });
   } catch(e) {}
 }
-function speak(text){
+function speak(text, pitch){
   try {
     if (!('speechSynthesis' in window)) return;
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text.replace(/°/g,' degrees').replace(/−/g,' minus ').replace(/…/g,' blank.'));
-    u.rate = 0.9; speechSynthesis.speak(u);
+    u.rate = 0.9; if (pitch) u.pitch = pitch; speechSynthesis.speak(u);
   } catch(e) {}
 }
 
@@ -989,7 +1027,7 @@ $('#setSound').checked = S.sound; $('#setRead').checked = S.autoread; $('#setCal
 document.body.classList.toggle('calm', S.calm);
 $('#setKid').addEventListener('input', e => { S.kid = e.target.value.trim() || 'friend'; save(); renderMap(); });
 $('#setUni').addEventListener('input', e => { S.uname = e.target.value.trim() || 'Nova'; save(); renderMap(); });
-$('#setSound').addEventListener('change', e => { S.sound = e.target.checked; save(); if (S.sound) chime(); });
+$('#setSound').addEventListener('change', e => { S.sound = e.target.checked; save(); if (S.sound) speak(nextCheer(), 1.25); });
 $('#setRead').addEventListener('change', e => { S.autoread = e.target.checked; save(); });
 $('#setCalm').addEventListener('change', e => { S.calm = e.target.checked; save(); document.body.classList.toggle('calm', S.calm); });
 $('#resetBtn').addEventListener('click', () => { $('#resetYes').hidden = false; });
