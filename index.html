@@ -237,6 +237,30 @@ body.calm *,body.calm *::before{animation:none!important;transition:none!importa
         </div>
       </div>
       <div class="game-card">
+        <div class="pic" id="pic6"></div>
+        <div>
+          <h3>Clock Angles</h3>
+          <p>Find the angle between the hands of the unicorn clock.</p>
+          <div class="levels"><button class="btn primary" data-start="clock" data-level="gentle">Gentle</button><button class="btn" data-start="clock" data-level="tricky">Tricky</button></div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="pic" id="pic7"></div>
+        <div>
+          <h3>Shape Rules</h3>
+          <p>Split shapes into triangles and find their angles.</p>
+          <div class="levels"><button class="btn primary" data-start="poly" data-level="gentle">Gentle</button><button class="btn" data-start="poly" data-level="tricky">Tricky</button></div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="pic" id="pic8"></div>
+        <div>
+          <h3>Angle Math</h3>
+          <p>Share, add and take away angles, like slices of rainbow cake.</p>
+          <div class="levels"><button class="btn primary" data-start="calc" data-level="gentle">Gentle</button><button class="btn" data-start="calc" data-level="tricky">Tricky</button></div>
+        </div>
+      </div>
+      <div class="game-card">
         <div class="pic" id="pic4"></div>
         <div>
           <h3>Word Book</h3>
@@ -528,6 +552,344 @@ const TERMS = [
 const N = 6;
 let G = null;
 
+/* ================= Shared helpers for the new games ================= */
+const MCQ = o => Object.assign({type:'mcq'}, o);
+const PADQ = o => Object.assign({type:'padq', entry:'', hintStep:0}, o);
+function numOpts(ans, pool, k=4){
+  const others = shuffle(pool.filter(v => v !== ans)).slice(0, k-1);
+  const arr = [...others, ans].sort((a,b) => a-b);
+  return {opts: arr, a: arr.indexOf(ans)};
+}
+function fitBox(pts, pad, minW, minH){
+  const xs = pts.map(p=>p[0]), ys = pts.map(p=>p[1]);
+  let x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
+  if (x1-x0 < minW){ const d=(minW-(x1-x0))/2; x0-=d; x1+=d; }
+  if (y1-y0 < minH){ const d=(minH-(y1-y0))/2; y0-=d; y1+=d; }
+  return `${f(x0-pad)} ${f(y0-pad)} ${f(x1-x0+2*pad)} ${f(y1-y0+2*pad)}`;
+}
+function cornerArc(P, A, B, r, col, label, dist){
+  const u = [A,B].map(Q => { const dx=Q[0]-P[0], dy=Q[1]-P[1], n=Math.hypot(dx,dy); return [dx/n, dy/n]; });
+  const ma = u.map(v => Math.atan2(-v[1], v[0]) * 180/Math.PI);
+  let start = ma[0], d = ((ma[1]-ma[0]) % 360 + 360) % 360;
+  if (d > 180){ start = ma[1]; d = 360 - d; }
+  let s = `<path d="${wedgeD(P[0],P[1],r,start,start+d)}" fill="${col}" opacity=".35"/><path d="${arcD(P[0],P[1],r,start,start+d)}" fill="none" stroke="${col}" stroke-width="3"/>`;
+  if (label != null){
+    let bx = u[0][0]+u[1][0], by = u[0][1]+u[1][1]; const n = Math.hypot(bx,by) || 1; bx/=n; by/=n;
+    s += `<text x="${f(P[0]+bx*dist)}" y="${f(P[1]+by*dist)}" class="lbl" style="font-size:16px" text-anchor="middle" dominant-baseline="middle">${label}</text>`;
+  }
+  return s;
+}
+
+/* ================= Clock Angles ================= */
+function clockAngle(h, m){ const d = Math.abs(m*6 - ((h%12)*30 + m*0.5)) % 360; return Math.min(d, 360-d); }
+const tstr = (h,m) => `${h}:${String(m).padStart(2,'0')}`;
+function clockSVG(o){
+  const {h=3, m=0, slices=false, label=null, turn=false} = o, R = 100;
+  let s = '';
+  const ear = sx => `<polygon points="${sx*80},-56 ${sx*44},-88 ${sx*92},-114" fill="var(--uni)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/><polygon points="${sx*76},-67 ${sx*58},-84 ${sx*84},-101" fill="var(--pink)" opacity=".45"/>`;
+  s += ear(-1) + ear(1);
+  s += `<polygon points="-11,-97 11,-97 0,-152" fill="var(--gold)"/><path d="M-7 -114 L7 -117 M-4 -131 L4 -133" stroke="var(--uni)" stroke-width="2.5" stroke-linecap="round"/>`;
+  s += `<circle r="${R}" fill="var(--surface)" stroke="var(--ink)" stroke-width="5"/>`;
+  s += `<circle cx="-52" cy="50" r="11" fill="var(--pink)" opacity=".2"/><circle cx="52" cy="50" r="11" fill="var(--pink)" opacity=".2"/>`;
+  for (let i=0; i<60; i++){
+    const big = i%5 === 0, a = 90 - i*6, p1 = pp(0,0,R-(big?13:7),a), p2 = pp(0,0,R-4,a);
+    s += `<line x1="${f(p1[0])}" y1="${f(p1[1])}" x2="${f(p2[0])}" y2="${f(p2[1])}" stroke="var(--muted)" stroke-width="${big?3:1.4}" stroke-linecap="round"/>`;
+  }
+  const md = m*6, hd = (h%12)*30 + m*0.5, aM = 90-md, aH = 90-hd;
+  let a0, d, dir = 1;
+  if (turn){ a0 = aM; d = md; }
+  else { d = ((aH-aM) % 360 + 360) % 360; if (d <= 180) a0 = aM; else { a0 = aH; d = 360-d; dir = -1; } }
+  if (d > 0) s += `<path d="${wedgeD(0,0,68,a0,a0+d)}" class="ang-fill"/><path d="${arcD(0,0,26,a0,a0+d)}" class="ang-arc"/>`;
+  if (slices && !turn && d > 0){
+    for (let j=1; 30*(j-1) < d; j++){
+      const from = 30*(j-1), to = Math.min(30*j, d), mid = aM + dir*(from+to)/2;
+      if (to < d){ const e = pp(0,0,68,aM+dir*to); s += `<line x1="0" y1="0" x2="${f(e[0])}" y2="${f(e[1])}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/>`; }
+      const lp = pp(0,0,60,mid);
+      s += `<text x="${f(lp[0])}" y="${f(lp[1])}" class="lbl" style="font-size:12px;fill:var(--accent)" text-anchor="middle" dominant-baseline="middle">${to-from}</text>`;
+    }
+  }
+  for (let i=1; i<=12; i++){ const p = pp(0,0,81,90-i*30); s += `<text x="${f(p[0])}" y="${f(p[1])}" class="lbl" style="font-size:17px" text-anchor="middle" dominant-baseline="middle">${i}</text>`; }
+  if (turn){ const g0 = pp(0,0,76,90); s += `<line x1="0" y1="0" x2="${f(g0[0])}" y2="${f(g0[1])}" stroke="var(--muted)" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round"/>`; }
+  else { const he = pp(0,0,50,aH); s += `<line x1="0" y1="0" x2="${f(he[0])}" y2="${f(he[1])}" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/>`; }
+  const me = pp(0,0,76,aM);
+  s += `<line x1="0" y1="0" x2="${f(me[0])}" y2="${f(me[1])}" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/><circle r="7" fill="var(--gold)"/>`;
+  if (label !== null){
+    const lp = slices ? [0, 44] : pp(0,0,44,a0+d/2);
+    s += `<rect x="${f(lp[0]-26)}" y="${f(lp[1]-14)}" width="52" height="28" rx="9" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="${f(lp[0])}" y="${f(lp[1])}" class="lbl" style="font-size:17px" text-anchor="middle" dominant-baseline="middle">${label}</text>`;
+  }
+  return `<svg viewBox="-112 -160 224 274" role="img" aria-label="A clock">${s}</svg>`;
+}
+
+function makeClockQ(){
+  const g = G.level === 'gentle';
+  const kind = (g ? ['mc','mc','kind','pic','pad','turn'] : ['pad','kind','pic','turn','half','half'])[G.i];
+  const hrs = [1,2,3,4,5,6,7,8,9,10,11];
+  let h; do { h = pick(hrs); } while (h === G.lastH); G.lastH = h;
+  const ang = clockAngle(h,0), jumps = ang/30;
+  const jumpWord = n => n === 1 ? 'jump' : 'jumps';
+  const slicesHint = 'The clock is a full turn: 360°. It has 12 numbers, so each jump from one number to the next is 360 ÷ 12 = 30°. Count the jumps between the hands.';
+  if (kind === 'mc'){
+    const {opts, a} = numOpts(ang, [30,60,90,120,150,180]);
+    const q = MCQ({text:`The clock shows ${tstr(h,0)}. What is the angle between the hands?`, opts: opts.map(v=>v+'°'), a, slices:false,
+      fig: q => clockSVG({h, m:0, slices:q.slices, label: q.done ? ang+'°' : null}),
+      hint:`<p>${slicesHint}</p>`, onHint: () => { q.slices = true; }, onWrong: () => { q.slices = true; },
+      wrong: i => `Not ${opts[i]}°. I cut the purple part into slices. Each slice is 30°. Count them.`,
+      right:`Yes! ${jumps} ${jumpWord(jumps)} × 30° = ${ang}°.`, first:'The purple part is the angle between the two hands.'});
+    return q;
+  }
+  if (kind === 'kind'){
+    const types = ['acute','right','obtuse','straight'];
+    const t = pick(types), hh = pick(hrs.filter(x => bridgeKind(clockAngle(x,0)) === t)), a2 = clockAngle(hh,0);
+    const q = MCQ({text:`What kind of angle do the hands make at ${tstr(hh,0)}?`, opts: types.map(cap), a: types.indexOf(t), slices:false,
+      fig: q => clockSVG({h:hh, m:0, slices:q.slices, label: q.done ? a2+'°' : null}),
+      hint:'<p>A right angle is 90°. On a clock that is 3 jumps, like at 3:00. Is this angle smaller, the same, or bigger? If the hands make one straight line, it is a straight angle.</p>',
+      onHint: () => { q.slices = true; },
+      wrong: i => `Not ${types[i]}. ${DEF[types[i]].long}`, right:`Yes! At ${tstr(hh,0)} the hands make ${DEF[t].a} angle: ${a2}°.`});
+    return q;
+  }
+  if (kind === 'pic'){
+    const target = g ? 'right' : pick(['acute','obtuse','straight','right']);
+    const okH = pick(hrs.filter(x => bridgeKind(clockAngle(x,0)) === target));
+    const others = shuffle(hrs.filter(x => bridgeKind(clockAngle(x,0)) !== target)).slice(0,2);
+    const pics = shuffle([okH, ...others]).map(x => ({svg: clockSVG({h:x, m:0}), cap: `${tstr(x,0)}: ${clockAngle(x,0)}°`, ok: x === okH,
+      why: `At ${tstr(x,0)} the hands make ${clockAngle(x,0)}°. That is ${DEF[bridgeKind(clockAngle(x,0))].a} angle. Try another clock.`}));
+    return {type:'picq', text:`Which clock shows ${DEF[target].a} angle?`, pics,
+      hint:`<p>${DEF[target].long} Each jump on the clock is 30°, so 3 jumps make 90°.</p>`,
+      right:`Yes! At ${tstr(okH,0)} the hands make ${clockAngle(okH,0)}°.`};
+  }
+  if (kind === 'pad'){
+    const q = PADQ({text:`How many degrees are between the hands at ${tstr(h,0)}?`, ans: ang, slices:false,
+      fig: q => clockSVG({h, m:0, slices:q.slices, label: q.done ? ang+'°' : null}),
+      hints:[slicesHint, `Count the slices between the hands. There are ${jumps}.`, `${jumps} × 30 = ?`],
+      onHint: () => { q.slices = true; }, right:`Yes! ${jumps} × 30° = ${ang}°.`});
+    return q;
+  }
+  if (kind === 'turn'){
+    const m = g ? pick([15,30]) : pick([5,10,20,40,45]), ans = m*6;
+    const hints = g
+      ? ['In 60 minutes the minute hand goes all the way around. That is 360°.',
+         m === 15 ? '15 minutes is a quarter of an hour, so it is a quarter turn.' : '30 minutes is half an hour, so it is a half turn.',
+         m === 15 ? '360 ÷ 4 = ?' : '360 ÷ 2 = ?']
+      : ['In 60 minutes the minute hand turns 360°. So in 1 minute it turns 360 ÷ 60 = 6°.', `In ${m} minutes it turns ${m} × 6°.`, `${m} × 6 = ?`];
+    return PADQ({text:`The minute hand starts at 12 (the dashed line). How many degrees does it turn in ${m} minutes?`, ans, hints,
+      fig: q => clockSVG({m, turn:true, label: q.done ? ans+'°' : null}), right:`Yes! In ${m} minutes the minute hand turns ${ans}°.`});
+  }
+  // half past (tricky)
+  let hh; do { hh = pick([1,2,3,4,7,8,9,10]); } while (hh === G.lastHalf); G.lastHalf = hh;
+  const a2 = clockAngle(hh,30), j2 = hh < 6 ? 5-hh : hh-6;
+  const q = PADQ({text:`At ${tstr(hh,30)} the hour hand is halfway between ${hh} and ${hh+1}. What is the angle between the hands?`, ans: a2, slices:false,
+    fig: q => clockSVG({h:hh, m:30, slices:q.slices, label: q.done ? a2+'°' : null}),
+    hints:['The minute hand points at 6. A full jump is 30°, so half a jump is 15°.', `Count the full slices: ${j2}. That is ${j2*30}°. Then there is one half slice.`, `${j2*30} + 15 = ?`],
+    onHint: () => { q.slices = true; }, right:`Yes! ${j2*30}° + 15° = ${a2}°.`});
+  return q;
+}
+
+/* ================= Shape Rules (polygons) ================= */
+const PNAME = {3:'triangle', 4:'quadrilateral', 5:'pentagon', 6:'hexagon', 8:'octagon'};
+const ARC_COLS = ['var(--pink)','var(--teal)','var(--gold)','var(--accent)','#6FA8E8','#F5B04C','#5CC3A8','#F27BA6'];
+const polySum = n => (n-2)*180;
+function polyPts(n, jit){
+  const base = -90 - 180/n;
+  for (let t=0; t<80; t++){
+    const pts = [];
+    for (let k=0; k<n; k++){
+      const a = base + k*360/n + (Math.random()*2-1) * jit * (180/n) * 0.4;
+      const r = 100 * (1 + (Math.random()*2-1) * jit * 0.12);
+      pts.push(pp(0,0,r,a));
+    }
+    let sign = 0, ok = true;
+    for (let i=0; i<n; i++){
+      const A=pts[i], B=pts[(i+1)%n], C=pts[(i+2)%n];
+      const sg = Math.sign((B[0]-A[0])*(C[1]-B[1]) - (B[1]-A[1])*(C[0]-B[0]));
+      if (!sign) sign = sg; else if (sg !== sign){ ok = false; break; }
+    }
+    if (ok) return pts;
+  }
+  return polyPts(n, 0);
+}
+function polyAngles(pts){
+  const n = pts.length;
+  return pts.map((P,i) => { const A=pts[(i-1+n)%n], B=pts[(i+1)%n], u=[A[0]-P[0],A[1]-P[1]], v=[B[0]-P[0],B[1]-P[1]];
+    return Math.acos(Math.max(-1, Math.min(1, (u[0]*v[0]+u[1]*v[1]) / (Math.hypot(...u)*Math.hypot(...v))))) * 180/Math.PI; });
+}
+function roundAngles(raw, step, total){
+  const r = raw.map(a => Math.max(step, Math.round(a/step)*step));
+  let diff = total - r.reduce((x,y)=>x+y, 0), k = 0;
+  while (diff !== 0 && k < 200){
+    const order = raw.map((a,i) => [a - r[i], i]).sort((x,y) => diff > 0 ? y[0]-x[0] : x[0]-y[0]);
+    const i = order[0][1], s = Math.sign(diff)*step; r[i] += s; diff -= s; k++;
+  }
+  return r;
+}
+function polySVG(o){
+  const {pts, labels=null, fan=false, fanLabels=false, fanNums=false, arcs=true, sideNums=false, sameCol=false} = o;
+  const n = pts.length, P = p => f(p[0])+','+f(p[1]);
+  let s = `<polygon points="${pts.map(P).join(' ')}" fill="var(--surface)"/>`;
+  if (fan){
+    for (let i=1; i<n-1; i++) s += `<polygon points="${[pts[0],pts[i],pts[i+1]].map(P).join(' ')}" fill="${RAINBOW[(i-1)%6]}" opacity=".38"/>`;
+    for (let i=2; i<n-1; i++) s += `<line x1="${f(pts[0][0])}" y1="${f(pts[0][1])}" x2="${f(pts[i][0])}" y2="${f(pts[i][1])}" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="6 5"/>`;
+  }
+  s += `<polygon points="${pts.map(P).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>`;
+  if (arcs){
+    const ang = polyAngles(pts);
+    pts.forEach((p,i) => { s += cornerArc(p, pts[(i-1+n)%n], pts[(i+1)%n], 18, sameCol ? 'var(--accent)' : ARC_COLS[i%ARC_COLS.length], labels ? labels[i] : null, ang[i] < 75 ? 50 : 38); });
+  }
+  if (fan && (fanLabels || fanNums)){
+    for (let i=1; i<n-1; i++){
+      const T = [pts[0],pts[i],pts[i+1]], cx = (T[0][0]+T[1][0]+T[2][0])/3, cy = (T[0][1]+T[1][1]+T[2][1])/3;
+      s += `<text x="${f(cx)}" y="${f(cy)}" class="lbl" style="font-size:${fanLabels?14:22}px" text-anchor="middle" dominant-baseline="middle">${fanLabels ? '180°' : i}</text>`;
+    }
+  }
+  if (sideNums) pts.forEach((p,i) => { const q = pts[(i+1)%n], mx=(p[0]+q[0])/2, my=(p[1]+q[1])/2, d=Math.hypot(mx,my)||1;
+    s += `<text x="${f(mx+mx/d*20)}" y="${f(my+my/d*20)}" class="lbl" style="font-size:17px;fill:var(--pink)" text-anchor="middle" dominant-baseline="middle">${i+1}</text>`; });
+  return `<svg viewBox="${fitBox(pts, 36, 200, 150)}" role="img" aria-label="A ${PNAME[n]||'shape'}">${s}</svg>`;
+}
+
+function makePolyQ(){
+  const g = G.level === 'gentle';
+  const kind = (g ? ['name','tri','sum4','miss4','tri5','reg'] : ['sum','rule','miss4','miss5','regpad','name'])[G.i];
+  if (kind === 'name'){
+    const ns = g ? [3,4,5,6] : [4,5,6,8], n = pick(ns), pts = polyPts(n, .5);
+    const names = (g ? [3,4,5,6] : [3,4,5,6,8]).map(k => PNAME[k]);
+    const q = MCQ({text:'Count the sides. What is this shape called?', opts: names.map(cap), a: names.indexOf(PNAME[n]),
+      fig: q => polySVG({pts, arcs:false, sideNums: q.hinted || q.done}),
+      hint:'<p>Count the straight sides. Tri means 3, quadri means 4, penta means 5, hexa means 6, octa means 8 (like an octopus).</p>',
+      onHint: () => { q.hinted = true; }, onWrong: () => { q.hinted = true; },
+      wrong: i => `Not a ${names[i]}. Count the sides one by one. I put numbers on them.`, right:`Yes! It has ${n} sides, so it is a ${PNAME[n]}.`});
+    return q;
+  }
+  if (kind === 'tri' || kind === 'tri5'){
+    const n = kind === 'tri' ? 4 : (g ? 5 : pick([5,6])), pts = polyPts(n, .4);
+    const {opts, a} = numOpts(n-2, [1,2,3,4,5,6]);
+    const q = MCQ({text:`Draw lines from one corner. How many triangles fit inside this ${PNAME[n]}?`, opts: opts.map(String), a,
+      fig: q => polySVG({pts, fan:true, arcs:false, fanNums: q.hinted || q.done}),
+      hint:'<p>Count the colored triangles. I put a number on each one.</p>', onHint: () => { q.hinted = true; }, onWrong: () => { q.hinted = true; },
+      wrong: () => 'Not this one. Count the colored triangles. I put numbers on them.',
+      right:`Yes! A ${PNAME[n]} has ${n} sides and splits into ${n-2} triangles. That is always 2 fewer than the number of sides.`});
+    return q;
+  }
+  if (kind === 'sum4' || kind === 'sum'){
+    const n = kind === 'sum4' ? 4 : pick([5,6]), pts = polyPts(n, .4), ans = polySum(n);
+    const {opts, a} = numOpts(ans, [180,360,540,720,900]);
+    const q = MCQ({text:`All the angles inside a ${PNAME[n]} add up to…`, opts: opts.map(v => v+'°'), a,
+      fig: q => polySVG({pts, fan: g || q.hinted || q.done, fanLabels: g || q.hinted || q.done}),
+      hint:`<p>A ${PNAME[n]} splits into ${n-2} triangles. Each triangle has 180°. So the total is ${n-2} × 180°.</p>`,
+      onHint: () => { q.hinted = true; }, onWrong: () => { q.hinted = true; },
+      wrong: i => `Not ${opts[i]}°. Count the triangles. Each one is worth 180°.`, right:`Yes! ${n-2} triangles × 180° = ${ans}°.`});
+    return q;
+  }
+  if (kind === 'rule'){
+    const pts = polyPts(6, .3), opts = shuffle(['(sides − 2) × 180°', 'sides × 90°', 'sides × 180°']);
+    return MCQ({text:'Which rule gives the total of the angles inside any shape?', opts, a: opts.indexOf('(sides − 2) × 180°'),
+      fig: () => polySVG({pts, fan:true, fanLabels:true}),
+      hint:'<p>Look at the hexagon. It has 6 sides and splits into 4 triangles. Each triangle is 180°.</p>',
+      wrong: () => 'Not this one. Test it on the hexagon: 6 sides, 4 triangles.', right:'Yes! Take away 2 from the number of sides, then multiply by 180°.'});
+  }
+  if (kind === 'miss4' || kind === 'miss5'){
+    const n = kind === 'miss5' ? 5 : 4, pts = polyPts(n, .75), total = polySum(n);
+    const angs = roundAngles(polyAngles(pts), g ? 5 : 1, total), hid = rand(0, n-1);
+    const known = angs.filter((_,i) => i !== hid), s = known.reduce((x,y)=>x+y, 0);
+    const q = PADQ({text:`Find the missing angle in this ${PNAME[n]}.`, ans: angs[hid], fanOn:false,
+      fig: q => polySVG({pts, labels: angs.map((v,i) => i === hid && !q.done ? '?' : v+'°'), fan: q.fanOn}),
+      hints:[`A ${PNAME[n]} splits into ${n-2} triangles, so its angles add up to ${n-2} × 180° = ${total}°.`,
+             `Add the angles you know: ${known.join(' + ')} = ${s}.`, `Take that away from ${total}: ${total} − ${s} = ?`],
+      onHint: k => { if (k === 1) q.fanOn = true; }, right:`Yes! ${known.join('° + ')}° + ${angs[hid]}° = ${total}°.`});
+    return q;
+  }
+  if (kind === 'reg'){
+    const n = pick([3,4]), pts = polyPts(n, 0), ans = polySum(n)/n, name = n === 4 ? 'square' : 'equilateral triangle';
+    const {opts, a} = numOpts(ans, [45,60,90,120]);
+    return MCQ({text:`This ${name} has ${n} equal angles. How big is each angle?`, opts: opts.map(v => v+'°'), a,
+      fig: q => polySVG({pts, sameCol:true, labels: pts.map(() => q.done ? ans+'°' : '?')}),
+      hint:`<p>All the angles add up to ${polySum(n)}°. Share ${polySum(n)}° equally between ${n} corners: ${polySum(n)} ÷ ${n}.</p>`,
+      wrong: i => `Not ${opts[i]}°. ${n} angles of ${opts[i]}° would make ${n*opts[i]}°, but we need ${polySum(n)}°.`,
+      right:`Yes! ${polySum(n)}° ÷ ${n} = ${ans}°.`});
+  }
+  // regpad (tricky): regular pentagon / hexagon / octagon
+  const n = pick([5,6,8]), pts = polyPts(n, 0), total = polySum(n), ans = total/n;
+  const tip = {5:'5 × 100 = 500. How many more fives make 540?', 6:'6 × 100 = 600. How many more sixes make 720?', 8:'8 × 100 = 800. How many more eights make 1080?'}[n];
+  return PADQ({text:`This ${PNAME[n]} is regular: all its angles are the same. How big is each angle?`, ans,
+    fig: q => polySVG({pts, sameCol:true, labels: pts.map((_,i) => i === 0 ? (q.done ? ans+'°' : '?') : null)}),
+    hints:[`First find the total: (${n} − 2) × 180° = ${total}°.`, `All ${n} angles are the same, so share the total: ${total} ÷ ${n} = ?`, tip],
+    right:`Yes! ${total}° ÷ ${n} = ${ans}°.`});
+}
+
+/* ================= Angle Math ================= */
+function wedgesSVG(o){
+  const {parts, rest=null, total=null} = o, L = 122, W = 92;
+  let s = '', a = 0; const arms = [0], labs = [], pts = [[0,0]];
+  parts.forEach((p,i) => {
+    s += `<path d="${wedgeD(0,0,W,a,a+p.deg)}" fill="${RAINBOW[i%6]}" opacity=".55"/>`;
+    labs.push([pp(0,0,p.deg < 36 ? W+20 : 60, a+p.deg/2), p.label]); a += p.deg; arms.push(a);
+  });
+  if (rest){
+    s += `<path d="${wedgeD(0,0,W,a,a+rest.deg)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 6"/>`;
+    labs.push([pp(0,0,rest.deg < 36 ? W+20 : 60, a+rest.deg/2), rest.label]); a += rest.deg; arms.push(a);
+  }
+  for (let t=0; t<=a; t+=10) pts.push(pp(0,0,W,t));
+  const seen = new Set();
+  arms.forEach(x => { const key = Math.round(((x%360)+360)%360); if (seen.has(key)) return; seen.add(key);
+    const e = pp(0,0,L,x); pts.push(e); s += `<line x1="0" y1="0" x2="${f(e[0])}" y2="${f(e[1])}" class="ray"/>`; });
+  if (total && a < 359){
+    s += `<path d="${arcD(0,0,L+12,0,a)}" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-dasharray="2 6" stroke-linecap="round"/>`;
+    labs.push([pp(0,0,L+34,a/2), total.label]);
+  }
+  s += '<circle r="6" class="vdot"/>';
+  labs.forEach(([p,t]) => { if (t === '' || t == null) return; s += `<text x="${f(p[0])}" y="${f(p[1])}" class="lbl" text-anchor="middle" dominant-baseline="middle">${t}</text>`; pts.push([p[0]-24,p[1]-12],[p[0]+24,p[1]+12]); });
+  return `<svg viewBox="${fitBox(pts, 16, 240, 150)}" role="img" aria-label="Angle pieces">${s}</svg>`;
+}
+
+function makeCalcQ(){
+  const g = G.level === 'gentle';
+  const kind = (g ? ['div','add','subR','div','mul','subL'] : ['div','subL','mul','point','add','div'])[G.i];
+  if (kind === 'div'){
+    const pool = g ? [[90,2],[180,2],[90,3],[180,3],[60,2],[120,2],[360,4],[100,2],[120,3]] : [[360,6],[180,4],[150,3],[270,3],[360,8],[135,3],[240,4],[180,6],[360,3]];
+    G.usedDiv = G.usedDiv || [];
+    let pair; do { pair = pick(pool); } while (G.usedDiv.includes(pair.join()) && G.usedDiv.length < pool.length);
+    G.usedDiv.push(pair.join());
+    const [T,k] = pair, ans = T/k;
+    const what = T === 360 ? 'a whole round rainbow cake (360°)' : `a ${T}° slice of rainbow cake`;
+    return PADQ({text:`${S.uname} cuts ${what} into ${k} equal pieces. How big is each piece?`, ans, first:'Each colored piece is the same size.',
+      fig: q => wedgesSVG({parts: Array.from({length:k}, () => ({deg:ans, label: q.done ? ans+'°' : '?'})), total: {label: T+'°'}}),
+      hints:[k === 2 ? `Dividing by 2 means finding half. What is half of ${T}?` : `Dividing means sharing equally. Share ${T}° into ${k} equal pieces.`,
+             `${T} ÷ ${k} = ?  You can also think: ${k} × ? = ${T}`, `Try ${k} × ${ans}. Does it make ${T}?`],
+      right:`Yes! ${T}° ÷ ${k} = ${ans}°. Each piece is ${ans}°.`});
+  }
+  if (kind === 'add'){
+    const a = g ? randStep(20,100,10) : randStep(15,120,5);
+    const b = g ? randStep(20,170-a,10) : randStep(15,175-a,5), sum = a+b;
+    return PADQ({text:`Two pieces fit together: ${a}° and ${b}°. How big is the whole angle?`, ans: sum,
+      fig: q => wedgesSVG({parts:[{deg:a,label:a+'°'},{deg:b,label:b+'°'}], total:{label: q.done ? sum+'°' : '?'}}),
+      hints:[`Adding means putting the pieces together: ${a} + ${b} = ?`, `Start at ${a}. Count up ${b} more in tens${g ? '' : ', then add the 5 if there is one'}.`],
+      right:`Yes! ${a}° + ${b}° = ${sum}°.`});
+  }
+  if (kind === 'subR'){
+    const a = randStep(20,70,10), ans = 90-a;
+    return PADQ({text:`A right angle (90°) is split into two parts. One part is ${a}°. How big is the other part?`, ans,
+      fig: q => wedgesSVG({parts:[{deg:a,label:a+'°'}], rest:{deg:ans, label: q.done ? ans+'°' : '?'}, total:{label:'90°'}}),
+      hints:['The two parts together make 90°.', `90 − ${a} = ?  Or count up from ${a} to 90 in tens.`], right:`Yes! ${a}° + ${ans}° = 90°.`});
+  }
+  if (kind === 'subL'){
+    const a = g ? randStep(30,150,10) : randStep(15,165,5), ans = 180-a;
+    return PADQ({text:`Angles on a straight line add up to 180°. One angle is ${a}°. What is the other angle?`, ans,
+      fig: q => wedgesSVG({parts:[{deg:a,label:a+'°'}], rest:{deg:ans, label: q.done ? ans+'°' : '?'}, total:{label:'180°'}}),
+      hints:['The two angles together make a straight line: 180°.', `180 − ${a} = ?`, a < 100 ? `Count up: from ${a} to 100 is ${100-a}. From 100 to 180 is 80. Add them.` : `Count up: from ${a} to 180 in tens.`],
+      right:`Yes! ${a}° + ${ans}° = 180°.`});
+  }
+  if (kind === 'mul'){
+    let k, a; do { k = g ? pick([2,3]) : pick([3,4,5]); a = g ? pick([20,30,40,45,60]) : pick([25,35,40,45,50,60,70]); } while (k*a > (g ? 180 : 300));
+    const ans = k*a;
+    return PADQ({text:`${S.uname} puts ${k} pieces of ${a}° side by side. How big is the whole angle?`, ans,
+      fig: q => wedgesSVG({parts: Array.from({length:k}, () => ({deg:a, label:a+'°'})), total:{label: q.done ? ans+'°' : '?'}}),
+      hints:[`${k} pieces of ${a}° means ${k} × ${a}.`, `Count up in ${a}s: ${Array.from({length:k-1}, (_,i) => a*(i+1)).join(', ')}, …`], right:`Yes! ${k} × ${a}° = ${ans}°.`});
+  }
+  // around a point (tricky)
+  const a = randStep(60,150,10), b = randStep(50, Math.min(170, 310-a), 10), ans = 360-a-b;
+  return PADQ({text:`Angles all the way around a point add up to 360°. Two angles are ${a}° and ${b}°. What is the third?`, ans,
+    fig: q => wedgesSVG({parts:[{deg:a,label:a+'°'},{deg:b,label:b+'°'}], rest:{deg:ans, label: q.done ? ans+'°' : '?'}}),
+    hints:['All the way around is a full turn: 360°.', `Add the two you know: ${a} + ${b} = ${a+b}.`, `360 − ${a+b} = ?`], right:`Yes! ${a}° + ${b}° + ${ans}° = 360°.`});
+}
+
 function startGame(mode, level){
   G = {mode, level, i:0, earned:0, first:0, lastType:null, termsLeft:shuffle(TERMS)};
   $('#lvl').textContent = level === 'gentle' ? 'Gentle' : 'Tricky';
@@ -536,6 +898,9 @@ function startGame(mode, level){
 }
 
 function makeQ(){
+  if (G.mode === 'clock') return makeClockQ();
+  if (G.mode === 'poly') return makePolyQ();
+  if (G.mode === 'calc') return makeCalcQ();
   const g = G.level === 'gentle';
   if (G.mode === 'estimate'){
     const t = g ? randStep(20,160,10) : randStep(10,175,5);
@@ -603,6 +968,9 @@ function newQuestion(){
 }
 
 function firstLine(q){
+  if (q.type === 'mcq') return q.first || 'Take your time.';
+  if (q.type === 'picq') return 'Look at all three pictures first.';
+  if (q.type === 'padq' && q.first) return q.first;
   if (q.type === 'estimate') return 'Look at the purple part. Is it small, like a corner, or wide open?';
   if (q.type === 'classify') return 'Look at how open the angle is.';
   if (q.type === 'picture') return 'Look at all three pictures first.';
@@ -626,6 +994,8 @@ function renderFigure(){
   }
   else if (q.type === 'picture') fig.hidden = true;
   else if (q.type === 'bridge') buildBridge();
+  else if (q.type === 'mcq' || q.type === 'padq'){ const h = q.fig ? q.fig(q) : ''; if (h) fig.innerHTML = h; else fig.hidden = true; }
+  else if (q.type === 'picq') fig.hidden = true;
   else fig.innerHTML = triSVG(q.angs, q.hidden, q.done);
 }
 
@@ -672,6 +1042,26 @@ function renderAnswers(){
       else { q.tries++; b.classList.add('no'); b.disabled = true; setBubble('Not this one. Try another answer.', false, 'think'); }
     }));
   }
+  if (q.type === 'mcq'){
+    q.opts.forEach((t, i) => btn(esc(t), b => {
+      if (q.done) return;
+      if (i === q.a){ b.classList.add('yes'); correct(q.right); }
+      else {
+        q.tries++; b.classList.add('no'); b.disabled = true;
+        if (q.onWrong) q.onWrong(i);
+        renderFigure();
+        setBubble(q.wrong ? q.wrong(i) : 'Not this one. Try another answer.', false, 'think');
+      }
+    }));
+  }
+  if (q.type === 'picq'){
+    q.pics.forEach(o => btn(o.svg + '<span class="cap">&nbsp;</span>', b => {
+      if (q.done) return;
+      b.querySelector('.cap').textContent = o.cap;
+      if (o.ok){ b.classList.add('yes'); correct(q.right); }
+      else { q.tries++; b.classList.add('no'); b.disabled = true; setBubble(o.why || 'Not this one. Try another picture.', false, 'think'); }
+    }, 'picbtn'));
+  }
   if (q.type === 'bridge'){
     const wrap = document.createElement('div'); wrap.className = 'bridge-ctrls';
     const mk = (label, fn, cls='') => { const b = document.createElement('button'); b.className = 'opt ' + cls; b.textContent = label; b.addEventListener('click', fn); wrap.appendChild(b); };
@@ -680,7 +1070,7 @@ function renderAnswers(){
     mk('Check', checkBridge, 'yes');
     box.appendChild(wrap);
   }
-  if (q.type === 'missing'){
+  if (q.type === 'missing' || q.type === 'padq'){
     const pad = document.createElement('div'); pad.className = 'pad';
     pad.innerHTML = `<div class="display" id="padDisplay" aria-live="polite">?</div><div class="keys" id="keys"></div>`;
     box.appendChild(pad);
@@ -689,7 +1079,7 @@ function renderAnswers(){
     [1,2,3,4,5,6,7,8,9].forEach(n => key(n, () => typeDigit(n)));
     key('Delete', () => { if (!q.done){ q.entry = q.entry.slice(0,-1); updatePad(); } });
     key('0', () => typeDigit(0));
-    key('Check', checkMissing, 'yes');
+    key('Check', q.type === 'padq' ? checkPad : checkMissing, 'yes');
     updatePad();
   }
 }
@@ -754,7 +1144,17 @@ function checkBridge(){
 }
 
 function typeDigit(n){ const q = G.q; if (q.done || q.entry.length >= 3) return; q.entry += String(n); updatePad(); }
-function updatePad(){ const d = $('#padDisplay'); if (d) d.textContent = G.q.entry ? G.q.entry + '°' : '?'; }
+function updatePad(){ const d = $('#padDisplay'); if (d) d.textContent = G.q.entry ? G.q.entry + (G.q.unit ?? '°') : '?'; }
+
+function checkPad(){
+  const q = G.q; if (q.done || !q.entry) return;
+  const v = parseInt(q.entry, 10), u = q.unit ?? '°';
+  if (v === q.ans){ correct(q.right); return; }
+  q.tries++; q.entry = ''; updatePad();
+  while (q.hintStep < Math.min(q.tries, q.hints.length)) showHint();
+  if (q.tries >= 3) setBubble(`${v}${u} is not it. The answer is ${q.ans}${u}. Type ${q.ans}.`, false, 'think');
+  else setBubble(`${v}${u} is not it yet. Look at the hint and try again.`, false, 'think');
+}
 
 function checkMissing(){
   const q = G.q; if (q.done || !q.entry) return;
@@ -769,6 +1169,20 @@ function checkMissing(){
 function showHint(){
   const q = G.q, hb = $('#hintbox');
   hb.hidden = false;
+  if (q.type === 'padq'){
+    if (q.hintStep < q.hints.length){
+      hb.innerHTML += `<p><b>Hint ${q.hintStep+1}.</b> ${q.hints[q.hintStep]}</p>`;
+      q.hintStep++;
+      if (q.onHint){ q.onHint(q.hintStep); renderFigure(); }
+    }
+    if (q.hintStep >= q.hints.length) $('#hintBtn').disabled = true;
+    return;
+  }
+  if (q.type === 'mcq' || q.type === 'picq'){
+    $('#hintBtn').disabled = true; hb.innerHTML = q.hint;
+    if (q.onHint){ q.onHint(1); renderFigure(); }
+    return;
+  }
   if (q.type === 'missing'){
     q.hintStep++;
     if (q.hintStep === 1) hb.innerHTML += `<p><b>Hint 1.</b> In every triangle, the three angles add up to 180°. That is the same as a straight line.</p>${lineHintSVG(q.angs, q.hidden)}`;
@@ -805,8 +1219,8 @@ function correct(msg){
   updateGems(true);
   const cheer = nextCheer();
   renderFigure();
-  if (q.type === 'missing') { q.entry = String(q.ans); updatePad(); }
-  document.querySelectorAll('#answers button').forEach(b => { if (!b.classList.contains('yes') || q.type==='missing' || q.type==='bridge') b.disabled = true; });
+  if (q.type === 'missing' || q.type === 'padq') { q.entry = String(q.ans); updatePad(); }
+  document.querySelectorAll('#answers button').forEach(b => { if (!b.classList.contains('yes') || q.type==='missing' || q.type==='padq' || q.type==='bridge') b.disabled = true; });
   setBubble(msg + ' You earned a gem.', true, 'happy', cheer);
   if (S.sound) speak(cheer, 1.25);
   $('#hintBtn').hidden = true;
@@ -848,6 +1262,9 @@ function petLine(){
     `That tickles! Thank you, ${k}.`,
     'Can we play Rainbow Bridge? I love crossing rainbows.',
     'The angles in every triangle add up to 180°. I never forget that.',
+    'At 3 o\'clock the hands on my clock make a right angle.',
+    'My paddock fence is a pentagon. Its angles add up to 540°.',
+    'I cut my rainbow cake into equal slices. 360° shared by 4 is 90° each. Yum!',
   ];
   let l; do { l = pick(lines); } while (l === lastLine); lastLine = l; return l;
 }
@@ -926,6 +1343,9 @@ function renderMap(){
   $('#pic1').innerHTML = angleSVG({deg:120, rot:10, mini:true});
   $('#pic2').innerHTML = angleSVG({deg:50, rot:0, mini:true});
   $('#pic3').innerHTML = triSVG([60,50,70], 2, true, true);
+  $('#pic6').innerHTML = clockSVG({h:3, m:0});
+  $('#pic7').innerHTML = polySVG({pts: polyPts(5,0), fan:true, arcs:false});
+  $('#pic8').innerHTML = wedgesSVG({parts:[{deg:45,label:''},{deg:45,label:''}]});
   $('#pic4').innerHTML = angleSVG({deg:90, rot:0, mini:true});
   const box = $('#manes'); box.innerHTML = '';
   MANES.forEach((m, i) => {
@@ -949,6 +1369,9 @@ function renderBook(){
   items.push(`<div class="word">${angleSVG({deg:60, rot:10, ring:true, mini:true})}<h3>Vertex</h3><p>The corner point where the two arms of an angle meet.</p><p class="hook">The arms are the two straight lines.</p></div>`);
   items.push(`<div class="word">${angleSVG({deg:360-1, rot:0, mini:true}).replace('aria-label="An angle"','aria-label="A full turn"')}<h3>Degrees</h3><p>We measure angles in degrees. A full turn is 360°. Half a turn is 180°.</p><p class="hook">The tiny circle in 90° means degrees.</p></div>`);
   items.push(`<div class="word">${triSVG([60,50,70], -1, true, true)}<h3>Triangle rule</h3><p>The three angles in any triangle add up to 180°.</p><p class="hook">Put the three corners side by side and they make a straight line.</p></div>`);
+  items.push(`<div class="word">${clockSVG({h:2, m:0, slices:true})}<h3>Clock angles</h3><p>A clock is a full turn: 360°. It has 12 numbers, so each jump from one number to the next is 30°.</p><p class="hook">3 jumps make a right angle, like at 3:00.</p></div>`);
+  items.push(`<div class="word">${polySVG({pts: polyPts(5,0), fan:true, fanLabels:true, arcs:false})}<h3>Shape rule</h3><p>Draw lines from one corner to split a shape into triangles. Each triangle is 180°. Total = (sides − 2) × 180°.</p><p class="hook">Square 360°, pentagon 540°, hexagon 720°.</p></div>`);
+  items.push(`<div class="word">${wedgesSVG({parts:[{deg:120,label:''},{deg:60,label:''}], total:{label:'180°'}})}<h3>Lines and points</h3><p>Angles on a straight line add up to 180°. Angles all the way around a point add up to 360°.</p><p class="hook">Half a turn is 180°. A full turn is 360°.</p></div>`);
   $('#bookList').innerHTML = items.join('');
 }
 
