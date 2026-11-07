@@ -251,6 +251,82 @@ body.calm .balloon{animation:none}
 .plabel{font-family:var(--display);font-weight:700;font-size:.95rem}
 .deal-ctrls{display:grid;grid-template-columns:1fr 1fr;gap:10px;grid-column:1/-1}
 
+
+/* ---------- Master Mind button ---------- */
+.btn.master{border:2px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(90deg,#F27BA6,#F5B04C,#5CC3A8,#6FA8E8,#9B7BE0) border-box}
+/* ---------- Album ---------- */
+.album-card{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;width:100%;margin-top:18px;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:12px 16px;text-align:left}
+.album-card:hover{border-color:var(--accent)}
+.album-ico svg{width:64px;height:64px;display:block}
+.album-txt{display:grid;gap:4px;min-width:0}
+.album-txt b{font-family:var(--display);font-size:1.25rem}
+.album-txt>span:not(.pbar){color:var(--muted);font-size:1rem}
+.pbar{display:block;height:10px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,#F27BA6,#F5B04C,#5CC3A8,#6FA8E8,#9B7BE0);border-radius:999px}
+.album-go{font-family:var(--display);font-weight:700;color:var(--accent)}
+.album-total{color:var(--muted);max-width:65ch}
+.apage{background:var(--surface);border-radius:18px;padding:12px 14px;margin-bottom:10px}
+.ahead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ahead h4{font-family:var(--display);font-size:1.15rem;margin:0}
+.ahead span{color:var(--muted);font-variant-numeric:tabular-nums}
+.arows{display:grid;gap:6px;margin-top:6px}
+.arow{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:8px}
+.alvl{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--muted)}
+.aslots{display:flex;gap:8px;flex-wrap:wrap}
+.stk{width:52px;height:52px;display:inline-grid;place-items:center}
+.stk svg{width:100%;height:100%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.12))}
+.stk.empty{border-radius:50%;border:2.5px dashed var(--line);color:var(--muted);font-family:var(--display);font-weight:800;font-size:1.2rem}
+.stk.empty.t3{border-color:#C9B6F2}
+.stk.big{width:96px;height:96px;animation:popin .5s ease}
+.end #endUni{background:var(--surface-2);border-radius:28px;padding:10px 16px}
+.end-sticker{display:grid;justify-items:center;gap:6px;font-weight:700;max-width:40ch}
+/* ---------- Stable scene ---------- */
+.scene{position:relative;width:100%;aspect-ratio:3/2;max-height:340px;border-radius:18px;overflow:hidden;background:#CDE7FF}
+.scene-bg{position:absolute;inset:0;width:100%;height:100%}
+.scene button{position:absolute;background:none;border:none;padding:0}
+.scene-uni{left:30%;bottom:8%;width:40%}
+.scene-uni .uni{width:100%}
+.scene-uni.on-tramp{bottom:14%}
+.scene .tramp{left:36%;bottom:1%;width:28%}
+.scene .tramp svg,.scene .toy svg,.scene .friend svg{width:100%;height:auto;display:block}
+.scene .friend{width:14%}
+.scene .friend svg{transform-origin:50% 90%}
+.friend.hop svg{animation:hop .7s ease}
+.scene-uni.bounce .uni{animation:bigbounce 1.2s ease}
+@keyframes bigbounce{20%{transform:translateY(-30%)}40%{transform:translateY(0)}60%{transform:translateY(-16%)}80%{transform:translateY(0)}}
+.toy.bounce-toy svg{animation:bouncetoy 1.4s ease}
+@keyframes bouncetoy{20%{transform:translateY(-60%)}40%{transform:translateY(0)}60%{transform:translateY(-30%)}80%{transform:translateY(0)}}
+.t-kite svg{animation:sway 4s ease-in-out infinite}
+.toy.flutter svg{animation:flutter 1.4s ease}
+@keyframes sway{50%{transform:rotate(6deg) translateY(4%)}}
+@keyframes flutter{20%{transform:rotate(-18deg) translate(-10%,-10%)}50%{transform:rotate(16deg) translate(10%,-20%)}80%{transform:rotate(-8deg)}}
+.toy.spin svg{animation:spintoy 1.4s ease}
+@keyframes spintoy{to{transform:rotate(1080deg)}}
+.toy.yo svg{animation:yoyo 1.4s ease}
+@keyframes yoyo{40%{transform:translateY(80%)}100%{transform:none}}
+.bubble-fx{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.9);background:rgba(190,230,255,.35);animation:bubbleup 2.4s ease-out forwards;pointer-events:none}
+@keyframes bubbleup{to{transform:translate(20px,-180px);opacity:0}}
+.note-fx{position:absolute;font-size:1.5rem;color:#9B7BE0;animation:bubbleup 2.2s ease-out forwards;pointer-events:none}
+.star-fx{position:absolute;left:8%;top:12%;width:44px;height:4px;border-radius:4px;background:linear-gradient(90deg,transparent,#FFF6C8);animation:shoot 1.6s ease-out forwards;pointer-events:none}
+@keyframes shoot{from{transform:translate(0,0) rotate(18deg);opacity:1}to{transform:translate(260px,80px) rotate(18deg);opacity:0}}
+body.calm .t-kite svg{animation:none}
+/* ---------- Shop ---------- */
+.shop{background:var(--surface);border-radius:20px;padding:14px;display:grid;gap:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{min-height:44px;padding:6px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-family:var(--display);font-weight:700;font-size:1rem}
+.tab.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wallet{color:var(--muted);font-size:1rem}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.item{display:grid;gap:6px;justify-items:center;align-content:start;text-align:center;border:2px solid var(--line);border-radius:16px;padding:10px 8px;min-width:0}
+.item.owned{border-color:var(--accent)}
+.ipic{width:100%;aspect-ratio:6/5;display:grid;place-items:center;background:var(--surface-2);border-radius:12px;overflow:hidden}
+.ipic svg{width:84%;height:84%}
+.item.wide .ipic svg{width:100%;height:100%}
+.iname{font-weight:700;font-size:.98rem;line-height:1.25}
+.item .btn{width:100%}
+.item .btn.on{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.sw.big{width:80%;height:30px}
+
 body.calm *,body.calm *::before{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -279,21 +355,21 @@ body.calm *,body.calm *::before{animation:none!important;transition:none!importa
     <h2 class="section-title">Choose a theme</h2>
     <div class="themes" id="themes"></div>
 
+    <button class="album-card" id="albumCard"><span class="album-ico" id="albumIco"></span><span class="album-txt"><b>Sticker album</b><span id="albumSum"></span><span class="pbar"><i id="albumBar"></i></span></span><span class="album-go">Open</span></button>
+
     <h2 class="section-title" id="stableTitle">Nova's stable</h2>
     <div class="stable" id="stable">
-      <div class="stable-top">
-        <button class="pet uni-wrap" id="petUni" aria-label="Pet the unicorn"></button>
-        <div style="display:grid;gap:10px;min-width:0">
-          <p class="say" id="say" aria-live="polite"></p>
-          <p class="sub">Star cookies</p>
-          <div class="treats" id="treats"></div>
-        </div>
-      </div>
-      <p class="sub">Dress up</p>
-      <div class="accs" id="accs"></div>
-      <p class="sub">Mane color</p>
-      <div class="manes" id="manes"></div>
-      <p style="color:var(--muted);font-size:1rem">Every correct answer gives one gem. Gems unlock dress-up items and mane colors. Finishing a round gives a star cookie. You never lose gems.</p>
+      <div class="scene" id="scene"></div>
+      <p class="say" id="say" aria-live="polite"></p>
+      <p class="sub">Star cookies</p>
+      <div class="treats" id="treats"></div>
+    </div>
+
+    <h2 class="section-title">Shop</h2>
+    <div class="shop">
+      <div class="tabs" id="shopTabs"></div>
+      <p class="wallet" id="wallet"></p>
+      <div class="items" id="shopItems"></div>
     </div>
 
     <details class="grown">
@@ -304,7 +380,7 @@ body.calm *,body.calm *::before{animation:none!important;transition:none!importa
         <label><input type="checkbox" id="setSound"> Say the cheers out loud (silly animal puns on correct answers)</label>
         <label><input type="checkbox" id="setRead"> Read each question aloud automatically</label>
         <label><input type="checkbox" id="setCalm"> Calm mode (no animations)</label>
-        <div class="levels"><button class="btn small" id="resetBtn">Reset gems</button><button class="btn small" id="resetYes" hidden>Yes, reset to 0</button></div>
+        <div class="levels"><button class="btn small" id="resetBtn">Reset everything</button><button class="btn small" id="resetYes" hidden>Yes, reset gems, shop and stickers</button></div>
         <p class="note">Progress is saved in this browser on this device.</p>
       </div>
     </details>
@@ -352,12 +428,21 @@ body.calm *,body.calm *::before{animation:none!important;transition:none!importa
       <p id="endText"></p>
       <p class="unlock" id="endUnlock" hidden></p>
       <p id="endCookie"></p>
+      <div class="end-sticker" id="endSticker"></div>
       <div class="levels" style="justify-content:center">
         <button class="btn primary" id="feedBtn">Feed the cookie</button>
         <button class="btn" id="againBtn">Play again</button>
         <button class="btn" id="mapBtn">Back to games</button>
       </div>
     </div>
+  </section>
+
+  <!-- ALBUM -->
+  <section id="album" hidden>
+    <div class="game-top"><button class="btn small" id="albumBack">Back to the meadow</button></div>
+    <h2 class="section-title" style="margin-top:0">Sticker album</h2>
+    <p class="album-total" id="albumTotal"></p>
+    <div id="albumPages"></div>
   </section>
 
   <!-- BOOK -->
@@ -391,55 +476,60 @@ const MANES = [
   {name:'Sunset',       cost:20, c:['#F2884B','#F25C78','#F5C451','#B85FC9']},
   {name:'Galaxy',       cost:30, c:['#4B3A9E','#8E5BD8','#2C2A6B','#C9A6F5']},
   {name:'Golden',       cost:45, c:['#E6B43C','#F3D27A','#C98B2B','#F7E0A0']},
+  {name:'Mint',         cost:0,  c:['#7FD8B8','#B8F0DA','#4FBFA8','#DFF7EE']},
+  {name:'Berry',        cost:0,  c:['#B83A6B','#E8508A','#7A2A55','#F7A8C8']},
+  {name:'Ice',          cost:0,  c:['#9FD3F5','#D6EEFF','#6FA8E8','#EAF6FF']},
 ];
 
-const ACCS = [
-  {id:'flowers',  name:'Flower crown', cost:8},
-  {id:'bow',      name:'Tail bow',     cost:15},
-  {id:'scarf',    name:'Scarf',        cost:25},
-  {id:'sparkles', name:'Sparkles',     cost:35},
-  {id:'cape',     name:'Cape',         cost:50},
-  {id:'chef',     name:'Chef hat',     cost:60},
-  {id:'apron',    name:'Rainbow apron', cost:75},
-];
 const RAINBOW = ['#F27BA6','#F5B04C','#F2D45C','#5CC3A8','#6FA8E8','#9B7BE0'];
-const wearing = id => S.acc.includes(id) && S.gems >= ACCS.find(a=>a.id===id).cost;
+const wearing = id => PREVIEW ? PREVIEW.includes(id) : Object.values(S.wear || {}).includes(id);
 const star4 = (x,y,r) => `M${x} ${y-r}L${x+r*.3} ${y-r*.3}L${x+r} ${y}L${x+r*.3} ${y+r*.3}L${x} ${y+r}L${x-r*.3} ${y+r*.3}L${x-r} ${y}L${x-r*.3} ${y-r*.3}Z`;
 const COOKIE = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#E2AE6A"/><circle cx="20" cy="20" r="17" fill="none" stroke="#C98F4A" stroke-width="2"/><path d="M20 8l3.5 7.5 8 .9-6 5.4 1.7 7.9L20 25.6l-7.2 4.1 1.7-7.9-6-5.4 8-.9z" fill="#F7D774"/></svg>';
 const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="var(--pink)"/></svg>';
 
 /* ---------- unicorn drawing ---------- */
 function unicorn(mood){
-  const m = (MANES[S.mane] || MANES[0]).c;
+  const m = (MANES[S.mane] || MANES[0]).c, W = wearing;
   const flower = (x,y,c) => [0,72,144,216,288].map(a=>`<circle cx="${f(x+2.4*Math.cos(rad(a)))}" cy="${f(y+2.4*Math.sin(rad(a)))}" r="2.2" fill="${c}"/>`).join('') + `<circle cx="${x}" cy="${y}" r="1.5" fill="#F5B04C"/>`;
-  const cape = wearing('cape') ? '<path d="M42 42 Q58 37 72 43 L67 66 Q50 73 35 62 Z" fill="#8E5BD8"/><path d="M35 62 Q50 73 67 66" stroke="#F2D45C" stroke-width="2" fill="none"/>' : '';
-  const scarf = wearing('scarf') ? '<path d="M70 45 Q79 51 88 50" stroke="#2BA89A" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M78 50 l-3 13 l6 -1 z" fill="#2BA89A"/>' : '';
-  const bow = wearing('bow') ? '<path d="M25 44 l-8 -6 v12z M25 44 l8 -6 v12z" fill="#E8508A"/><circle cx="25" cy="44" r="2.8" fill="#C23A72"/>' : '';
-  const flowers = wearing('flowers') ? flower(78,20,'#F27BA6') + flower(84,16,'#9B7BE0') + flower(96,22,'#5CC3A8') : '';
-  const chef = wearing('chef') ? '<g><circle cx="78" cy="11" r="5.5" fill="#fff" stroke="#D9CFE8"/><circle cx="85" cy="7" r="6.5" fill="#fff" stroke="#D9CFE8"/><circle cx="91.5" cy="10.5" r="5.5" fill="#fff" stroke="#D9CFE8"/><rect x="76" y="13" width="18" height="7" rx="2" fill="#fff" stroke="#D9CFE8" transform="rotate(-8 85 16)"/></g>' : '';
-  const apron = wearing('apron') ? '<path d="M73 47 L87 51 L85 67 Q78 70 71 66 Z" fill="#F7A8C8"/><path d="M73.5 52 L86.5 55.5" stroke="#F5B04C" stroke-width="2"/><path d="M73 57 L86 60" stroke="#5CC3A8" stroke-width="2"/><path d="M72.5 62 L85.5 64.5" stroke="#7C8CE8" stroke-width="2"/>' : '';
-  const sparkles = wearing('sparkles') ? [[12,16,5],[110,62,4],[58,10,4],[112,14,5],[30,30,3]].map(s=>`<path d="${star4(...s)}" fill="var(--gold)"/>`).join('') : '';
+  const cape = W('cape') ? '<path d="M42 42 Q58 37 72 43 L67 66 Q50 73 35 62 Z" fill="#8E5BD8"/><path d="M35 62 Q50 73 67 66" stroke="#F2D45C" stroke-width="2" fill="none"/>' : '';
+  const saddle = W('saddle') ? '<path d="M42 42 Q55 35 68 42 L66 50 Q55 54 44 50 Z" fill="#B85FC9"/><path d="M44 47 Q55 51 66 47" stroke="#F2D45C" stroke-width="1.6" fill="none"/><path d="M55 51 V63" stroke="#C9971F" stroke-width="1.6"/><rect x="52" y="62" width="6" height="3" rx="1" fill="#C9971F"/>' : '';
+  const wings = W('wings') ? '<path d="M50 43 Q34 8 20 22 Q24 38 50 46 Z" fill="#9ED8F0" stroke="#6FA8E8" stroke-width="1"/><path d="M57 42 Q53 14 70 16 Q70 32 59 45 Z" fill="#C9B6F2" stroke="#9B7BE0" stroke-width="1"/><circle cx="32" cy="24" r="2.5" fill="#fff" opacity=".8"/><circle cx="64" cy="22" r="2" fill="#fff" opacity=".8"/>' : '';
+  const scarf = W('scarf') ? '<path d="M70 45 Q79 51 88 50" stroke="#2BA89A" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M78 50 l-3 13 l6 -1 z" fill="#2BA89A"/>' : '';
+  const necklace = W('necklace') ? `<path d="M71 46 Q79 55 88 50" stroke="#F2C94C" stroke-width="1.6" fill="none"/><path d="${heartD(80,53.5,2.4)}" fill="#E8508A"/>` : '';
+  const bowtie = W('bowtie') ? '<path d="M80 53 l-6 -4 v8 z M80 53 l6 -4 v8 z" fill="#7C8CE8"/><circle cx="80" cy="53" r="2.2" fill="#4B5BC8"/>' : '';
+  const bow = W('bow') ? '<path d="M25 44 l-8 -6 v12z M25 44 l8 -6 v12z" fill="#E8508A"/><circle cx="25" cy="44" r="2.8" fill="#C23A72"/>' : '';
+  const flowers = W('flowers') ? flower(78,20,'#F27BA6') + flower(84,16,'#9B7BE0') + flower(96,22,'#5CC3A8') : '';
+  const chef = W('chef') ? '<g><circle cx="78" cy="11" r="5.5" fill="#fff" stroke="#D9CFE8"/><circle cx="85" cy="7" r="6.5" fill="#fff" stroke="#D9CFE8"/><circle cx="91.5" cy="10.5" r="5.5" fill="#fff" stroke="#D9CFE8"/><rect x="76" y="13" width="18" height="7" rx="2" fill="#fff" stroke="#D9CFE8" transform="rotate(-8 85 16)"/></g>' : '';
+  const party = W('party') ? '<polygon points="73,23 86,20 76,1" fill="#9B7BE0"/><path d="M75 15 L82.5 13.2 M74 19.5 L84.5 17" stroke="#F2D45C" stroke-width="2"/><circle cx="76" cy="1.5" r="3" fill="#F27BA6"/>' : '';
+  const tiara = W('tiara') ? '<path d="M79 23 L80.5 15 L84 20 L87 12 L90 19 L93.5 14 L95 22 Z" fill="#F2C94C" stroke="#C9971F" stroke-width="1"/><circle cx="87" cy="17" r="1.8" fill="#E8508A"/>' : '';
+  const headphones = W('headphones') ? '<path d="M80 30 Q81 8 98 19" stroke="#6FA8E8" stroke-width="3.2" fill="none" stroke-linecap="round"/><ellipse cx="80.5" cy="31" rx="4.2" ry="5.2" fill="#6FA8E8"/><ellipse cx="80.5" cy="31" rx="2" ry="3" fill="#2F6FB8"/>' : '';
+  const glasses = W('glasses') ? `<path d="${star5(92.5,31,7,3.4)}" fill="#F7A8C8" fill-opacity=".4" stroke="#E8508A" stroke-width="1.6"/><path d="M86 29.5 L80 27.5" stroke="#E8508A" stroke-width="1.6"/>` : '';
+  const apron = W('apron') ? '<path d="M73 47 L87 51 L85 67 Q78 70 71 66 Z" fill="#F7A8C8"/><path d="M73.5 52 L86.5 55.5" stroke="#F5B04C" stroke-width="2"/><path d="M73 57 L86 60" stroke="#5CC3A8" stroke-width="2"/><path d="M72.5 62 L85.5 64.5" stroke="#7C8CE8" stroke-width="2"/>' : '';
+  const sparkles = W('sparkles') ? [[12,16,5],[110,62,4],[58,10,4],[112,14,5],[30,30,3]].map(s=>`<path d="${star4(...s)}" fill="var(--gold)"/>`).join('') : '';
+  const heartsAura = W('hearts') ? [[12,18,3],[108,58,2.6],[60,6,2.4],[110,12,3],[28,30,2]].map(([x,y,k]) => `<path d="${heartD(x,y,k)}" fill="#F27BA6"/>`).join('') : '';
   const eye = mood === 'happy'
     ? '<path d="M89 32 q3 -3.5 6 0" stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round"/>'
     : '<circle cx="92" cy="31" r="2.7" fill="var(--ink)"/><circle cx="93" cy="30" r=".9" fill="#fff"/>';
   const tail = [[22,50],[17,57],[15,65],[18,73]].map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="7.5" fill="${m[i]}"/>`).join('');
   const mane = [[81,22,6.5,0],[77,29,7,1],[73,37,7,2],[70,45,6.5,3],[87,21,4.5,1]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="${p[2]}" fill="${m[p[3]]}"/>`).join('');
-  const leg = (x,fill) => `<rect x="${x}" y="64" width="8" height="27" rx="4" fill="${fill}"/><rect x="${x}" y="86" width="8" height="5" rx="2" fill="${m[3]}"/>`;
+  const sock = x => W('socks') ? `<rect x="${x}" y="72" width="8" height="3.2" fill="#F27BA6"/><rect x="${x}" y="76" width="8" height="3.2" fill="#F5C451"/><rect x="${x}" y="80" width="8" height="3.2" fill="#5CC3A8"/>` : '';
+  const leg = (x,fill) => `<rect x="${x}" y="64" width="8" height="27" rx="4" fill="${fill}"/>${sock(x)}<rect x="${x}" y="86" width="8" height="5" rx="2" fill="${m[3]}"/>`;
   return `<svg viewBox="0 0 120 100" class="uni" aria-hidden="true">
-    ${sparkles}${tail}${bow}${leg(33,'var(--uni-shade)')}${leg(66,'var(--uni-shade)')}
+    ${sparkles}${heartsAura}${wings}${tail}${bow}${leg(33,'var(--uni-shade)')}${leg(66,'var(--uni-shade)')}
     <ellipse cx="54" cy="57" rx="31" ry="17" fill="var(--uni)"/>
-    ${cape}${leg(40,'var(--uni)')}${leg(73,'var(--uni)')}
+    ${saddle}${cape}${leg(40,'var(--uni)')}${leg(73,'var(--uni)')}
     <polygon points="68,50 77,24 93,28 86,58" fill="var(--uni)"/>
     <ellipse cx="91" cy="35" rx="15" ry="10" transform="rotate(25 91 35)" fill="var(--uni)"/>
-    ${apron}${mane}${scarf}
+    ${apron}${mane}${scarf}${necklace}${bowtie}
     <polygon points="82,26 88,24 83,13" fill="var(--uni)"/>
-    ${chef}
+    ${chef}${party}${tiara}
     <polygon points="89,24 96,23 103,3" fill="var(--gold)"/>
     <path d="M92.5 17.5l4.5-1M95 11.5l3.5-.8" stroke="var(--uni)" stroke-width="1.6" stroke-linecap="round"/>
     ${flowers}
-    ${eye}
+    ${eye}${glasses}
     <circle cx="96" cy="39" r="3.2" fill="var(--pink)" opacity=".35"/>
     <circle cx="101.5" cy="42" r="1.2" fill="var(--ink)" opacity=".5"/>
+    ${headphones}
   </svg>`;
 }
 
@@ -494,7 +584,7 @@ function angleSVG(o){
 
 const TRI_COL = ['var(--pink)','var(--teal)','var(--gold)'];
 /* Triangle with angles [a,b,c] at bottom-left, bottom-right, top. */
-function triSVG(angs, hidden, reveal, mini){
+function triSVG(angs, hidden, reveal, mini, opt = {}){
   const [a,b] = angs;
   const AC = Math.sin(rad(b)) / Math.sin(rad(a+b));
   const raw = [[0,0],[1,0],[AC*Math.cos(rad(a)), AC*Math.sin(rad(a))]];
@@ -515,12 +605,12 @@ function triSVG(angs, hidden, reveal, mini){
       const k = mini ? 9 : 18, p1=[P[0]+u[0][0]*k, P[1]+u[0][1]*k], p2=[P[0]+u[1][0]*k, P[1]+u[1][1]*k], c=[P[0]+(u[0][0]+u[1][0])*k, P[1]+(u[0][1]+u[1][1])*k];
       s += `<path d="M${f(P[0])} ${f(P[1])} L${f(p1[0])} ${f(p1[1])} L${f(c[0])} ${f(c[1])} L${f(p2[0])} ${f(p2[1])} Z" fill="${TRI_COL[i]}" opacity=".35"/><path d="M${f(p1[0])} ${f(p1[1])} L${f(c[0])} ${f(c[1])} L${f(p2[0])} ${f(p2[1])}" fill="none" stroke="${TRI_COL[i]}" stroke-width="3"/>`;
     } else {
-      s += `<path d="${wedgeD(P[0],P[1],r,start,start+d)}" fill="${TRI_COL[i]}" opacity=".35"/><path d="${arcD(P[0],P[1],r,start,start+d)}" fill="none" stroke="${TRI_COL[i]}" stroke-width="3"/>`;
+      s += `<path d="${wedgeD(P[0],P[1],r,start,start+d)}" fill="${(opt.cols||TRI_COL)[i]}" opacity=".35"/><path d="${arcD(P[0],P[1],r,start,start+d)}" fill="none" stroke="${(opt.cols||TRI_COL)[i]}" stroke-width="3"/>`;
     }
     if (!mini){
       let bx = u[0][0]+u[1][0], by = u[0][1]+u[1][1]; const n = Math.hypot(bx,by); bx/=n; by/=n;
       const dist = angs[i] < 40 ? 62 : 46;
-      const txt = (i === hidden && !reveal) ? '?' : angs[i] + '°';
+      const txt = opt.labels ? opt.labels[i] : (i === hidden && !reveal) ? '?' : angs[i] + '°';
       s += `<text x="${f(P[0]+bx*dist)}" y="${f(P[1]+by*dist)}" class="lbl" text-anchor="middle" dominant-baseline="middle">${txt}</text>`;
     }
   });
@@ -1121,7 +1211,7 @@ function pathFig(q){
   const nx = xOf(q.pos), uni = unicorn(q.done ? 'happy' : 'plain').replace('<svg ', `<svg x="${f(nx-52)}" y="26" width="96" height="80" style="width:96px;height:80px" `);
   s += `<circle cx="${f(nx)}" cy="${Y}" r="11" class="handle"/>` + uni;
   if (q.show || q.done || q.reveal) s += `<rect x="${f(nx-32)}" y="2" width="64" height="30" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>` + svgFr(nx, 17, q.pos === 0 ? '0' : `${q.pos}/${q.den}`, 12).replace(/font-size:12px/g,'font-size:12px');
-  return `<svg class="bridge" viewBox="0 -6 368 ${q.labels ? 190 : 176}" role="img" aria-label="A number line from 0 to ${q.max}">${s}</svg>`;
+  return `<svg class="bridge" viewBox="-34 -6 436 ${q.labels ? 190 : 176}" role="img" aria-label="A number line from 0 to ${q.max}">${s}</svg>`;
 }
 function wirePathFig(){
   const q = G.q, fig = $('#figure');
@@ -1659,7 +1749,8 @@ function genShare(){
 const FRAC_GEN = {fr_what: genWhatWrapped, fr_paint: genPaint, fr_balloon: genBalloon, fr_path: genPath, fr_same: genSame, fr_mixed: genMixed, fr_story: genStory, fr_share: genShare};
 
 /* ================= Themes and game registry ================= */
-const LEVEL_NAME = {gentle:'Gentle', tricky:'Tricky', basic:'Basic', medium:'Medium', advanced:'Advanced'};
+const LEVEL_NAME = {gentle:'Gentle', tricky:'Tricky', basic:'Basic', medium:'Medium', advanced:'Advanced', master:'Master Mind'};
+const REWARD = {gentle:1, basic:1, medium:2, tricky:2, advanced:2, master:3};
 const bridgePic = () => `<svg viewBox="-70 -70 140 80" aria-hidden="true">${RAINBOW.map((c,i)=>`<path d="${arcD(0,0,60-i*7,0,120)}" stroke="${c}" stroke-width="7" fill="none"/>`).join('')}<line x1="0" y1="0" x2="66" y2="0" class="ray" style="stroke-width:4"/><line x1="0" y1="0" x2="${f(pp(0,0,66,120)[0])}" y2="${f(pp(0,0,66,120)[1])}" class="ray" style="stroke-width:4"/><circle cx="${f(pp(0,0,66,120)[0])}" cy="${f(pp(0,0,66,120)[1])}" r="7" class="handle" style="stroke-width:2"/></svg>`;
 const balloonPic = () => `<svg viewBox="0 0 120 120" aria-hidden="true">${[[34,48,'#F9B4CC','1/2'],[84,40,'#A8E3D3','3/4'],[60,70,'#FFD39A','2/3']].map(([x,y,c,t]) => `<line x1="${x}" y1="${y+26}" x2="${x}" y2="${y+50}" stroke="var(--muted)" stroke-width="2"/><ellipse cx="${x}" cy="${y}" rx="22" ry="27" fill="${c}"/><g style="--ink:#2B2140">${svgFr(x, y, t, 12)}</g>`).join('')}</svg>`;
 const pathPic = () => { let s = '<line x1="10" y1="70" x2="110" y2="70" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>'; for (let k=0;k<=4;k++) s += `<line x1="${10+k*25}" y1="${k%4===0?58:62}" x2="${10+k*25}" y2="${k%4===0?82:78}" stroke="var(--ink)" stroke-width="3"/>`; s += `<line x1="10" y1="70" x2="85" y2="70" stroke="${PINK}" stroke-width="9" stroke-linecap="round" opacity=".7"/>`; s += unicorn('happy').replace('<svg ', '<svg x="58" y="22" width="54" height="45" style="width:54px;height:45px;max-width:none;max-height:none" '); return `<svg viewBox="0 10 120 90" aria-hidden="true">${s}</svg>`; };
@@ -1681,11 +1772,11 @@ const GAMES = {
   fr_share:  {theme:'frac', title:'Cookie Sharing', desc:'Share cookies onto plates to find a fraction of a group.', pic: () => oneSVG(shapeG('set', 6, {rows:2, rowBoxes:true, shade:3}))},
 };
 const THEMES = {
-  angles: {title:'Angles', tile:'7 games: angle names, triangles, shapes, clocks and angle math.', levels:['gentle','tricky'],
-    intro: () => `Explore angles with ${S.uname}. Each game has a Gentle and a Tricky level.`, pic: bridgePic,
+  angles: {title:'Angles', tile:'7 games: angle names, triangles, shapes, clocks and angle math.', levels:['gentle','tricky','master'],
+    intro: () => `Explore angles with ${S.uname}. Each game has a Gentle and a Tricky level, and Master Mind for a real challenge.`, pic: bridgePic,
     groups:[['Angle basics',['words','estimate','bridge']], ['Triangles and shapes',['missing','poly']], ['Clocks and angle math',['clock','calc']]]},
-  frac: {title:'Rainbow Bakery: Fractions', tile:'8 games: what fractions are, adding and taking away, and bakery stories.', levels:['basic','medium','advanced'],
-    intro: () => `${S.uname} bakes pies, cakes and cookies to explore fractions. Each game has Basic, Medium and Advanced levels. Start with Basic.`, pic: () => oneSVG(shapeG('pie', 4, {shade:3})),
+  frac: {title:'Rainbow Bakery: Fractions', tile:'8 games: what fractions are, adding and taking away, and bakery stories.', levels:['basic','medium','advanced','master'],
+    intro: () => `${S.uname} bakes pies, cakes and cookies to explore fractions. Each game has Basic, Medium and Advanced levels, and Master Mind for a real challenge. Start with Basic.`, pic: () => oneSVG(shapeG('pie', 4, {shade:3})),
     groups:[['Basics',['fr_what','fr_paint','fr_balloon','fr_path']], ['Adding and taking away',['fr_same','fr_mixed']], ['Story problems',['fr_story','fr_share']]]},
 };
 let curTheme = 'angles';
@@ -1709,7 +1800,7 @@ function renderTheme(){
     const wrap = document.createElement('div'); wrap.className = 'games'; box.appendChild(wrap);
     ids.forEach(id => {
       const g = GAMES[id], card = document.createElement('div'); card.className = 'game-card';
-      card.innerHTML = `<div class="pic">${g.pic()}</div><div><h3>${esc(g.title)}</h3><p>${fmtFr(esc(g.desc.replace('Nova', S.uname)))}</p><div class="levels">${t.levels.map((l,i) => `<button class="btn${i === 0 ? ' primary' : ''}" data-l="${l}">${LEVEL_NAME[l]}</button>`).join('')}</div></div>`;
+      card.innerHTML = `<div class="pic">${g.pic()}</div><div><h3>${esc(g.title)}</h3><p>${fmtFr(esc(g.desc.replace('Nova', S.uname)))}</p><div class="levels">${t.levels.map((l,i) => `<button class="btn${i === 0 ? ' primary' : ''}${l === 'master' ? ' master' : ''}" data-l="${l}">${LEVEL_NAME[l]}</button>`).join('')}</div></div>`;
       card.querySelectorAll('[data-l]').forEach(b => b.addEventListener('click', () => startGame(id, b.dataset.l)));
       wrap.appendChild(card);
     });
@@ -1737,6 +1828,683 @@ function fracBook(){
   ];
 }
 
+/* ===================================================================
+   MASTER MIND level: harder than Tricky / Advanced, for every game
+   =================================================================== */
+const PNAME2 = {3:'triangle',4:'quadrilateral',5:'pentagon',6:'hexagon',7:'heptagon',8:'octagon',9:'nonagon',10:'decagon',12:'dodecagon'};
+
+/* --- crossing lines picture (vertically opposite angles) --- */
+function crossSVG(x, mark, done){
+  const L = 120; let s = '';
+  s += `<path d="${wedgeD(0,0,40,0,x)}" fill="${PINK}" opacity=".45"/><path d="${arcD(0,0,40,0,x)}" fill="none" stroke="${PINK}" stroke-width="3"/>`;
+  const m0 = mark === 'opp' ? 180 : x, m1 = mark === 'opp' ? 180 + x : 180;
+  s += `<path d="${wedgeD(0,0,40,m0,m1)}" fill="${TEAL}" opacity=".45"/><path d="${arcD(0,0,40,m0,m1)}" fill="none" stroke="${TEAL}" stroke-width="3"/>`;
+  [0, x].forEach(a => { const e1 = pp(0,0,L,a), e2 = pp(0,0,L,a+180); s += `<line x1="${f(e1[0])}" y1="${f(e1[1])}" x2="${f(e2[0])}" y2="${f(e2[1])}" class="ray"/>`; });
+  const l1 = pp(0,0,62,x/2), l2 = pp(0,0,62,(m0+m1)/2), ans = mark === 'opp' ? x : 180 - x;
+  s += `<text x="${f(l1[0])}" y="${f(l1[1])}" class="lbl" text-anchor="middle" dominant-baseline="middle">${x}°</text>`;
+  s += `<text x="${f(l2[0])}" y="${f(l2[1])}" class="lbl" text-anchor="middle" dominant-baseline="middle">${done ? ans + '°' : '?'}</text><circle r="5" class="vdot"/>`;
+  return `<svg viewBox="-135 -135 270 270" role="img" aria-label="Two crossing lines">${s}</svg>`;
+}
+
+/* ---------------- Angle games ---------------- */
+function mWords(){
+  const kind = ['classify','pair','classify','vert','pair','classify'][G.i];
+  if (kind === 'classify'){
+    const types = ['acute','right','obtuse','straight','reflex'];
+    let t; do { t = pick(types); } while (t === G.lastType); G.lastType = t;
+    const deg = t === 'acute' ? rand(78,88) : t === 'right' ? 90 : t === 'obtuse' ? pick([rand(92,100), rand(170,178)]) : t === 'straight' ? 180 : pick([rand(182,195), rand(330,350)]);
+    return {type:'classify', text:'Look very closely. What kind of angle is this?', target:t, deg, rot: randStep(0,345,15), types, bench:false, hints:1};
+  }
+  if (kind === 'pair'){
+    const sort = pick(['comp','supp','none']);
+    let x, y;
+    if (sort === 'comp'){ x = randStep(15,75,5); y = 90 - x; }
+    else if (sort === 'supp'){ x = randStep(20,160,5); y = 180 - x; }
+    else { x = randStep(20,100,5); do { y = randStep(15,120,5); } while (x + y === 90 || x + y === 180); }
+    const opts = ['Complementary', 'Supplementary', 'Neither'], a = {comp:0, supp:1, none:2}[sort];
+    const q = MCQ({text:`Are ${x}° and ${y}° complementary, supplementary, or neither?`, opts, a, showSum:false,
+      fig: q => wedgesSVG({parts:[{deg:x, label:x+'°'}, {deg:y, label:y+'°'}], total:{label: q.showSum || q.done ? (x+y)+'°' : '?'}}),
+      hint:'<p>Complementary angles add up to 90° (a right angle). Supplementary angles add up to 180° (a straight line). Add the two angles.</p>',
+      onHint: () => { q.showSum = true; }, onWrong: () => { q.showSum = true; },
+      wrong: () => `Not this one. ${x} + ${y} = ${x+y}.`, right: `Yes! ${x}° + ${y}° = ${x+y}°, so they are ${opts[a].toLowerCase()}.`});
+    return q;
+  }
+  const x = randStep(25,155,5), mark = pick(['opp','adj']), ans = mark === 'opp' ? x : 180 - x;
+  return PADQ({text:'Two straight lines cross. What is the angle marked with ?', ans,
+    fig: q => crossSVG(x, mark, q.done),
+    hints: mark === 'opp' ? ['Look at the two angles opposite each other at the crossing.', 'Opposite angles at a crossing are always equal. They are called vertically opposite angles.'] : ['The pink angle and the green angle sit side by side on one straight line.', 'Angles on a straight line add up to 180°.', `180 − ${x} = ?`],
+    right: mark === 'opp' ? `Yes! Vertically opposite angles are equal: ${x}°.` : `Yes! ${x}° + ${ans}° = 180°.`});
+}
+function mEstimate(){
+  let t; do { t = randStep(10,350,5); } while (t > 340);
+  const cand = [-3,-2,-1,1,2,3].map(k => t + k*10).filter(v => v >= 5 && v <= 355);
+  const opts = shuffle(cand).slice(0,3).concat(t).sort((a,b) => a-b);
+  return {type:'estimate', text:'Master Mind: about how big is this angle? The answers are only 10° apart.', deg:t, rot: randStep(0,345,15), opts, ghost:null, bench:false, hints:1};
+}
+function mMissing(){
+  const kind = ['isoApex','isoBase','double','isoApex','big','isoBase'][G.i];
+  if (kind === 'isoApex' || kind === 'isoBase'){
+    const b = rand(32,70), apex = 180 - 2*b;
+    const angs = [b, b, apex];
+    if (kind === 'isoApex') return PADQ({text:`This triangle has two equal angles at the bottom (same color). The top angle is ${apex}°. How big is each bottom angle?`, ans:b,
+      fig: q => triSVG(angs, -1, true, false, {labels:[q.done ? b+'°' : '?', q.done ? b+'°' : '?', apex+'°'], cols:[TEAL, TEAL, GOLD]}),
+      hints:['The two bottom angles are equal. This is called an isosceles triangle.', `All three add up to 180°. Take away the top: 180 − ${apex} = ${180-apex}.`, `That is shared by 2 equal angles: ${180-apex} ÷ 2 = ?`],
+      right:`Yes! (180 − ${apex}) ÷ 2 = ${b}°.`});
+    return PADQ({text:`The two bottom angles are equal (same color). One of them is ${b}°. What is the top angle?`, ans:apex,
+      fig: q => triSVG(angs, -1, true, false, {labels:[b+'°', '', q.done ? apex+'°' : '?'], cols:[TEAL, TEAL, GOLD]}),
+      hints:[`The other bottom angle is also ${b}°.`, `Both bottom angles together: ${b} + ${b} = ${2*b}.`, `180 − ${2*b} = ?`], right:`Yes! 180 − ${2*b} = ${apex}°.`});
+  }
+  if (kind === 'double'){
+    const x = rand(15,45), c = 180 - 3*x, angs = shuffle([x, 2*x, c]);
+    const labels = angs.map(v => v === c ? c+'°' : v === x ? 'x' : '2x');
+    return PADQ({text:`One angle is twice as big as another (x and 2x). The third angle is ${c}°. What is x?`, ans:x,
+      fig: q => triSVG(angs, -1, true, false, {labels: q.done ? angs.map(v => v+'°') : labels}),
+      hints:[`x + 2x + ${c} = 180.`, `So x + 2x = 180 − ${c} = ${180-c}.`, `x + 2x is 3 equal parts: ${180-c} ÷ 3 = ?`], right:`Yes! x = ${x}°, 2x = ${2*x}°, and ${x} + ${2*x} + ${c} = 180.`});
+  }
+  let a, b; do { a = rand(95,135); b = rand(12, 180-a-12); } while (180-a-b < 12);
+  const angs = [a, b, 180-a-b], hidden = rand(0,2), known = angs.filter((_,i) => i !== hidden), s = known[0] + known[1];
+  return PADQ({text:'Find the missing angle. Careful, one angle is obtuse.', ans: angs[hidden],
+    fig: q => triSVG(angs, hidden, q.done), hints:['The three angles add up to 180°.', `${known[0]} + ${known[1]} = ${s}.`, `180 − ${s} = ?`], right:`Yes! 180 − ${s} = ${angs[hidden]}°.`});
+}
+function mBridge(){
+  const kind = ['hidden','supp','comp','double','hidden','supp'][G.i];
+  let deg, text, label;
+  if (kind === 'hidden'){ deg = randStep(15,175,5); text = `Master Mind: make a ${deg}° angle. The number stays hidden until you press Check.`; label = `${deg}°`; }
+  else if (kind === 'supp'){ const x = randStep(20,160,5); deg = 180 - x; text = `Make the angle that fits with ${x}° to make a straight line (180°).`; label = `180° − ${x}°`; }
+  else if (kind === 'comp'){ const x = randStep(15,75,5); deg = 90 - x; text = `Make the angle that fits with ${x}° to make a right angle (90°).`; label = `90° − ${x}°`; }
+  else { const x = randStep(20,85,5); deg = 2*x; text = `Make an angle twice as big as ${x}°.`; label = `2 × ${x}°`; }
+  const start = deg >= 90 ? randStep(10, deg-45, 5) : randStep(deg+45, 175, 5);
+  return {type:'bridge', text, tgt:{kind:'exact', deg, label}, cur:start, show:false, reveal:false, tol:5, hints:1};
+}
+function mClock(){
+  const kind = ['tenMin','tenMin','hourTurn','tenMin','minTurn','tenMin'][G.i];
+  if (kind === 'tenMin'){
+    let h, m, ans; do { h = rand(1,11); m = pick([10,20,40,50]); ans = clockAngle(h,m); } while (!Number.isInteger(ans) || ans < 10 || G.lastClock === h+':'+m); G.lastClock = h+':'+m;
+    const md = m*6, hd = h*30 + m/2, diff = Math.abs(md - hd);
+    return PADQ({text:`What is the angle between the hands at ${tstr(h,m)}? (The smaller angle.)`, ans,
+      fig: q => clockSVG({h, m, label: q.done ? ans+'°' : null}),
+      hints:[`The minute hand moves 6° every minute. At ${m} minutes it is ${m} × 6 = ${md}° from 12.`, `The hour hand moves 30° every hour and 0.5° every minute. It is ${h} × 30 + ${m} × 0.5 = ${hd}° from 12.`, diff > 180 ? `The difference is ${diff}°. That is more than 180, so take 360 − ${diff}.` : `The difference: ${Math.max(md,hd)} − ${Math.min(md,hd)} = ?`],
+      right:`Yes! The hands are ${ans}° apart at ${tstr(h,m)}.`});
+  }
+  if (kind === 'hourTurn'){
+    const opt = pick(['hours','mins']);
+    if (opt === 'hours'){ const k = rand(2,5); return PADQ({text:`How many degrees does the HOUR hand turn in ${k} hours?`, ans:30*k, fig: q => clockSVG({h:k, m:0, label: q.done ? 30*k+'°' : null}),
+      hints:['The hour hand goes all the way around (360°) in 12 hours.', '360 ÷ 12 = 30°, so it turns 30° each hour.', `${k} × 30 = ?`], right:`Yes! ${k} × 30° = ${30*k}°.`}); }
+    const m = pick([20,40,60,90]);
+    return PADQ({text:`How many degrees does the HOUR hand turn in ${m} minutes?`, ans: m/2, fig: () => clockSVG({h:12, m:0}),
+      hints:['The hour hand turns 30° in one hour (60 minutes).', '30 ÷ 60 = 0.5. So it turns half a degree every minute.', `${m} × 0.5 = ${m} ÷ 2 = ?`], right:`Yes! In ${m} minutes the hour hand turns ${m/2}°.`});
+  }
+  const m = pick([25,35,50,55]), ans = 6*m;
+  return PADQ({text:`The minute hand starts at 12. How many degrees does it turn in ${m} minutes?`, ans,
+    fig: q => clockSVG({m, turn:true, label: q.done ? ans+'°' : null}),
+    hints:['In 60 minutes the minute hand turns 360°, so 6° every minute.', `${m} × 6 = ?`, `${m} × 6 = ${m} × 5 + ${m} = ${5*m} + ${m}.`], right:`Yes! ${m} × 6° = ${ans}°.`});
+}
+function mPoly(){
+  const kind = ['miss6','extReg','sidesFromInt','sumBig','miss5','sidesFromExt'][G.i];
+  if (kind === 'miss6' || kind === 'miss5'){
+    const n = kind === 'miss6' ? 6 : 5, pts = polyPts(n, .8), total = polySum(n);
+    const angs = roundAngles(polyAngles(pts), 1, total), hid = rand(0, n-1), known = angs.filter((_,i) => i !== hid), s = known.reduce((x,y) => x+y, 0);
+    const q = PADQ({text:`Find the missing angle in this ${PNAME2[n]}.`, ans: angs[hid], fanOn:false,
+      fig: q => polySVG({pts, labels: angs.map((v,i) => i === hid && !q.done ? '?' : v+'°'), fan: q.fanOn}),
+      hints:[`A ${PNAME2[n]} splits into ${n-2} triangles: (${n} − 2) × 180° = ${total}°.`, `Add the angles you know: ${known.join(' + ')} = ${s}.`, `${total} − ${s} = ?`],
+      onHint: k => { if (k === 1) q.fanOn = true; }, right:`Yes! ${total} − ${s} = ${angs[hid]}°.`});
+    return q;
+  }
+  if (kind === 'extReg' || kind === 'sidesFromExt'){
+    const n = pick([5,6,8,9,10,12]), ext = 360/n, pts = polyPts(n, 0);
+    if (kind === 'extReg') return PADQ({text:`${S.uname} walks around a regular ${PNAME2[n]}. At each corner she turns the same amount. How many degrees is each turn?`, ans: ext,
+      fig: () => polySVG({pts, arcs:false}), hints:['Walking all the way around any shape, you turn one full turn in total: 360°.', `A ${PNAME2[n]} has ${n} corners, so there are ${n} equal turns.`, `360 ÷ ${n} = ?`],
+      right:`Yes! 360° ÷ ${n} = ${ext}°. This turn is called the exterior angle.`});
+    return PADQ({text:`${S.uname} walks around a regular shape. At each corner she turns ${ext}°. How many sides does the shape have?`, ans:n, unit:'',
+      fig: () => wedgesSVG({parts:[{deg:ext, label:ext+'°'}]}),
+      hints:['All the turns together make one full turn: 360°.', `How many turns of ${ext}° make 360°?`, `360 ÷ ${ext} = ?`], right:`Yes! 360 ÷ ${ext} = ${n}. It is a ${PNAME2[n]}.`});
+  }
+  if (kind === 'sidesFromInt'){
+    const n = pick([5,6,8,9,10,12]), int = 180 - 360/n, ext = 360/n;
+    return PADQ({text:`A regular shape has angles of ${int}° each. How many sides does it have?`, ans:n, unit:'',
+      fig: () => polySVG({pts: polyPts(n,0), sameCol:true, labels: polyPts(n,0).map((_,i) => i === 0 ? int+'°' : null)}),
+      hints:[`Inside angle + outside turn = 180°. So each turn is 180 − ${int} = ${ext}°.`, 'All the turns together make 360°.', `360 ÷ ${ext} = ?`], right:`Yes! It has ${n} sides: a ${PNAME2[n]}.`});
+  }
+  const n = pick([7,9,10,12]), total = polySum(n);
+  return PADQ({text:`A ${PNAME2[n]} has ${n} sides. What do all its inside angles add up to?`, ans: total,
+    fig: () => polySVG({pts: polyPts(n, .2), fan:true, arcs:false}),
+    hints:[`From one corner, a ${n}-sided shape splits into ${n} − 2 = ${n-2} triangles.`, 'Each triangle is 180°.', `${n-2} × 180 = ?`], right:`Yes! (${n} − 2) × 180° = ${total}°.`});
+}
+function mCalc(){
+  const kind = ['lineEq','ratioRight','lineRatio','pointEq','cake','ratioRight'][G.i];
+  if (kind === 'lineEq'){
+    const x = randStep(20,70,5), a = 180 - 2*x;
+    return PADQ({text:`Three angles sit on a straight line. One is ${a}°. The other two are equal (x). What is x?`, ans:x,
+      fig: q => wedgesSVG({parts:[{deg:a, label:a+'°'}, {deg:x, label: q.done ? x+'°' : 'x'}, {deg:x, label: q.done ? x+'°' : 'x'}], total:{label:'180°'}}),
+      hints:['Angles on a straight line add up to 180°.', `So x + x = 180 − ${a} = ${2*x}.`, `${2*x} ÷ 2 = ?`], right:`Yes! x = ${x}°.`});
+  }
+  if (kind === 'ratioRight'){
+    let k; do { k = pick([2,4,5,8]); } while (k === G.lastK); G.lastK = k; const x = 90/(k+1);
+    return PADQ({text:`A right angle is split into two parts. One part is ${k} times as big as the other. How big is the smaller part?`, ans:x,
+      fig: q => wedgesSVG({parts:[{deg:x, label: q.done ? x+'°' : 'x'}, {deg:k*x, label: q.done ? k*x+'°' : `${k}x`}], total:{label:'90°'}}),
+      hints:[`Call the small part x. The big part is ${k}x. Together they make 90°.`, `x + ${k}x is ${k+1} equal pieces of x.`, `90 ÷ ${k+1} = ?`], right:`Yes! x = ${x}° and the big part is ${k*x}°.`});
+  }
+  if (kind === 'lineRatio'){
+    const [r, txt] = pick([[[1,2,3],'x, 2x and 3x'], [[1,1,4],'x, x and 4x'], [[1,2,6],'x, 2x and 6x'], [[1,3,5],'x, 3x and 5x'], [[2,3,4],'2x, 3x and 4x']]);
+    const sum = r.reduce((a,b) => a+b), x = 180/sum;
+    return PADQ({text:`Three angles on a straight line are ${txt}. What is x?`, ans:x,
+      fig: q => wedgesSVG({parts: r.map(k => ({deg:k*x, label: q.done ? k*x+'°' : (k === 1 ? 'x' : k+'x')})), total:{label:'180°'}}),
+      hints:['Angles on a straight line add up to 180°.', `Count the x's: ${r.join(' + ')} = ${sum} pieces of x.`, `180 ÷ ${sum} = ?`], right:`Yes! x = ${x}°.`});
+  }
+  if (kind === 'pointEq'){
+    const a = randStep(60,140,10), b = randStep(50, 260 - a, 10), rest = 360 - a - b;
+    if (rest % 2 !== 0 || rest < 40) return mCalc();
+    const x = rest/2;
+    return PADQ({text:`Four angles go all the way around a point. Two of them are ${a}° and ${b}°. The other two are equal (x). What is x?`, ans:x,
+      fig: q => wedgesSVG({parts:[{deg:a, label:a+'°'}, {deg:b, label:b+'°'}, {deg:x, label: q.done ? x+'°' : 'x'}, {deg:x, label: q.done ? x+'°' : 'x'}]}),
+      hints:['All the way around a point is 360°.', `x + x = 360 − ${a} − ${b} = ${rest}.`, `${rest} ÷ 2 = ?`], right:`Yes! x = ${x}°.`});
+  }
+  const k = pick([5,6,8,10,12]), e = rand(2, k-2), slice = 360/k;
+  return PADQ({text:`${S.uname} cuts a round 360° cake into ${k} equal slices and eats ${e} of them. How many degrees of cake are left?`, ans:(k-e)*slice,
+    fig: q => wedgesSVG({parts: Array.from({length:k}, (_,i) => ({deg:slice, label: i < e ? '' : (q.done ? slice+'°' : '')}))}),
+    hints:[`One slice is 360 ÷ ${k} = ${slice}°.`, `${k} − ${e} = ${k-e} slices are left.`, `${k-e} × ${slice} = ?`], right:`Yes! ${k-e} × ${slice}° = ${(k-e)*slice}°.`});
+}
+
+/* ---------------- Fraction games ---------------- */
+function barsFig(labels){ return colSVG(labels.map(l => { const [a,b] = l.split('/').map(Number); return {g: shapeG('bar', b, {shade:a}), label:l}; }), 10); }
+function mWhat(){
+  const kind = ['order','between','missingEq','timeFrac','missingEq','order'][G.i];
+  if (kind === 'order'){
+    const sets = [['1/3','1/2','3/4'], ['2/5','1/2','2/3'], ['3/8','1/2','5/6'], ['1/4','2/5','3/5'], ['3/10','1/3','1/2'], ['2/3','3/4','5/6'], ['1/6','1/4','1/3'], ['5/8','2/3','3/4']];
+    const set = noRepeat(v => v.join(), () => pick(sets)), right = set.join(', ');
+    const perms = shuffle([[set[1],set[0],set[2]], [set[0],set[2],set[1]], [set[2],set[1],set[0]], [set[1],set[2],set[0]]]).slice(0,2).map(p => p.join(', '));
+    const opts = shuffle([right, ...perms]);
+    const q = MCQ({text:'Which list goes from smallest to biggest?', opts, a: opts.indexOf(right), showFig:false,
+      fig: q => q.showFig || q.done ? barsFig(set) : null,
+      hint:'<p>Look at the three bars. The more pink, the bigger the fraction. Or change them all to the same bottom number.</p>', onHint: () => { q.showFig = true; }, onWrong: () => { q.showFig = true; },
+      wrong: () => 'Not this one. Compare the pink parts in the picture.', right:`Yes! ${right}.`});
+    return q;
+  }
+  if (kind === 'between'){
+    const [lo, hi, good, bads] = pick([['1/3','1/2','5/12',['1/4','2/3','3/5']], ['1/4','1/2','3/8',['1/8','5/8','3/4']], ['1/2','3/4','5/8',['3/8','7/8','1/4']], ['2/3','1','5/6',['1/2','3/5','1/3']], ['1/5','2/5','3/10',['1/10','1/2','3/5']], ['3/4','1','7/8',['5/8','2/3','1/2']]]);
+    const opts = shuffle([good, ...bads]);
+    return MCQ({text:`Which fraction is between ${lo} and ${hi}?`, opts, a: opts.indexOf(good),
+      fig: () => null, hint:`<p>Change the fractions to the same bottom number. For example, ${lo} and ${hi} can both be written with a bigger bottom number. Then look for a top number in between.</p>`,
+      wrong: i => `${opts[i]} is not between ${lo} and ${hi}.`, right:`Yes! ${good} is bigger than ${lo} and smaller than ${hi}.`});
+  }
+  if (kind === 'missingEq'){
+    const [a,b] = pick([[1,2],[1,3],[2,3],[1,4],[3,4],[2,5],[3,5],[5,6]]), m = rand(2,5), D = b*m, N = a*m;
+    const top = Math.random() < 0.5;
+    return PADQ({text: top ? `${a}/${b} = ?/${D}. What is the missing top number?` : `${a}/${b} = ${N}/?. What is the missing bottom number?`, ans: top ? N : D, unit:'',
+      fig: q => colSVG([{g: shapeG('bar', b, {shade:a, sub: q.done || q.hintStep > 1 ? m : 0}), label:`${a}/${b}`}, {g: shapeG('bar', D, {shade: q.done ? N : 0}), label: q.done ? `${N}/${D}` : (top ? `?/${D}` : `${N}/?`)}], 10),
+      hints:['Equivalent fractions: multiply the top and the bottom by the same number.', top ? `${b} × ? = ${D}. The number is ${m}.` : `${a} × ? = ${N}. The number is ${m}.`, top ? `So the top is ${a} × ${m} = ?` : `So the bottom is ${b} × ${m} = ?`],
+      onHint: () => {}, right:`Yes! ${a}/${b} = ${N}/${D}.`});
+  }
+  const M = pick([10,15,20,30,40,45,50]), g = gcd(M,60);
+  return FPAD({text:`What fraction of an hour is ${M} minutes? Write it in simplest form.`, ans:[M, 60], noWhole:true, form:'simplest',
+    fig: q => clockSVG({m:M, turn:true, label: q.done ? simpStr(M,60) : null}),
+    hints:[`An hour has 60 minutes, so ${M} minutes is ${M}/60 of an hour.`, `Simplify: ${g} divides both ${M} and 60.`, `${M} ÷ ${g} = ${M/g} and 60 ÷ ${g} = ${60/g}.`],
+    right:`Yes! ${M} minutes is ${M}/60 = ${simpStr(M,60)} of an hour.`});
+}
+function mPaint(){
+  const kind = ['sum','left','bigSet','sum','bigBar','left'][G.i];
+  let q;
+  if (kind === 'sum'){
+    const [p, r, n, shape] = pick([['1/2','1/4',8,'pie'], ['1/3','1/6',12,'pie'], ['1/4','3/8',8,'bar'], ['1/2','1/3',12,'bar'], ['1/4','1/6',12,'pie'], ['2/5','3/10',10,'bar']]);
+    const [pa,pb] = p.split('/').map(Number), [ra,rb] = r.split('/').map(Number), D = lcm(pb, rb), A = pa*D/pb + ra*D/rb, g = gcd(A, D);
+    q = {n, a:A/g, b:D/g, shape, text:`Tap to color ${p} + ${r} of the ${shape === 'pie' ? 'pie' : 'cake'}.`,
+      hints:[`Change both to ${DNAME[n] ? DNAME[n][1] : n + 'ths'}: ${p} = ${pa*n/pb}/${n} and ${r} = ${ra*n/rb}/${n}.`, `Together: ${pa*n/pb} + ${ra*n/rb} = ${pa*n/pb + ra*n/rb} pieces.`]};
+  } else if (kind === 'left'){
+    const [a, b, n, shape] = pick([[3,8,16,'grid'], [2,5,10,'bar'], [1,3,12,'pie'], [3,4,12,'grid'], [5,12,12,'pie'], [3,10,20,'grid']]);
+    q = {n, a: b-a, b, shape, text:`${a}/${b} of the ${shape === 'pie' ? 'pie' : 'cake'} was eaten. Color the part that is left.`,
+      hints:[`If ${a}/${b} was eaten, then ${b-a}/${b} is left.`, `The ${shape === 'pie' ? 'pie' : 'cake'} has ${n} pieces. 1/${b} is ${n/b} ${n/b === 1 ? 'piece' : 'pieces'}.`, `Color ${b-a} × ${n/b} = ${(b-a)*n/b} pieces.`]};
+  } else if (kind === 'bigSet'){
+    const [a, b, n] = pick([[2,3,18], [3,4,20], [5,6,24], [2,5,20], [3,8,24], [4,5,15]]);
+    q = {n, a, b, shape:'set', set:true, rows:b, text:`Tap to color ${a}/${b} of the ${n} cookies.`,
+      hints:[`Split the ${n} cookies into ${b} equal groups. I marked them.`, `Each group is 1/${b}: ${n} ÷ ${b} = ${n/b} cookies.`, `Color ${a} groups: ${a} × ${n/b} = ${a*n/b}.`]};
+    q.onHint = k => { if (k === 1) q.showGroups = true; };
+  } else {
+    const [a, b, n] = pick([[3,4,16], [7,10,20], [5,8,16], [2,3,15]]);
+    q = {n, a, b, shape:'grid', text:`Tap to color ${a}/${b} of the cake.`, hints:[`The cake has ${n} pieces. 1/${b} of ${n} is ${n} ÷ ${b} = ${n/b}.`, `Color ${a} × ${n/b} = ${a*n/b} pieces.`]};
+  }
+  return Object.assign(q, {type:'paint', painted:new Set(), hintStep:0});
+}
+function mBalloon(){
+  const kind = ['between','simplest','lessThan','equalHard','between','simplest'][G.i];
+  const mk = (goods, bads) => shuffle([...goods.map(l => ({label:l, ok:true})), ...bads.map(l => ({label:l, ok:false}))]);
+  if (kind === 'between'){
+    const goods = shuffle(['2/3','3/4','5/8','7/10','4/5','5/6']).slice(0,3), bads = shuffle(['1/3','2/5','1/2','9/8','4/4','3/10']).slice(0,3);
+    return {type:'balloon', text:'Pop all the fractions that are bigger than 1/2 and smaller than 1. There are 3.', balloons: mk(goods, bads), need:3, got:0, hintStep:0,
+      hints:[{t:'Bigger than 1/2: the top number is more than half of the bottom number. Smaller than 1: the top number is smaller than the bottom number. Exactly 1/2 or exactly 1 do not count.'}],
+      why: b => `${b.label} is not between 1/2 and 1.`, right:'Yes! Those are all between 1/2 and 1.'};
+  }
+  if (kind === 'simplest'){
+    const goods = shuffle(['2/3','3/5','5/8','1/4','7/10','4/9']).slice(0,3), bads = shuffle(['2/4','6/9','4/10','3/12','5/15','6/8']).slice(0,3);
+    return {type:'balloon', text:'Pop all the fractions that are already in simplest form. There are 3.', balloons: mk(goods, bads), need:3, got:0, hintStep:0,
+      hints:['A fraction is in simplest form when no number (except 1) divides both the top and the bottom. 2/4 is not: 2 divides both.'],
+      why: b => { const [n,d] = b.label.split('/').map(Number); return `${b.label} can be simplified: divide both by ${gcd(n,d)} to get ${simpStr(n,d)}.`; }, right:'Yes! You found all the fractions in simplest form.'};
+  }
+  if (kind === 'lessThan'){
+    const goods = shuffle(['1/4','2/9','1/5','3/10','2/7']).slice(0,3), bads = shuffle(['1/2','3/8','2/5','2/6','4/9']).slice(0,3);
+    return {type:'balloon', text:'Pop all the fractions smaller than 1/3. There are 3.', balloons: mk(goods, bads), need:3, got:0, hintStep:0,
+      hints:['1/3 means the bottom number is 3 times the top. Smaller than 1/3: the bottom is MORE than 3 times the top. 2/6 is exactly 1/3, so it does not count.'],
+      why: b => `${b.label} is not smaller than 1/3.`, right:'Yes! Those are all smaller than 1/3.'};
+  }
+  const [t, goods, bads] = pick([['3/5', ['6/10','9/15','12/20'], ['5/3','3/10','6/15']], ['1 1/4', ['5/4','10/8','1 3/12'], ['4/5','1 1/2','6/4']], ['2/3', ['8/12','10/15','6/9'], ['3/2','4/9','6/10']], ['1 2/3', ['5/3','10/6','1 4/6'], ['3/5','1 1/3','7/3']]]);
+  return {type:'balloon', text:`Pop all the balloons equal to ${t}. There are 3.`, balloons: mk(goods, bads), need:3, got:0, hintStep:0,
+    hints:[`Write each balloon in simplest form, or as a mixed number, and compare it with ${t}.`], why: b => `${b.label} is not equal to ${t}.`, right:`Yes! All three are equal to ${t}.`};
+}
+function mPath(){
+  const kind = ['convert','halfway','addOn','improper','halfway','addOn'][G.i];
+  let max = 1, den, t, text, pos = 0, hints;
+  if (kind === 'convert'){
+    max = 3; [den, t] = pick([[8,[11,4]], [8,[19,8]], [6,[5,3]], [6,[5,2]], [8,[5,2]], [6,[8,3]], [10,[11,5]]]);
+    const tS = fstr(t[0], t[1]); text = `Move ${S.uname} to ${tS}. The path is cut into ${DNAME[den][1]}.`;
+    hints = [`Each step is 1/${den}. One whole is ${den} steps.`, `${tS} = ${t[0]}/${t[1]} = ${t[0]*den/t[1]}/${den}.`, `Go ${t[0]*den/t[1]} steps from 0.`];
+  } else if (kind === 'halfway'){
+    den = pick([8,12]); let k1, k2; do { k1 = rand(0, den-2); k2 = rand(k1+2, den); } while ((k2-k1) % 2 || G.lastHalf === k1+'/'+k2); G.lastHalf = k1+'/'+k2;
+    const A = k1 === 0 ? '0' : simpStr(k1, den), B = k2 === den ? '1' : simpStr(k2, den);
+    t = [(k1+k2)/2, den]; text = `Move ${S.uname} exactly halfway between ${A} and ${B}.`;
+    hints = [`Write both with ${DNAME[den][1]}: ${A} = ${k1}/${den} and ${B} = ${k2}/${den}.`, `There are ${k2-k1} steps between them. Half of that is ${(k2-k1)/2}.`, `${k1} + ${(k2-k1)/2} = ${(k1+k2)/2}. Go to ${(k1+k2)/2}/${den}.`];
+  } else if (kind === 'addOn'){
+    max = 2; const [d, A, B] = pick([[6,[2,3],[1,2]], [8,[3,4],[5,8]], [6,[1,2],[2,3]], [12,[3,4],[2,3]], [8,[1,2],[7,8]], [12,[5,6],[1,4]]]);
+    den = d; pos = A[0]*den/A[1]; const add = B[0]*den/B[1]; t = [pos + add, den];
+    text = `${S.uname} is at ${A[0]}/${A[1]}. Move her ${B[0]}/${B[1]} further along the path.`;
+    hints = [`Each step is 1/${den}.`, `${B[0]}/${B[1]} = ${add}/${den}, so go ${add} steps forward.`];
+  } else {
+    max = 3; den = pick([3,4,5]); let n; do { n = rand(den+1, 3*den-1); } while (n % den === 0); t = [n, den];
+    text = `Move ${S.uname} to ${n}/${den}.`; hints = [`Each step is 1/${den}. ${n}/${den} means ${n} steps.`, `${n}/${den} = ${fstr(n, den)}. Go past ${Math.floor(n/den)} first.`];
+  }
+  return {type:'path', text, max, den, t, pos, show:true, labels:false, hintStep:0, hints};
+}
+function mSame(){
+  const kind = ['chain','wholeMinus','missingAdd','chain','missingSub','wholeMinus'][G.i];
+  if (kind === 'chain'){
+    const n = pick([6,8,10,12]); let a, b, c; do { a = rand(2, n-1); b = rand(1, n-1); c = rand(1, a+b-1); } while (a+b-c <= 0 || c >= a+b);
+    const r = a + b - c;
+    return FPAD({text:`${a}/${n} + ${b}/${n} − ${c}/${n} = ? Write it in simplest form.`, ans:[r, n], form:'simplest',
+      fig: () => colSVG([0,1].map(w => ({g: shapeG('bar', n, {colors: Array.from({length:n}, (_,i) => { const gI = w*n + i; return gI < a ? PINK : gI < a+b ? TEAL : null; }), crossed: new Set(Array.from({length:n}, (_,i) => i).filter(i => { const gI = w*n + i; return gI >= a+b-c && gI < a+b; }))})})).slice(0, a+b > n ? 2 : 1)),
+      hints:[`The bottom stays ${n}. Work left to right: ${a} + ${b} = ${a+b}.`, `${a+b} − ${c} = ${r}. So the answer is ${r}/${n}.`, `Now simplify ${r}/${n}${r >= n ? ' and write it as a mixed number' : ''}.`],
+      right:`Yes! ${a}/${n} + ${b}/${n} − ${c}/${n} = ${r}/${n} = ${simpStr(r, n)}.`});
+  }
+  if (kind === 'wholeMinus'){
+    const w = rand(2,3), n = pick([3,4,5,6,8]), k = rand(1, n-1), tot = w*n - k;
+    return FPAD({text:`${w} − ${k}/${n} = ?`, ans:[tot, n],
+      fig: () => colSVG(Array.from({length:w}, (_,i) => ({g: shapeG('bar', n, {shade:n, crossed: i === w-1 ? new Set(Array.from({length:k}, (_,j) => n-1-j)) : null})}))),
+      hints:[`${w} wholes = ${w*n}/${n}.`, `${w*n}/${n} − ${k}/${n} = ${tot}/${n}.`, `${tot}/${n} = ${fstr(tot, n)}.`], right:`Yes! ${w} − ${k}/${n} = ${fstr(tot, n)}.`});
+  }
+  const n = pick([6,8,10,12]);
+  if (kind === 'missingAdd'){
+    const a = rand(1, n-3), r = rand(a+1, n-1), x = r - a;
+    return FPAD({text:`? + ${a}/${n} = ${r}/${n}. What is the missing fraction?`, ans:[x, n], noWhole:true,
+      fig: () => oneSVG(shapeG('bar', n, {colors: Array.from({length:n}, (_,i) => i < x ? '#FDE7C2' : i < r ? TEAL : null), glow: new Set(Array.from({length:x}, (_,i) => i))})),
+      hints:[`The whole answer is ${r}/${n}. ${a}/${n} of it is green.`, `The missing part is ${r}/${n} − ${a}/${n}.`, `${r} − ${a} = ?`], right:`Yes! ${x}/${n} + ${a}/${n} = ${r}/${n}.`});
+  }
+  const a = rand(4, n-1), r = rand(1, a-2), x = a - r;
+  return FPAD({text:`${a}/${n} − ? = ${r}/${n}. What is the missing fraction?`, ans:[x, n], noWhole:true,
+    fig: () => oneSVG(shapeG('bar', n, {shade:a, glow: new Set(Array.from({length:x}, (_,i) => a-1-i))})),
+    hints:[`Start with ${a}/${n}. After taking some away, ${r}/${n} is left.`, `The part taken away is ${a}/${n} − ${r}/${n}.`, `${a} − ${r} = ?`], right:`Yes! ${a}/${n} − ${x}/${n} = ${r}/${n}.`});
+}
+function mixedBar(w, a, b, col){ return rowG(valueGs(w*b + a, b, 'bar', {col, extra:{W:110}}), 8); }
+function mMixed(){
+  const kind = ['unlikeAdd','unlikeSub','times','unlikeAdd','unlikeSub','times'][G.i];
+  if (kind === 'times'){
+    const k = rand(2,5), b = pick([3,4,5,6,8]), a = rand(1, b-1), tot = k*a;
+    return FPAD({text:`${k} × ${a}/${b} = ?`, ans:[tot, b],
+      fig: () => colSVG(Array.from({length:k}, () => ({g: shapeG('bar', b, {shade:a, W:220}), label:`${a}/${b}`})), 8),
+      hints:[`${k} × ${a}/${b} means ${Array(k).fill(`${a}/${b}`).join(' + ')}.`, `Add the top numbers: ${k} × ${a} = ${tot}. The bottom stays ${b}.`, `${tot}/${b} = ${fstr(tot, b)}.`],
+      right:`Yes! ${k} × ${a}/${b} = ${tot}/${b} = ${fstr(tot, b)}.`});
+  }
+  const [b, d] = pick([[2,3],[3,4],[4,6],[2,5],[3,6],[4,3],[6,4],[2,4]]), D = lcm(b, d);
+  let w1, w2, a, c, A, C, tot;
+  const sub = kind === 'unlikeSub';
+  for (let t = 0; t < 60; t++){
+    w1 = sub ? rand(2,3) : rand(1,2); w2 = sub ? rand(1, w1-1) : rand(1,2); a = rand(1, b-1); c = rand(1, d-1);
+    A = a*D/b; C = c*D/d; tot = sub ? (w1*D + A) - (w2*D + C) : (w1*D + A) + (w2*D + C);
+    if (tot > 0 && (!sub || G.i !== 1 || A < C)) break;
+  }
+  if (tot <= 0) return mMixed();
+  const S1 = `${w1} ${a}/${b}`, S2 = `${w2} ${c}/${d}`, op = sub ? '−' : '+';
+  const hints = [`Find a piece size both can use. Count in ${b}s and ${d}s: they meet at ${D}.`, `${a}/${b} = ${A}/${D} and ${c}/${d} = ${C}/${D}. So it is ${w1} ${A}/${D} ${op} ${w2} ${C}/${D}.`];
+  if (sub) hints.push(A < C ? `Not enough pieces: change 1 whole into ${D}/${D}: ${w1} ${A}/${D} = ${w1-1} ${A+D}/${D}. Then take away the wholes and the pieces.` : `Take away the wholes: ${w1} − ${w2} = ${w1-w2}. Take away the pieces: ${A}/${D} − ${C}/${D} = ${A-C}/${D}.`);
+  else hints.push(`Wholes: ${w1} + ${w2} = ${w1+w2}. Pieces: ${A}/${D} + ${C}/${D} = ${A+C}/${D}${A+C >= D ? ` = 1 ${A+C-D}/${D}` : ''}. Put them together.`);
+  return FPAD({text:`${S1} ${op} ${S2} = ?`, ans:[tot, D],
+    fig: () => colSVG([{g: mixedBar(w1, a, b, PINK), label:S1}, {g: mixedBar(w2, c, d, TEAL), label:S2}], 10),
+    hints, right:`Yes! ${S1} ${op} ${S2} = ${fstr(tot, D)}.`});
+}
+function mStory(){
+  const U = S.uname, kind = ['setTwo','leftUnlike','reverse','timesDays','setTwo','pizzaLeft'][G.i];
+  if (kind === 'setTwo'){
+    const [b1, b2] = pick([[3,4],[2,5],[3,6],[4,6],[2,3],[4,5]]), N = lcm(b1, b2) * (lcm(b1,b2) >= 12 ? 1 : 2), g1 = N/b1, g2 = N/b2, left = N - g1 - g2;
+    return PADQ({text:`${U} has ${N} cookies. She gives 1/${b1} of them to Pip and 1/${b2} of them to Bramble. How many cookies does she keep?`, ans:left, unit:'',
+      fig: q => oneSVG(shapeG('set', N, {colors: Array.from({length:N}, (_,i) => i < g1 ? PINK : i < g1+g2 ? TEAL : null).map(c => q.done ? c : null)})),
+      hints:[`1/${b1} of ${N} is ${N} ÷ ${b1} = ${g1}.`, `1/${b2} of ${N} is ${N} ÷ ${b2} = ${g2}.`, `${N} − ${g1} − ${g2} = ?`], right:`Yes! ${N} − ${g1} − ${g2} = ${left}.`});
+  }
+  if (kind === 'leftUnlike'){
+    const [b1, b2] = pick([[4,3],[2,5],[3,6],[4,6],[5,4],[3,8]]), D = lcm(b1, b2), A = D/b1, C = D/b2;
+    return FPAD({text:`${U} read 1/${b1} of her book on Monday and 1/${b2} of it on Tuesday. What fraction of the book is left to read?`, ans:[D - A - C, D], noWhole:true,
+      fig: () => oneSVG(shapeG('bar', D, {colors: Array.from({length:D}, (_,i) => i < A ? PINK : i < A+C ? TEAL : null)})),
+      hints:[`Use ${D} equal pages-pieces: 1/${b1} = ${A}/${D} and 1/${b2} = ${C}/${D}.`, `She read ${A}/${D} + ${C}/${D} = ${A+C}/${D}.`, `The whole book is ${D}/${D}. ${D} − ${A+C} = ?`], right:`Yes! ${simpStr(D - A - C, D)} of the book is left.`});
+  }
+  if (kind === 'reverse'){
+    const b = pick([3,4,5,6]), per = rand(2,5); let a; do { a = rand(2, b-1); } while (gcd(a,b) !== 1); const known = a*per;
+    return PADQ({text:`${a}/${b} of the ponies at the fair are pink. There are ${known} pink ponies. How many ponies are there in all?`, ans: b*per, unit:'',
+      fig: q => oneSVG(shapeG('set', q.done ? b*per : known, {rows: q.done ? b : a, rowBoxes:true, shade: known})),
+      hints:[`${a}/${b} is ${known} ponies. That is ${a} equal groups.`, `So 1/${b} is ${known} ÷ ${a} = ${per}.`, `All the ponies is ${b}/${b}: ${b} × ${per} = ?`], right:`Yes! 1/${b} is ${per}, so all ${b}/${b} is ${b*per}.`});
+  }
+  if (kind === 'timesDays'){
+    const k = rand(3,6), b = pick([2,3,4,5]), a = rand(1, b-1), tot = k*a;
+    return FPAD({text:`${U} runs ${a}/${b} of a mile every day for ${k} days. How far does she run in all?`, ans:[tot, b],
+      fig: () => oneSVG(rowG(Array.from({length:k}, () => shapeG('pie', b, {shade:a})), 10)),
+      hints:[`${k} days of ${a}/${b} is ${k} × ${a}/${b}.`, `${k} × ${a} = ${tot}, so it is ${tot}/${b}.`, `${tot}/${b} = ${fstr(tot, b)}.`], right:`Yes! ${U} runs ${fstr(tot, b)} miles.`});
+  }
+  const [w1, a, b, w2, c, d] = pick([[2,1,4,1,1,2], [3,1,3,1,1,2], [2,1,2,1,3,4], [2,1,6,1,1,3], [3,1,4,1,2,3]]), D = lcm(b, d), tot = (w1*D + a*D/b) - (w2*D + c*D/d);
+  return FPAD({text:`Pip had ${w1} ${a}/${b} pizzas. He ate ${w2} ${c}/${d} pizzas. How much pizza is left?`, ans:[tot, D],
+    fig: () => rowSVG(valueGs(w1*b + a, b, 'pie').map(g => ({g}))),
+    hints:[`Use ${DNAME[D] ? DNAME[D][1] : D + 'ths'}: ${a}/${b} = ${a*D/b}/${D} and ${c}/${d} = ${c*D/d}/${D}.`, a*D/b < c*D/d ? `Change 1 whole pizza into ${D}/${D}: ${w1} ${a*D/b}/${D} = ${w1-1} ${a*D/b + D}/${D}.` : `Take away the wholes and then the pieces.`, `Take away: wholes ${a*D/b < c*D/d ? w1-1 : w1} − ${w2}, pieces ${a*D/b < c*D/d ? a*D/b + D : a*D/b}/${D} − ${c*D/d}/${D}.`],
+    right:`Yes! ${fstr(tot, D)} ${tot > D ? 'pizzas are' : 'pizza is'} left.`});
+}
+function mShare(){
+  const U = S.uname, kind = ['rev','gifts','rev','gifts','rev','gifts'][G.i];
+  if (kind === 'rev'){
+    const b = pick([3,4,5,6]), a = rand(2, b-1), per = rand(2,5), known = a*per;
+    return {type:'share', phase:'deal', plates: Array(a).fill(0), next:0, dealt:0, left:known, hintStep:0, unit:'', entry:'', mode:'deal',
+      text:`${a}/${b} of ${U}'s cookies is ${known} cookies. Share those ${known} cookies onto ${a} plates.`,
+      text2:`Each plate is 1/${b} of ALL of ${U}'s cookies. How many cookies does she have in all?`, afterDeal:`Each plate holds 1/${b}. How many plates would all ${b}/${b} need?`, ans: b*per,
+      hints:['Give one cookie to each plate until the tray is empty.', `One plate is 1/${b}, and it has ${per} cookies.`, `All the cookies is ${b} plates: ${b} × ${per} = ?`], right:`Yes! 1/${b} is ${per}, so all ${b}/${b} is ${b*per}.`};
+  }
+  const b = pick([4,6,8]), per = rand(2, b === 8 ? 3 : 4), N = b*per;
+  const opts = b === 4 ? [[1,1,2]] : b === 6 ? [[1,1,3],[1,1,2],[2,1,3]] : [[1,1,4],[3,1,4],[1,1,2],[3,1,2]];
+  const [a1, c, b2] = pick(opts), k = b/b2, given = a1 + c*k;
+  return {type:'share', phase:'deal', plates: Array(b).fill(0), next:0, dealt:0, left:N, hintStep:0, unit:'', entry:'', mode:'deal',
+    text:`Share ${N} cookies onto ${b} plates.`, text2:`${U} gives ${a1}/${b} of the cookies to Pip and ${c}/${b2} of them to Bramble. How many cookies does she keep?`,
+    afterDeal:'All shared! Each plate is 1/' + b + ' of the cookies.', ans: (b - given)*per,
+    hints:['Give one cookie to each plate until the tray is empty.', `${c}/${b2} = ${c*k}/${b}, that is ${c*k} ${c*k === 1 ? 'plate' : 'plates'}. Pip gets ${a1} ${a1 === 1 ? 'plate' : 'plates'}.`, `${b} − ${a1} − ${c*k} = ${b-given} plates are left, with ${per} cookies on each.`],
+    right:`Yes! ${U} keeps ${b-given}/${b} of the cookies: ${(b-given)*per}.`};
+}
+const MASTER_GEN = {words:mWords, estimate:mEstimate, missing:mMissing, bridge:mBridge, clock:mClock, poly:mPoly, calc:mCalc,
+  fr_what:mWhat, fr_paint:mPaint, fr_balloon:mBalloon, fr_path:mPath, fr_same:mSame, fr_mixed:mMixed, fr_story:mStory, fr_share:mShare};
+
+/* ===================================================================
+   SHOP: things to wear, manes, friends, places, toys
+   =================================================================== */
+const WEAR = [
+  {id:'flowers',    name:'Flower crown',    slot:'head',  price:10},
+  {id:'bow',        name:'Tail bow',        slot:'tail',  price:12},
+  {id:'party',      name:'Party hat',       slot:'head',  price:14},
+  {id:'scarf',      name:'Scarf',           slot:'neck',  price:15},
+  {id:'glasses',    name:'Star glasses',    slot:'face',  price:16},
+  {id:'socks',      name:'Rainbow socks',   slot:'legs',  price:18},
+  {id:'bowtie',     name:'Bow tie',         slot:'neck',  price:18},
+  {id:'necklace',   name:'Heart necklace',  slot:'neck',  price:20},
+  {id:'tiara',      name:'Tiara',           slot:'head',  price:25},
+  {id:'sparkles',   name:'Sparkles',        slot:'magic', price:25},
+  {id:'headphones', name:'Headphones',      slot:'head',  price:28},
+  {id:'saddle',     name:'Saddle',          slot:'back',  price:30},
+  {id:'hearts',     name:'Floating hearts', slot:'magic', price:30},
+  {id:'chef',       name:'Chef hat',        slot:'head',  price:32},
+  {id:'apron',      name:'Rainbow apron',   slot:'body',  price:35},
+  {id:'cape',       name:'Cape',            slot:'back',  price:40},
+  {id:'wings',      name:'Butterfly wings', slot:'back',  price:50},
+];
+const FRIENDS_SHOP = [
+  {id:'bramble',  name:'Bramble the bunny',   price:20, lines:['Hop, hop! I can hop a quarter turn: 90°.', 'I ate 3/4 of a carrot. Crunch!', 'Bunnies love counting in 2s.']},
+  {id:'clover',   name:'Clover the lamb',     price:22, lines:['Baa! My wool is as fluffy as a cloud.', 'I count sheep at night: 1/2 a sheep, 1 sheep, 1 1/2 sheep…', 'I like the Shape Rules game best.']},
+  {id:'pip',      name:'Pip the pony',        price:25, lines:['Neigh! I run around the meadow: 360° every lap.', 'Did you know 2/4 is the same as 1/2?', 'Race you to the rainbow!']},
+  {id:'shelly',   name:'Shelly the turtle',   price:28, lines:['Slow and steady solves the puzzle.', 'My shell has hexagons. Each angle is 120°!', 'I take my time on every question. You can too.']},
+  {id:'sprinkle', name:'Sprinkle the hedgehog', price:30, lines:['I am a little spiky but very friendly.', 'I rolled into a ball: a full 360° roll!', 'I love the cookie games.']},
+  {id:'hoot',     name:'Hoot the owl',        price:35, lines:['Hoo, hoo! Owls can turn their heads 270°.', 'Master Mind questions are my favorite.', 'Wise owls use hints. Hints are smart!']},
+  {id:'puff',     name:'Puff the cloud kitten', price:38, lines:['Purr… I float on clouds.', 'Meow! 1/2 of my naps are in the sun.', 'Can I sit on your rainbow?']},
+  {id:'fizz',     name:'Fizz the baby dragon', price:45, lines:['Rawr! A tiny friendly rawr.', 'I breathe rainbow sparkles, not fire.', 'My wings make an obtuse angle when I fly!']},
+];
+const PLACES = [
+  {id:'meadow', name:'Rainbow meadow', price:0},
+  {id:'beach',  name:'Sunny beach',    price:30},
+  {id:'bakery', name:'Rainbow bakery', price:35},
+  {id:'castle', name:'Candy castle',   price:40},
+  {id:'snow',   name:'Snowy mountain', price:40},
+  {id:'clouds', name:'Cloud island',   price:45},
+  {id:'cave',   name:'Crystal cave',   price:50},
+  {id:'night',  name:'Starry night',   price:55},
+];
+const TOYS = [
+  {id:'ball',       name:'Beach ball',     price:10},
+  {id:'kite',       name:'Kite',           price:15},
+  {id:'bubbles',    name:'Bubble wand',    price:18},
+  {id:'top',        name:'Spinning top',   price:20},
+  {id:'yoyo',       name:'Yo-yo',          price:22},
+  {id:'trampoline', name:'Trampoline',     price:30},
+  {id:'musicbox',   name:'Music box',      price:35},
+  {id:'telescope',  name:'Telescope',      price:40},
+];
+const MANE_PRICE = [0, 8, 10, 12, 18, 25, 12, 14, 18];
+const owned = id => (S.owned || []).includes(id);
+const slotOf = id => (WEAR.find(w => w.id === id) || {}).slot;
+let PREVIEW = null;
+
+/* one-time switch from "unlock at N gems" to "buy with gems"; anything already unlocked stays owned */
+function migrateShop(){
+  if ((S.v || 1) >= 2) return;
+  const oldMane = [0,5,12,20,30,45], oldAcc = {flowers:8, bow:15, scarf:25, sparkles:35, cape:50, chef:60, apron:75};
+  S.owned = ['mane0', 'meadow'];
+  oldMane.forEach((c,i) => { if (S.gems >= c && i) S.owned.push('mane'+i); });
+  Object.entries(oldAcc).forEach(([id,c]) => { if (S.gems >= c) S.owned.push(id); });
+  S.wear = {}; (S.acc || []).forEach(id => { if (owned(id)) S.wear[slotOf(id)] = id; });
+  S.place = 'meadow'; S.st = S.st || {}; S.v = 2; save();
+}
+
+/* ---------- drawings ---------- */
+const star5 = (cx,cy,R,r) => { let d = ''; for (let i=0;i<10;i++){ const a = -90 + i*36, rr = i % 2 ? r : R; d += (i ? 'L' : 'M') + f(cx + rr*Math.cos(rad(a))) + ' ' + f(cy + rr*Math.sin(rad(a))); } return d + 'Z'; };
+const heartD = (x,y,s) => `M${x} ${y+s*1.1}l${-s*1.6} ${-s*1.6}a${s*0.95} ${s*0.95} 0 0 1 ${s*1.6} ${-s*1.3}a${s*0.95} ${s*0.95} 0 0 1 ${s*1.6} ${s*1.3}z`;
+function friendSVG(id){
+  const E = (x,y) => `<circle cx="${x}" cy="${y}" r="2" fill="#2B2140"/><circle cx="${x+0.7}" cy="${y-0.7}" r=".6" fill="#fff"/>`;
+  const art = {
+    pip: `<path d="M12 36 Q3 40 7 51" stroke="#6B3E22" stroke-width="4.5" fill="none" stroke-linecap="round"/>${[16,22,32,38].map(x => `<rect x="${x}" y="42" width="5" height="14" rx="2.5" fill="#B07448"/>`).join('')}<ellipse cx="28" cy="38" rx="17" ry="10" fill="#C98B5A"/><path d="M38 34 L41 22 L49 26 L44 40Z" fill="#C98B5A"/><ellipse cx="46" cy="24" rx="9" ry="7.5" transform="rotate(20 46 24)" fill="#C98B5A"/><polygon points="41,18 43,10 46,17" fill="#C98B5A"/><path d="M41 16 Q35 24 38 34" stroke="#6B3E22" stroke-width="5" fill="none" stroke-linecap="round"/>${E(47,22)}<circle cx="53" cy="27" r="1" fill="#2B2140" opacity=".6"/>`,
+    bramble: `<ellipse cx="24" cy="10" rx="3.5" ry="10" fill="#B9B3C9"/><ellipse cx="34" cy="10" rx="3.5" ry="10" fill="#B9B3C9"/><ellipse cx="24" cy="11" rx="1.6" ry="7" fill="#F7A8C8"/><ellipse cx="34" cy="11" rx="1.6" ry="7" fill="#F7A8C8"/><circle cx="14" cy="46" r="5" fill="#fff"/><circle cx="28" cy="44" r="14" fill="#B9B3C9"/><circle cx="29" cy="25" r="10.5" fill="#B9B3C9"/>${E(25,24)}${E(33,24)}<circle cx="29" cy="29" r="1.8" fill="#F27BA6"/><ellipse cx="22" cy="57" rx="5" ry="2.6" fill="#A39CB6"/><ellipse cx="36" cy="57" rx="5" ry="2.6" fill="#A39CB6"/>`,
+    clover: `${[18,26,34,40].map(x => `<rect x="${x}" y="44" width="4" height="12" rx="2" fill="#4A4060"/>`).join('')}${[[16,36],[24,30],[33,30],[40,35],[30,42],[20,43],[38,43]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="8" fill="#fff" stroke="#E2DCEC" stroke-width="1"/>`).join('')}<ellipse cx="46" cy="28" rx="7" ry="8.5" fill="#4A4060"/><ellipse cx="41" cy="22" rx="4" ry="2" fill="#4A4060" transform="rotate(-30 41 22)"/><circle cx="46" cy="20" r="5" fill="#fff"/><circle cx="48" cy="27" r="1.6" fill="#fff"/>`,
+    hoot: `<ellipse cx="30" cy="36" rx="17" ry="20" fill="#8C6BB1"/><ellipse cx="30" cy="42" rx="11" ry="13" fill="#D9C8EE"/><polygon points="15,20 19,10 23,19" fill="#8C6BB1"/><polygon points="45,20 41,10 37,19" fill="#8C6BB1"/><circle cx="23" cy="27" r="7" fill="#fff"/><circle cx="37" cy="27" r="7" fill="#fff"/><circle cx="23" cy="27" r="3.4" fill="#2B2140"/><circle cx="37" cy="27" r="3.4" fill="#2B2140"/><polygon points="27,33 33,33 30,38" fill="#F5B04C"/><path d="M24 56 l-3 3 M30 56 v3 M36 56 l3 3" stroke="#F5B04C" stroke-width="2" stroke-linecap="round"/>`,
+    fizz: `<path d="M20 30 Q8 14 6 30 Q12 32 20 36Z" fill="#9ED8B4"/><path d="M12 46 Q2 50 6 40" stroke="#6CC28A" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="28" cy="42" rx="14" ry="12" fill="#6CC28A"/><ellipse cx="29" cy="45" rx="8" ry="7.5" fill="#F7E08A"/><circle cx="36" cy="24" r="11" fill="#6CC28A"/><polygon points="30,14 32,7 35,13" fill="#F5B04C"/><polygon points="37,13 40,6 41,14" fill="#F5B04C"/>${E(39,23)}<circle cx="44" cy="28" r="1" fill="#2B2140"/><rect x="20" y="51" width="6" height="7" rx="3" fill="#57A873"/><rect x="31" y="51" width="6" height="7" rx="3" fill="#57A873"/>`,
+    shelly: `<ellipse cx="13" cy="47" rx="5" ry="3.5" fill="#8FCF8A"/><ellipse cx="22" cy="51" rx="4" ry="4" fill="#8FCF8A"/><ellipse cx="38" cy="51" rx="4" ry="4" fill="#8FCF8A"/><circle cx="50" cy="40" r="7" fill="#8FCF8A"/>${E(52,38)}<path d="M8 46 Q30 12 48 46Z" fill="#4FBFA8"/><path d="M22 32 L28 28 L34 32 L34 39 L28 43 L22 39Z" fill="none" stroke="#2E8C7A" stroke-width="1.8"/><path d="M8 46 H48" stroke="#2E8C7A" stroke-width="2.5"/>`,
+    sprinkle: `<path d="M8 46 Q8 18 30 16 Q48 18 48 40 Z" fill="#8A5A3C"/>${Array.from({length:9}, (_,i) => { const a = 200 + i*17, p1 = [28 + 20*Math.cos(rad(a)), 36 + 20*Math.sin(rad(a))], p2 = [28 + 27*Math.cos(rad(a+6)), 36 + 27*Math.sin(rad(a+6))], p3 = [28 + 20*Math.cos(rad(a+12)), 36 + 20*Math.sin(rad(a+12))]; return `<polygon points="${f(p1[0])},${f(p1[1])} ${f(p2[0])},${f(p2[1])} ${f(p3[0])},${f(p3[1])}" fill="#6B4228"/>`; }).join('')}<path d="M36 46 Q38 30 50 32 Q58 38 52 46Z" fill="#F3DDBE"/>${E(45,36)}<circle cx="56" cy="40" r="2" fill="#2B2140"/><circle cx="24" cy="47" r="3" fill="#6B4228"/><circle cx="38" cy="48" r="3" fill="#6B4228"/>`,
+    puff: `<path d="M14 44 Q2 40 8 30" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M14 44 Q2 40 8 30" stroke="#E2DCEC" stroke-width="1" fill="none"/>${[[22,40,10],[32,38,11],[40,44,8],[26,48,8]].map(([x,y,r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" stroke="#E2DCEC"/>`).join('')}<circle cx="40" cy="24" r="11" fill="#fff" stroke="#E2DCEC"/><polygon points="31,18 32,8 39,15" fill="#fff" stroke="#E2DCEC"/><polygon points="49,18 48,8 41,15" fill="#fff" stroke="#E2DCEC"/><polygon points="33,16 33.5,11 37,15" fill="#F7A8C8"/><polygon points="47,16 46.5,11 43,15" fill="#F7A8C8"/>${E(36,24)}${E(44,24)}<path d="M38.5 28 L40 29.5 L41.5 28" stroke="#F27BA6" stroke-width="1.4" fill="none"/>`,
+  }[id];
+  return `<svg viewBox="0 0 60 60" aria-hidden="true">${art}</svg>`;
+}
+function placeSVG(id, cls = ''){
+  const hills = (c1, c2) => `<path d="M0 170 Q90 120 180 160 T360 150 V240 H0Z" fill="${c1}"/><path d="M0 200 Q120 170 240 195 T360 190 V240 H0Z" fill="${c2}"/>`;
+  const flowers = cs => [[30,205],[70,215],[300,210],[335,220],[250,222],[110,226]].map(([x,y],i) => `<circle cx="${x}" cy="${y}" r="4" fill="${cs[i % cs.length]}"/><circle cx="${x}" cy="${y}" r="1.6" fill="#F5D04C"/>`).join('');
+  const P = {
+    meadow: `<defs><linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDE7FF"/><stop offset="1" stop-color="#F9ECF7"/></linearGradient></defs><rect width="360" height="240" fill="url(#gm)"/><circle cx="300" cy="46" r="22" fill="#FFE08A"/>${[0,1,2,3,4,5].map(i => `<path d="M40 150 A140 140 0 0 1 320 150" transform="translate(0 ${i*7})" stroke="${RAINBOW[i]}" stroke-width="7" fill="none" opacity=".45"/>`).join('')}${hills('#B7E3A8','#9AD48F')}${flowers(['#F27BA6','#fff','#9B7BE0'])}`,
+    beach: `<rect width="360" height="240" fill="#BFE6FF"/><circle cx="70" cy="50" r="24" fill="#FFD25A"/><rect y="132" width="360" height="40" fill="#6FC6E0"/><path d="M0 140 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/><path d="M0 168 Q180 150 360 170 V240 H0Z" fill="#F6DFA8"/><path d="M300 175 Q296 120 306 96" stroke="#9A6A3A" stroke-width="7" fill="none"/><path d="M306 96 q-30 -4 -40 14 M306 96 q30 -6 42 10 M306 96 q-10 -24 -32 -22 M306 96 q14 -22 34 -18" stroke="#4FBF7A" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="60" cy="210" r="6" fill="#F27BA6"/><path d="M200 214 l6 -8 l6 8z" fill="#F5B04C"/>`,
+    bakery: `<rect width="360" height="240" fill="#FFF1DC"/><rect y="170" width="360" height="70" fill="#F7D9E6"/>${Array.from({length:12}, (_,i) => `<rect x="${i*30}" y="${170 + (i%2)*0}" width="15" height="70" fill="#F2C3D6"/>`).join('')}<rect x="20" y="60" width="320" height="8" fill="#B98A4E"/><rect x="20" y="120" width="320" height="8" fill="#B98A4E"/>${[50,110,170,230,290].map((x,i) => `<path d="M${x-14} 60 l4 -18 h20 l4 18z" fill="${['#F7A8C8','#A8E3D3','#FFD39A','#C9B6F2','#F9B4CC'][i]}"/><circle cx="${x}" cy="38" r="9" fill="#fff"/><circle cx="${x}" cy="30" r="3" fill="#E8508A"/>`).join('')}${[70,150,230,300].map((x,i) => `<ellipse cx="${x}" cy="114" rx="20" ry="7" fill="#E2AE6A"/><ellipse cx="${x}" cy="110" rx="20" ry="7" fill="${['#F27BA6','#9B7BE0','#5CC3A8','#F5B04C'][i]}"/>`).join('')}`,
+    castle: `<rect width="360" height="240" fill="#FFE0EE"/>${[[60,40],[290,60]].map(([x,y]) => `<ellipse cx="${x}" cy="${y}" rx="34" ry="12" fill="#fff" opacity=".8"/>`).join('')}<rect x="110" y="70" width="140" height="110" fill="#F7A8C8"/>${[110,150,190,230].map(x => `<rect x="${x}" y="62" width="20" height="14" fill="#F7A8C8"/>`).join('')}<rect x="88" y="60" width="34" height="120" fill="#F49AC0"/><rect x="238" y="60" width="34" height="120" fill="#F49AC0"/><polygon points="84,62 105,18 126,62" fill="#9B7BE0"/><polygon points="234,62 255,18 276,62" fill="#9B7BE0"/><path d="M160 180 v-36 a20 20 0 0 1 40 0 v36z" fill="#B85FC9"/>${[[100,90],[250,90],[140,100],[214,100]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="6" fill="#FFF3B0"/>`).join('')}<path d="M0 180 Q180 166 360 180 V240 H0Z" fill="#C6EBC0"/><path d="M0 210 Q180 196 360 210 V240 H0Z" fill="#B0E0A8"/>`,
+    snow: `<rect width="360" height="240" fill="#D6EBFF"/><polygon points="20,170 110,50 200,170" fill="#B7C9E6"/><polygon points="110,50 130,78 118,74 104,84 92,74" fill="#fff"/><polygon points="150,170 260,30 360,170" fill="#A6BBDD"/><polygon points="260,30 286,64 268,58 252,72 238,62" fill="#fff"/><path d="M0 170 Q180 150 360 175 V240 H0Z" fill="#EEF5FC"/>${Array.from({length:18}, (_,i) => `<circle cx="${(i*47) % 360}" cy="${(i*31) % 140 + 10}" r="${1.5 + (i%3)}" fill="#fff"/>`).join('')}<path d="M300 200 l-10 -30 l-10 30z" fill="#4FA87A"/><path d="M300 186 l-10 -30 l-10 30z" fill="#5CB888"/>`,
+    clouds: `<defs><linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7DCFF"/><stop offset="1" stop-color="#FCE8F3"/></linearGradient></defs><rect width="360" height="240" fill="url(#gc)"/>${[0,1,2,3,4,5].map(i => `<path d="M20 190 A160 160 0 0 1 340 190" transform="translate(0 ${i*8})" stroke="${RAINBOW[i]}" stroke-width="8" fill="none" opacity=".7"/>`).join('')}${[[40,60,26],[80,56,20],[290,40,22],[320,46,18]].map(([x,y,r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff"/>`).join('')}<path d="M0 200 Q30 170 70 190 Q110 160 150 188 Q200 160 240 188 Q290 165 330 190 Q350 182 360 190 V240 H0Z" fill="#fff"/>`,
+    cave: `<rect width="360" height="240" fill="#3E3170"/><path d="M0 0 H360 V40 Q300 70 240 40 Q180 80 120 44 Q60 70 0 40Z" fill="#2C2252"/>${[[40,180,'#7FE3F0'],[80,190,'#F7A8C8'],[290,182,'#C9B6F2'],[325,192,'#7FE3F0'],[150,196,'#F5D04C']].map(([x,y,c]) => `<polygon points="${x-12},${y} ${x},${y-50} ${x+12},${y}" fill="${c}" opacity=".9"/><polygon points="${x+8},${y} ${x+18},${y-30} ${x+26},${y}" fill="${c}" opacity=".7"/>`).join('')}${[[90,50,'#7FE3F0'],[200,60,'#F7A8C8'],[270,48,'#C9B6F2']].map(([x,y,c]) => `<polygon points="${x-8},${y-14} ${x},${y+18} ${x+8},${y-14}" fill="${c}" opacity=".85"/>`).join('')}<path d="M0 190 Q180 175 360 192 V240 H0Z" fill="#5B4B92"/>${Array.from({length:10}, (_,i) => `<circle cx="${(i*67) % 360}" cy="${(i*29) % 110 + 70}" r="1.6" fill="#fff" opacity=".7"/>`).join('')}`,
+    night: `<rect width="360" height="240" fill="#1F2652"/><rect y="120" width="360" height="120" fill="#2E2A60" opacity=".6"/>${Array.from({length:26}, (_,i) => `<path d="${star4((i*53) % 360, (i*37) % 130 + 6, 2 + (i%3))}" fill="#FFF6C8"/>`).join('')}<circle cx="290" cy="50" r="22" fill="#FFF3B0"/><circle cx="300" cy="44" r="20" fill="#1F2652"/><path d="M0 180 Q90 140 180 175 T360 165 V240 H0Z" fill="#2F4A7A"/><path d="M0 205 Q120 180 240 205 T360 200 V240 H0Z" fill="#26406B"/>`,
+  }[id];
+  return `<svg class="${cls}" viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${P}</svg>`;
+}
+function toySVG(id){
+  const T = {
+    ball: `<circle cx="25" cy="25" r="20" fill="#fff" stroke="#2B2140" stroke-width="2"/><path d="M25 5 A20 20 0 0 1 45 25 L25 25Z" fill="#F27BA6"/><path d="M5 25 A20 20 0 0 1 25 5 L25 25Z" fill="#5CC3A8"/><path d="M25 45 A20 20 0 0 1 5 25 L25 25Z" fill="#F5B04C"/><path d="M45 25 A20 20 0 0 1 25 45 L25 25Z" fill="#6FA8E8"/><circle cx="25" cy="25" r="20" fill="none" stroke="#2B2140" stroke-width="2"/>`,
+    kite: `<path d="M25 2 L42 20 L25 40 L8 20Z" fill="#F27BA6" stroke="#2B2140" stroke-width="1.5"/><path d="M25 2 V40 M8 20 H42" stroke="#2B2140" stroke-width="1"/><path d="M25 2 L42 20 L25 20Z" fill="#F5B04C"/><path d="M25 40 q-4 4 0 8 q4 4 0 8" stroke="#9B7BE0" stroke-width="2" fill="none"/>`,
+    bubbles: `<rect x="22" y="22" width="4" height="26" rx="2" fill="#9B7BE0"/><circle cx="24" cy="14" r="10" fill="none" stroke="#9B7BE0" stroke-width="3.5"/><circle cx="40" cy="8" r="5" fill="#BFE6FF" opacity=".7"/><circle cx="8" cy="6" r="3.5" fill="#F9D3E3" opacity=".8"/>`,
+    top: `<path d="M8 18 Q25 6 42 18 L25 46Z" fill="#9B7BE0"/><path d="M8 18 Q25 30 42 18" fill="#C9B6F2"/><rect x="22" y="4" width="6" height="10" rx="2" fill="#F5B04C"/><path d="M14 24 L36 24" stroke="#F2D45C" stroke-width="3"/>`,
+    yoyo: `<line x1="25" y1="0" x2="25" y2="22" stroke="#2B2140" stroke-width="1.5"/><circle cx="25" cy="32" r="14" fill="#5CC3A8"/><circle cx="25" cy="32" r="9" fill="#A8E3D3"/><circle cx="25" cy="32" r="3" fill="#2B2140"/>`,
+    trampoline: `<ellipse cx="25" cy="22" rx="23" ry="7" fill="#6FA8E8"/><ellipse cx="25" cy="22" rx="18" ry="4.5" fill="#2F6FB8"/><path d="M6 24 L4 44 M44 24 L46 44 M18 28 L17 44 M32 28 L33 44" stroke="#2B2140" stroke-width="2.5"/>`,
+    musicbox: `<rect x="6" y="20" width="38" height="26" rx="4" fill="#F7A8C8" stroke="#2B2140" stroke-width="1.5"/><rect x="6" y="14" width="38" height="8" rx="3" fill="#F49AC0" stroke="#2B2140" stroke-width="1.5"/><path d="${heartD(25,28,3.2)}" fill="#fff"/><rect x="44" y="28" width="5" height="3" fill="#F5B04C"/><path d="M14 10 v-8 l6 -2 v8" stroke="#9B7BE0" stroke-width="2" fill="none"/><circle cx="12" cy="10" r="2.5" fill="#9B7BE0"/><circle cx="18" cy="8" r="2.5" fill="#9B7BE0"/>`,
+    telescope: `<rect x="6" y="14" width="32" height="10" rx="3" fill="#6FA8E8" transform="rotate(-25 22 19)"/><rect x="34" y="6" width="10" height="12" rx="2" fill="#2F6FB8" transform="rotate(-25 39 12)"/><path d="M20 26 L12 48 M22 26 L22 48 M24 26 L32 48" stroke="#8A5A3C" stroke-width="2.5"/>`,
+  }[id];
+  return `<svg viewBox="0 0 50 50" aria-hidden="true">${T}</svg>`;
+}
+
+/* ---------- the stable scene ---------- */
+const FRIEND_SPOTS = [[1,3],[15,3],[70,3],[84,3],[1,30],[84,30],[14,28],[71,28]];
+const TOY_SPOTS = {ball:{l:30,b:1,w:10}, top:{l:41,b:1,w:9}, bubbles:{l:51,b:1,w:9}, musicbox:{l:60,b:1,w:10}, kite:{l:80,t:3,w:12}, telescope:{l:3,t:6,w:12}, yoyo:{l:22,t:0,w:9}};
+function renderScene(){
+  const sc = $('#scene'); if (!sc) return;
+  const fr = FRIENDS_SHOP.filter(x => owned(x.id)), toys = TOYS.filter(x => owned(x.id));
+  let h = placeSVG(S.place || 'meadow', 'scene-bg');
+  if (owned('trampoline')) h += `<button class="toy tramp" data-toy="trampoline" aria-label="Trampoline">${toySVG('trampoline')}</button>`;
+  h += `<button class="pet uni-wrap scene-uni${owned('trampoline') ? ' on-tramp' : ''}" id="petUni" aria-label="Pet ${esc(S.uname)}">${unicorn('happy')}</button>`;
+  fr.forEach((x,i) => { const [l,b] = FRIEND_SPOTS[i % FRIEND_SPOTS.length]; h += `<button class="friend uni-wrap" data-friend="${x.id}" style="left:${l}%;bottom:${b}%" aria-label="${esc(x.name)}">${friendSVG(x.id)}</button>`; });
+  toys.filter(x => x.id !== 'trampoline').forEach(x => { const p = TOY_SPOTS[x.id]; h += `<button class="toy t-${x.id}" data-toy="${x.id}" style="left:${p.l}%;${p.t != null ? `top:${p.t}%` : `bottom:${p.b}%`};width:${p.w}%" aria-label="${esc(x.name)}">${toySVG(x.id)}</button>`; });
+  sc.innerHTML = h;
+  $('#petUni').onclick = petStable;
+  sc.querySelectorAll('[data-friend]').forEach(b => b.addEventListener('click', () => {
+    const F = FRIENDS_SHOP.find(x => x.id === b.dataset.friend); move(b, 'hop'); hearts(b, 1);
+    const l = `${F.name.split(' ')[0]}: “${pick(F.lines)}”`; $('#say').textContent = l; if (S.sound) speak(l);
+  }));
+  sc.querySelectorAll('[data-toy]').forEach(b => b.addEventListener('click', () => playToy(b.dataset.toy, b)));
+}
+function playToy(id, el){
+  const say = t => { $('#say').textContent = t; };
+  const anim = cls => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(() => el.classList.remove(cls), 1600); };
+  if (id === 'trampoline'){ const u = $('#petUni'); u.classList.remove('bounce'); void u.offsetWidth; u.classList.add('bounce'); setTimeout(() => u.classList.remove('bounce'), 1300); say(`Boing! ${S.uname} bounces up high.`); return; }
+  if (id === 'ball'){ anim('bounce-toy'); say('Bounce, bounce! The ball rolls a full 360° turn.'); return; }
+  if (id === 'kite'){ anim('flutter'); say('Whoosh! The kite dances in the wind.'); return; }
+  if (id === 'top'){ anim('spin'); say('Spin, spin! That is a lot of 360° turns.'); return; }
+  if (id === 'yoyo'){ anim('yo'); say('Down and up! The yo-yo goes all the way down and comes back.'); return; }
+  if (id === 'bubbles'){
+    say('Bubbles everywhere! Pop!');
+    if (S.calm) return;
+    const sc = $('#scene');
+    for (let i=0;i<7;i++){ const b = document.createElement('span'); b.className = 'bubble-fx'; b.style.left = (40 + Math.random()*30) + '%'; b.style.bottom = '12%'; b.style.width = b.style.height = (10 + Math.random()*16) + 'px'; b.style.animationDelay = (i*0.12) + 's'; sc.appendChild(b); setTimeout(() => b.remove(), 2600); }
+    return;
+  }
+  if (id === 'musicbox'){
+    say(S.sound ? 'La la la! A little tune from the music box.' : 'La la la! (Turn on sound in Grown-up settings to hear the tune.)');
+    const sc = $('#scene');
+    if (!S.calm) for (let i=0;i<4;i++){ const n = document.createElement('span'); n.className = 'note-fx'; n.textContent = i % 2 ? '♪' : '♫'; n.style.right = (14 + i*6) + '%'; n.style.bottom = '18%'; n.style.animationDelay = (i*0.2) + 's'; sc.appendChild(n); setTimeout(() => n.remove(), 2400); }
+    if (S.sound) tune();
+    return;
+  }
+  if (id === 'telescope'){
+    say('Look! A shooting star. Make a wish!');
+    if (S.calm) return;
+    const s = document.createElement('span'); s.className = 'star-fx'; $('#scene').appendChild(s); setTimeout(() => s.remove(), 1800);
+  }
+}
+function tune(){
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const t0 = actx.currentTime;
+    [523, 659, 784, 659, 698, 880, 784].forEach((fq, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), t = t0 + i*0.22;
+      o.type = 'triangle'; o.frequency.value = fq;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.08, t+.02); g.gain.exponentialRampToValueAtTime(.001, t+.4);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t+.45);
+    });
+  } catch(e) {}
+}
+
+/* ---------- shop ---------- */
+let shopTab = 'wear', confirmBuy = null;
+const SHOP_TABS = [['wear','Dress up'], ['mane','Manes'], ['friend','Friends'], ['place','Places'], ['toy','Toys']];
+function shopItems(tab){
+  if (tab === 'wear') return WEAR.map(w => ({id:w.id, name:w.name, price:w.price, pic: (PREVIEW = [w.id], (() => { const s = unicorn('happy'); PREVIEW = null; return s; })())}));
+  if (tab === 'mane') return MANES.map((m,i) => ({id:'mane'+i, name:m.name + ' mane', price: MANE_PRICE[i] ?? 15, pic:`<span class="sw big">${m.c.map(c => `<i style="background:${c}"></i>`).join('')}</span>`}));
+  if (tab === 'friend') return FRIENDS_SHOP.map(x => ({id:x.id, name:x.name, price:x.price, pic: friendSVG(x.id)}));
+  if (tab === 'place') return PLACES.map(x => ({id:x.id, name:x.name, price:x.price, pic: placeSVG(x.id)}));
+  return TOYS.map(x => ({id:x.id, name:x.name, price:x.price, pic: toySVG(x.id)}));
+}
+function itemState(tab, it){
+  if (!owned(it.id) && it.price > 0) return S.gems >= it.price ? {label: confirmBuy === it.id ? `Yes, buy for ${it.price}` : `Buy for ${it.price}`, act:'buy', cls: confirmBuy === it.id ? 'primary' : ''} : {label:`${it.price - S.gems} more gems`, act:null};
+  if (tab === 'wear'){ const on = S.wear[slotOf(it.id)] === it.id; return {label: on ? 'Take off' : 'Wear', act:'wear', cls: on ? 'on' : ''}; }
+  if (tab === 'mane'){ const on = 'mane' + S.mane === it.id; return {label: on ? 'Wearing it' : 'Use', act: on ? null : 'mane', cls: on ? 'on' : ''}; }
+  if (tab === 'place'){ const on = (S.place || 'meadow') === it.id; return {label: on ? 'You are here' : 'Go here', act: on ? null : 'place', cls: on ? 'on' : ''}; }
+  return {label:'In the stable', act:null, cls:'on'};
+}
+function renderShop(){
+  const tabs = $('#shopTabs'); tabs.innerHTML = '';
+  SHOP_TABS.forEach(([id, label]) => { const b = document.createElement('button'); b.className = 'tab' + (id === shopTab ? ' on' : ''); b.textContent = label; b.setAttribute('aria-pressed', id === shopTab);
+    b.addEventListener('click', () => { shopTab = id; confirmBuy = null; renderShop(); }); tabs.appendChild(b); });
+  $('#wallet').textContent = `You have ${S.gems} gems. Things you buy are yours to keep forever.`;
+  const box = $('#shopItems'); box.innerHTML = '';
+  shopItems(shopTab).forEach(it => {
+    const st = itemState(shopTab, it), card = document.createElement('div');
+    card.className = 'item' + (owned(it.id) || it.price === 0 ? ' owned' : '') + (shopTab === 'place' ? ' wide' : '');
+    card.innerHTML = `<div class="ipic">${it.pic}</div><p class="iname">${esc(it.name)}</p><button class="btn small ${st.cls || ''}"${st.act ? '' : ' disabled'}>${esc(st.label)}</button>`;
+    card.querySelector('button').addEventListener('click', () => shopAct(shopTab, it, st.act));
+    box.appendChild(card);
+  });
+}
+function shopAct(tab, it, act){
+  if (!act) return;
+  const name = it.name.toLowerCase();
+  if (act === 'buy'){
+    if (confirmBuy !== it.id){ confirmBuy = it.id; renderShop(); return; }
+    if (S.gems < it.price) return;
+    S.gems -= it.price; S.owned.push(it.id); confirmBuy = null;
+    if (tab === 'wear') S.wear[slotOf(it.id)] = it.id;
+    if (tab === 'mane') S.mane = +it.id.slice(4);
+    if (tab === 'place') S.place = it.id;
+    save(); updateGems(false); renderStable(); renderShop();
+    const lines = {wear:`I love my new ${name}! Thank you, ${S.kid}.`, mane:`My new ${name} is so pretty!`, friend:`${it.name.split(' ')[0]} moved into the stable! Tap them to say hi.`, place:`Wow, we are at the ${name}!`, toy:`A ${name}! Tap it to play.`};
+    $('#say').textContent = lines[tab]; move($('#petUni'), 'hop'); hearts($('#petUni'), 3);
+    return;
+  }
+  if (act === 'wear'){ const sl = slotOf(it.id); if (S.wear[sl] === it.id){ delete S.wear[sl]; $('#say').textContent = `Okay, I took off the ${name}.`; } else { S.wear[sl] = it.id; $('#say').textContent = `I love my ${name}!`; } }
+  if (act === 'mane'){ S.mane = +it.id.slice(4); $('#say').textContent = `My ${name} looks great!`; }
+  if (act === 'place'){ S.place = it.id; $('#say').textContent = `Let's go to the ${name}!`; }
+  save(); renderStable(); renderShop(); move($('#petUni'), 'hop');
+}
+function renderStable(){
+  $('#stableTitle').textContent = `${S.uname}'s stable`;
+  renderScene(); renderTreats();
+  if (!$('#say').textContent) $('#say').textContent = `Hi ${S.kid}! Tap me, my friends and my toys. You can also feed me a star cookie.`;
+}
+
+/* ===================================================================
+   STICKER ALBUM
+   =================================================================== */
+const STICK_N = 3;
+const tierOf = l => ({gentle:0, basic:0, medium:1, tricky:2, advanced:2, master:3})[l] ?? 0;
+const TIER_STYLE = [{ring:'#F7A8C8', fill:'#FFF4F9', name:'pink'}, {ring:'#AEB9CF', fill:'#F4F6FB', name:'silver'}, {ring:'#E6B43C', fill:'#FFF7E2', name:'gold'}, {ring:'rainbow', fill:'#FFFFFF', name:'rainbow'}];
+const STICK_ICONS = [
+  () => `<circle cx="30" cy="34" r="12" fill="#fff" stroke="#E2DCEC"/><polygon points="27,23 33,23 30,8" fill="#F2C94C"/><circle cx="21" cy="27" r="5" fill="#F27BA6"/><circle cx="19" cy="35" r="5" fill="#5CC3A8"/><circle cx="34" cy="33" r="2" fill="#2B2140"/><circle cx="38" cy="38" r="2.5" fill="#F7A8C8" opacity=".6"/>`,
+  () => `<path d="${star5(30,31,16,7)}" fill="#F5C451" stroke="#D9A21F" stroke-width="1.5"/>`,
+  () => `<path d="${heartD(30,24,8.5)}" fill="#F27BA6"/>`,
+  () => RAINBOW.map((c,i) => `<path d="${arcD(30,40,20-i*2.6,0,180)}" stroke="${c}" stroke-width="2.8" fill="none"/>`).join(''),
+  () => `<path d="M18 32 h24 l-4 16 h-16z" fill="#A8E3D3"/><circle cx="23" cy="30" r="6" fill="#F9B4CC"/><circle cx="30" cy="26" r="7" fill="#F9B4CC"/><circle cx="37" cy="30" r="6" fill="#F9B4CC"/><circle cx="30" cy="17" r="3" fill="#E8508A"/>`,
+  () => `<ellipse cx="30" cy="26" rx="11" ry="13" fill="#9B7BE0"/><path d="M30 39 q-3 6 0 12" stroke="#7A6A9A" stroke-width="1.5" fill="none"/><circle cx="26" cy="21" r="3" fill="#fff" opacity=".6"/>`,
+  () => `<circle cx="30" cy="30" r="15" fill="#F5D04C"/><circle cx="37" cy="25" r="13" fill="#FFF7E2"/>`,
+  () => [0,72,144,216,288].map(a => `<circle cx="${f(30+8*Math.cos(rad(a)))}" cy="${f(30+8*Math.sin(rad(a)))}" r="7" fill="#F7A8C8"/>`).join('') + '<circle cx="30" cy="30" r="5" fill="#F5C451"/>',
+  () => `<path d="M16 40 L14 20 L23 28 L30 16 L37 28 L46 20 L44 40Z" fill="#F5C451" stroke="#D9A21F" stroke-width="1.5"/><circle cx="30" cy="34" r="3" fill="#E8508A"/><circle cx="21" cy="35" r="2" fill="#5CC3A8"/><circle cx="39" cy="35" r="2" fill="#5CC3A8"/>`,
+  () => `<path d="M30 14 L44 26 L30 46 L16 26Z" fill="#7FE3F0" stroke="#3BA7C9" stroke-width="1.5"/><path d="M16 26 H44 M30 14 L24 26 L30 46 L36 26Z" stroke="#3BA7C9" stroke-width="1" fill="none"/>`,
+  () => `<circle cx="30" cy="30" r="15" fill="#EBC98F" stroke="#B98A4E" stroke-width="1.5"/><circle cx="25" cy="25" r="2.4" fill="#7A4B2A"/><circle cx="35" cy="28" r="2.4" fill="#7A4B2A"/><circle cx="28" cy="36" r="2.4" fill="#7A4B2A"/>`,
+  () => `<circle cx="30" cy="30" r="9" fill="#FFD25A"/>` + Array.from({length:8}, (_,i) => { const a = i*45, p1 = pp(30,30,12,a), p2 = pp(30,30,18,a); return `<line x1="${f(p1[0])}" y1="${f(p1[1])}" x2="${f(p2[0])}" y2="${f(p2[1])}" stroke="#FFB020" stroke-width="2.5" stroke-linecap="round"/>`; }).join(''),
+];
+function stickerSVG(gid, level, slot){
+  const tier = tierOf(level), T = TIER_STYLE[tier], gi = Object.keys(GAMES).indexOf(gid);
+  const icon = STICK_ICONS[(gi*5 + tier*4 + slot*7) % STICK_ICONS.length]();
+  const ring = T.ring === 'rainbow' ? RAINBOW.map((c,i) => `<circle cx="30" cy="30" r="${27.5 - i*1.4}" fill="none" stroke="${c}" stroke-width="1.6"/>`).join('') : `<circle cx="30" cy="30" r="26" fill="none" stroke="${T.ring}" stroke-width="4"/>`;
+  const shine = tier === 3 ? `<path d="${star4(47,12,4)}" fill="#F5C451"/><path d="${star4(12,47,3)}" fill="#9B7BE0"/>` : '';
+  return `<svg viewBox="0 0 60 60" aria-label="Sticker"><circle cx="30" cy="30" r="27" fill="${T.fill}"/>${icon}${ring}${shine}</svg>`;
+}
+function stickerCount(){ let n = 0; Object.values(S.st || {}).forEach(r => Object.values(r).forEach(c => { n += c; })); return n; }
+function stickerMax(){ return Object.values(GAMES).reduce((n, g) => n + (THEMES[g.theme].levels.length) * STICK_N, 0); }
+function awardSticker(){
+  S.st = S.st || {}; const rec = S.st[G.mode] = S.st[G.mode] || {}, c = rec[G.level] || 0;
+  if (c < STICK_N){ rec[G.level] = c + 1; save(); return c; }
+  S.gems += 3; save(); return -1;
+}
+function renderAlbumCard(){
+  const have = stickerCount(), max = stickerMax();
+  $('#albumSum').textContent = `${have} of ${max} stickers`;
+  $('#albumBar').style.width = (100 * have / max) + '%';
+}
+function renderAlbum(){
+  const have = stickerCount(), max = stickerMax();
+  $('#albumTotal').textContent = `${have} of ${max} stickers collected. You get one sticker for every round you finish. Each level has ${STICK_N} stickers to collect. Master Mind stickers have a rainbow edge.`;
+  const box = $('#albumPages'); box.innerHTML = '';
+  Object.entries(THEMES).forEach(([tid, t]) => {
+    const h = document.createElement('h3'); h.className = 'group-title'; h.textContent = t.title; box.appendChild(h);
+    Object.entries(GAMES).filter(([,g]) => g.theme === tid).forEach(([gid, g]) => {
+      const rec = (S.st || {})[gid] || {}, got = t.levels.reduce((n,l) => n + (rec[l] || 0), 0);
+      const page = document.createElement('div'); page.className = 'apage';
+      page.innerHTML = `<div class="ahead"><h4>${esc(g.title)}</h4><span>${got} of ${t.levels.length * STICK_N}</span></div><div class="arows">${t.levels.map(l => `<div class="arow"><span class="alvl">${LEVEL_NAME[l]}</span><div class="aslots">${Array.from({length:STICK_N}, (_,i) => i < (rec[l] || 0) ? `<span class="stk">${stickerSVG(gid, l, i)}</span>` : `<span class="stk empty t${tierOf(l)}">?</span>`).join('')}</div></div>`).join('')}</div>`;
+      box.appendChild(page);
+    });
+  });
+}
+
 function startGame(mode, level){
   G = {mode, level, i:0, earned:0, first:0, lastType:null, termsLeft:shuffle(TERMS)};
   G.theme = (GAMES[mode] || {}).theme || 'angles'; curTheme = G.theme;
@@ -1746,6 +2514,7 @@ function startGame(mode, level){
 }
 
 function makeQ(){
+  if (G.level === 'master' && MASTER_GEN[G.mode]) return MASTER_GEN[G.mode]();
   if (FRAC_GEN[G.mode]) return FRAC_GEN[G.mode]();
   if (G.mode === 'clock') return makeClockQ();
   if (G.mode === 'poly') return makePolyQ();
@@ -2019,7 +2788,7 @@ function checkBridge(){
   const c = q.cur; let ok, msg;
   if (q.tgt.kind === 'exact'){
     ok = Math.abs(c - q.tgt.deg) <= q.tol;
-    if (!ok) msg = `Your angle is ${c}°. You need ${q.tgt.deg}°. Make it ${c > q.tgt.deg ? 'smaller' : 'bigger'}.`;
+    if (!ok) msg = `Your angle is ${c}°. You need ${q.tgt.label || q.tgt.deg + '°'}. Make it ${c > q.tgt.deg ? 'smaller' : 'bigger'}.`;
   } else {
     const k = bridgeKind(c); ok = k === q.tgt.t;
     if (!ok) msg = `Your angle is ${c}°. That is ${DEF[k].a} angle. ${cap(DEF[q.tgt.t].a)} angle is ${DEF[q.tgt.t].short}.`;
@@ -2029,7 +2798,7 @@ function checkBridge(){
   else { q.tries++; setBubble(msg, false, 'think'); }
 }
 
-function typeDigit(n){ const q = G.q; if (q.done || q.entry.length >= 3) return; q.entry += String(n); updatePad(); }
+function typeDigit(n){ const q = G.q; if (q.done || q.entry.length >= 4) return; q.entry += String(n); updatePad(); }
 function updatePad(){ const d = $('#padDisplay'); if (d) d.textContent = G.q.entry ? G.q.entry + (G.q.unit ?? '°') : '?'; }
 
 function checkPad(){
@@ -2055,7 +2824,7 @@ function checkMissing(){
 function showHint(){
   const q = G.q, hb = $('#hintbox');
   hb.hidden = false;
-  if (q.hints && q.type !== 'missing'){
+  if (Array.isArray(q.hints) && q.type !== 'missing'){
     if (q.hintStep < q.hints.length){
       const h = q.hints[q.hintStep], t = typeof h === 'string' ? h : h.t;
       hb.innerHTML += `<p><b>Hint ${q.hintStep+1}.</b> ${fmtFr(t)}</p>${typeof h === 'string' ? '' : (h.pic || '')}`;
@@ -2102,15 +2871,16 @@ function showHint(){
 function correct(msg){
   const q = G.q; q.done = true;
   if (q.tries === 0) G.first++;
-  G.earned++; S.gems++; save();
-  updateGems(true);
+  const rw = REWARD[G.level] || 1;
+  G.earned += rw; S.gems += rw; save();
+  updateGems(true, rw);
   const cheer = nextCheer();
   renderFigure();
   if (q.type === 'missing' || q.type === 'padq' || q.type === 'share') { q.entry = String(q.ans); updatePad(); }
   if (q.type === 'fpad') updateFpad();
   if (q.type === 'paint') updatePaintCount();
   document.querySelectorAll('#answers button').forEach(b => { if (!b.classList.contains('yes') || ['missing','padq','bridge','fpad','paint','path','share'].includes(q.type)) b.disabled = true; });
-  setBubble(msg + ' You earned a gem.', true, 'happy', cheer);
+  setBubble(msg + (rw === 1 ? ' You earned a gem.' : ` You earned ${rw} gems.`), true, 'happy', cheer);
   if (S.sound) speak(cheer, 1.25);
   $('#hintBtn').hidden = true;
   $('#nextBtn').hidden = false;
@@ -2159,6 +2929,8 @@ function petLine(){
     'Half a pie is 1/2. Two halves make one whole pie!',
     'My favorite fraction is 3/4. That is three slices of a pie cut into 4.',
     '2/4 and 1/2 are the same amount of cake. Fractions are tricky and fun!',
+    'Master Mind questions make my horn sparkle. Hints are always allowed!',
+    'Each sticker in the album is different. Can we collect them all?',
   ];
   let l; do { l = pick(lines); } while (l === lastLine); lastLine = l; return l;
 }
@@ -2187,27 +2959,24 @@ function endRound(){
   setTimeout(() => { move($('#endUni'), 'hop'); hearts($('#endUni'), 4); }, 150);
   const ec = nextCheer(); $('#endCheer').textContent = ec; if (S.sound) setTimeout(() => speak(ec, 1.25), 300);
   $('#endCookie').textContent = `You won a star cookie for ${S.uname}!`;
-  let t = `You answered ${N} questions and earned ${G.earned} gems. You have ${S.gems} gems now.`;
-  if (G.first > 0) t += ` ${G.first} were right on the first try.`;
-  $('#endText').textContent = t;
-  const all = MANES.map(m => ({name: m.name + ' mane', cost: m.cost})).concat(ACCS.map(a => ({name: a.name, cost: a.cost}))).filter(x => x.cost > 0).sort((a,b) => a.cost - b.cost);
-  const fresh = all.filter(x => x.cost <= S.gems && x.cost > S.gems - G.earned);
-  const u = $('#endUnlock');
-  if (fresh.length){ u.hidden = false; u.textContent = `New for ${S.uname}: ${fresh.map(x=>x.name).join(' and ')}! Try it in the stable.`; }
-  else {
-    const next = all.find(x => x.cost > S.gems);
-    u.hidden = !next; if (next) u.textContent = `${next.cost - S.gems} more gems until the ${next.name}.`;
-  }
+  const sl = awardSticker(), es = $('#endSticker');
+  if (sl >= 0) es.innerHTML = `<span class="stk big">${stickerSVG(G.mode, G.level, sl)}</span><span>New sticker for your album! ${esc(GAMES[G.mode].title)}, ${LEVEL_NAME[G.level]}: ${sl + 1} of ${STICK_N}.</span>`;
+  else es.innerHTML = `<span>You already have all ${STICK_N} ${LEVEL_NAME[G.level]} stickers for this game, so you get 3 bonus gems instead!</span>`;
+  $('#endText').textContent = `You answered ${N} questions and earned ${G.earned} gems${sl < 0 ? ' (plus 3 bonus gems)' : ''}. You have ${S.gems} gems now.` + (G.first > 0 ? ` ${G.first} were right on the first try.` : '');
+  const all = [...WEAR, ...FRIENDS_SHOP, ...PLACES, ...TOYS, ...MANES.map((m,i) => ({id:'mane'+i, name:m.name + ' mane', price: MANE_PRICE[i] ?? 15}))].filter(x => !owned(x.id) && x.price > 0).sort((a,b) => a.price - b.price);
+  const u = $('#endUnlock'), can = all.filter(x => x.price <= S.gems);
+  if (can.length){ u.hidden = false; u.textContent = `You can buy something new in the shop, like the ${can[can.length-1].name.toLowerCase()}.`; }
+  else { u.hidden = !all.length; if (all.length) u.textContent = `${all[0].price - S.gems} more gems until you can buy the ${all[0].name.toLowerCase()}.`; }
 }
 
 /* ---------- map, stable, book ---------- */
-function show(id){ ['map','theme','game','end','book'].forEach(v => $('#'+v).hidden = v !== id); window.scrollTo(0,0); if (id==='map') renderMap(); if (id==='theme') renderTheme(); }
+function show(id){ ['map','theme','game','end','book','album'].forEach(v => $('#'+v).hidden = v !== id); window.scrollTo(0,0); if (id==='map') renderMap(); if (id==='theme') renderTheme(); if (id==='album') renderAlbum(); }
 
-function updateGems(pop){
+function updateGems(pop, n = 1){
   $('#gemCount').textContent = S.gems;
   if (pop && !S.calm){
     const g = $('#gems'); g.classList.remove('pop'); void g.offsetWidth; g.classList.add('pop');
-    const p = document.createElement('span'); p.className = 'plus'; p.textContent = '+1'; g.appendChild(p); setTimeout(() => p.remove(), 1000);
+    const p = document.createElement('span'); p.className = 'plus'; p.textContent = '+' + n; g.appendChild(p); setTimeout(() => p.remove(), 1000);
   }
 }
 
@@ -2215,36 +2984,11 @@ function renderMap(){
   $('#heroUni').innerHTML = unicorn('happy');
   $('#helloTitle').textContent = `Hi ${S.kid}!`;
   $('#helloText').textContent = `${S.uname} wants to explore math with you. Pick a theme.`;
-  $('#stableTitle').textContent = `${S.uname}'s stable`;
-  $('#petUni').innerHTML = unicorn('happy');
-  $('#petUni').setAttribute('aria-label', `Pet ${S.uname}`);
-  if (!$('#say').textContent) $('#say').textContent = `Hi ${S.kid}! Tap me to say hello. You can also feed me a star cookie.`;
-  renderTreats();
-  const ab = $('#accs'); ab.innerHTML = '';
-  ACCS.forEach(a => {
-    const b = document.createElement('button'), open = S.gems >= a.cost, on = S.acc.includes(a.id) && open;
-    b.className = 'acc' + (on ? ' on' : ''); b.disabled = !open;
-    b.textContent = open ? a.name : `${a.name} (at ${a.cost} gems)`;
-    b.setAttribute('aria-pressed', on);
-    b.addEventListener('click', () => {
-      S.acc = on ? S.acc.filter(x => x !== a.id) : S.acc.concat(a.id); save(); renderMap();
-      move($('#petUni'), 'hop');
-      $('#say').textContent = on ? `Okay, I took off the ${a.name.toLowerCase()}.` : `I love my ${a.name.toLowerCase()}! Thank you, ${S.kid}.`;
-    });
-    ab.appendChild(b);
-  });
   renderThemes();
-  const box = $('#manes'); box.innerHTML = '';
-  MANES.forEach((m, i) => {
-    const b = document.createElement('button');
-    const open = S.gems >= m.cost;
-    b.className = 'mane' + (i === S.mane ? ' on' : '');
-    b.disabled = !open;
-    b.innerHTML = `<span class="sw">${m.c.map(c=>`<i style="background:${c}"></i>`).join('')}</span><span>${esc(m.name)}</span>${open ? '' : `<small>at ${m.cost} gems</small>`}`;
-    b.setAttribute('aria-pressed', i === S.mane);
-    b.addEventListener('click', () => { S.mane = i; save(); renderMap(); });
-    box.appendChild(b);
-  });
+  renderStable();
+  renderShop();
+  renderAlbumCard();
+  $('#albumIco').innerHTML = stickerSVG('fr_balloon', 'master', 0);
   updateGems(false);
 }
 
@@ -2332,7 +3076,8 @@ $('#nextBtn').addEventListener('click', () => { G.i++; if (G.i >= N) endRound();
 $('#hintBtn').addEventListener('click', showHint);
 $('#readBtn').addEventListener('click', () => speak(G.q.text + ' ' + lastSay));
 $('#bookBack').addEventListener('click', () => show('theme'));
-$('#petUni').addEventListener('click', petStable);
+$('#albumCard').addEventListener('click', () => show('album'));
+$('#albumBack').addEventListener('click', () => show('map'));
 $('#miniUni').addEventListener('click', () => { const u = $('#miniUni'); move(u, 'hop'); hearts(u, 2); });
 $('#feedBtn').addEventListener('click', () => { show('map'); $('#stable').scrollIntoView({block:'start'}); setTimeout(feed, 300); });
 
@@ -2345,8 +3090,9 @@ $('#setSound').addEventListener('change', e => { S.sound = e.target.checked; sav
 $('#setRead').addEventListener('change', e => { S.autoread = e.target.checked; save(); });
 $('#setCalm').addEventListener('change', e => { S.calm = e.target.checked; save(); document.body.classList.toggle('calm', S.calm); });
 $('#resetBtn').addEventListener('click', () => { $('#resetYes').hidden = false; });
-$('#resetYes').addEventListener('click', () => { S.gems = 0; S.mane = 0; S.acc = []; S.treats = 1; S.fed = 0; save(); $('#resetYes').hidden = true; renderMap(); });
+$('#resetYes').addEventListener('click', () => { S.gems = 0; S.mane = 0; S.acc = []; S.owned = ['mane0','meadow']; S.wear = {}; S.place = 'meadow'; S.st = {}; S.treats = 1; S.fed = 0; save(); $('#resetYes').hidden = true; renderMap(); });
 
+migrateShop();
 renderMap();
 </script>
 </body>
