@@ -327,6 +327,49 @@ body.calm .t-kite svg{animation:none}
 .item .btn.on{background:var(--good-bg);border-color:var(--good);color:var(--good)}
 .sw.big{width:80%;height:30px}
 
+
+/* ---------- Number Workshop ---------- */
+.balloon .bl.long{font-size:1rem}
+@media (max-width:520px){.balloon .bl.long{font-size:.85rem}}
+table.written{border-collapse:collapse;margin:0 auto;font-family:var(--display);font-weight:800;font-size:1.5rem;font-variant-numeric:tabular-nums}
+table.written th{font-family:var(--body);font-weight:700;font-size:.7rem;color:var(--muted);padding:0 6px 4px;text-align:center}
+table.written td{min-width:36px;height:40px;text-align:center;padding:0 3px;vertical-align:bottom}
+table.written td s{display:block;font-size:.75em;color:var(--muted);line-height:1}
+table.written td b{display:block;color:var(--pink);line-height:1.1}
+table.written tr.minus td{border-bottom:3px solid var(--ink)}
+table.written tr.ans td{color:var(--good)}
+table.written tr.ans.wrong td{color:var(--pink)}
+table.written.dec td.pt{min-width:12px;padding:0}
+table.written.dec{font-size:1.3rem}
+table.written.dec td{min-width:28px}
+table.written.dec th{font-size:.68rem;padding:0 2px 4px}
+.figure table.written{max-width:100%}
+table.written.dec .d0{background:rgba(92,195,168,.16)}
+table.written.dec .d1{background:rgba(242,123,166,.14)}
+table.written.dec .d2{background:rgba(245,176,76,.18)}
+table.written.dec td.pz{color:var(--gold)}
+.trade{display:grid;gap:12px;width:100%}
+.tcols{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:6px}
+.tcol{background:var(--surface);border-radius:14px;padding:6px;display:grid;grid-template-rows:auto 1fr auto;gap:4px;min-height:150px;min-width:0}
+.tname{font-size:.75rem;font-weight:700;text-align:center;color:var(--muted)}
+.tcount{text-align:center;font-family:var(--display);font-weight:800;font-size:1.2rem}
+.tblocks{display:flex;flex-wrap:wrap;gap:3px;align-content:flex-start;justify-content:center}
+.blk{border:none;padding:0;cursor:pointer;border-radius:2px}
+.blk[disabled]{cursor:default}
+.blk.tt,.blk.th{width:34px;height:34px;background:#F5B04C;box-shadow:inset 0 0 0 2px #C98B2B, 3px 3px 0 #C98B2B}
+.blk.hu{width:30px;height:30px;background-color:#9B7BE0;background-image:repeating-linear-gradient(0deg,transparent 0 2.6px,#C9B6F2 2.6px 3px),repeating-linear-gradient(90deg,transparent 0 2.6px,#C9B6F2 2.6px 3px);box-shadow:inset 0 0 0 1.5px #6B4FB0}
+.blk.te{width:7px;height:30px;background:#4FBFA8;box-shadow:inset 0 0 0 1.5px #2E8C7A}
+.blk.on{width:9px;height:9px;background:#F27BA6;box-shadow:inset 0 0 0 1.2px #C23A72}
+.blk:not([disabled]):hover{outline:2px solid var(--accent)}
+/* ---------- Paddock ---------- */
+.fencecount{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center}
+.fc{padding:4px 12px;border-radius:999px;font-size:1rem}
+.fc.grass{background:#DDF3D6;color:#2E6B2B}
+.fc.fencec{background:#F1E2D6;color:#6B4228}
+.two-rects{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.two-rects svg{width:100%;height:auto}
+.word table.written{font-size:1rem}
+
 body.calm *,body.calm *::before{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -1243,7 +1286,7 @@ function balloonFig(q){
   const bs = q.balloons.map((b,i) => {
     const left = lanes > 1 ? i/(lanes-1) : 0.5, dur = 15 + (i*7 % 5), delay = -(((i*0.37) % 1) * dur) - 1;
     const cls = ['balloon', b.popped ? 'popped' : '', b.no ? 'wob' : '', q.glow && b.ok && !b.popped ? 'glow' : ''].join(' ');
-    return `<button class="${cls}" data-i="${i}" style="--c:${BAL_COLS[i % BAL_COLS.length]};left:calc(${f(left)} * (100% - 82px) + 4px);animation-duration:${dur}s;animation-delay:${delay}s" aria-label="Balloon ${esc(b.label)}"${b.popped ? ' disabled' : ''}><span class="bb"><span class="bl">${fmtFr(b.label)}</span></span></button>`;
+    return `<button class="${cls}" data-i="${i}" style="--c:${BAL_COLS[i % BAL_COLS.length]};left:calc(${f(left)} * (100% - 82px) + 4px);animation-duration:${dur}s;animation-delay:${delay}s" aria-label="Balloon ${esc(b.label)}"${b.popped ? ' disabled' : ''}><span class="bb"><span class="bl${b.label.length > 5 ? ' long' : ''}">${fmtFr(b.label)}</span></span></button>`;
   }).join('');
   return `${tgt}<div class="sky${calm ? ' still' : ''}">${bs}<div class="cloud c1"></div><div class="cloud c2"></div></div>`;
 }
@@ -1807,7 +1850,7 @@ function renderTheme(){
   });
   const h = document.createElement('h3'); h.className = 'group-title'; h.textContent = 'Look things up'; box.appendChild(h);
   const card = document.createElement('div'); card.className = 'game-card';
-  card.innerHTML = `<div class="pic">${curTheme === 'frac' ? oneSVG(shapeG('bar', 4, {shade:1})) : angleSVG({deg:90, rot:0, mini:true})}</div><div><h3>Word Book</h3><p>All the ${curTheme === 'frac' ? 'fraction' : 'angle'} words with pictures. Look any time.</p><div class="levels"><button class="btn">Open the book</button></div></div>`;
+  card.innerHTML = `<div class="pic">${BOOK_ICON[curTheme]()}</div><div><h3>Word Book</h3><p>All the ${BOOK_WORD[curTheme]} words with pictures. Look any time.</p><div class="levels"><button class="btn">Open the book</button></div></div>`;
   card.querySelector('button').addEventListener('click', () => { renderBook(curTheme); show('book'); });
   const wrap = document.createElement('div'); wrap.className = 'games'; wrap.appendChild(card); box.appendChild(wrap);
 }
@@ -2505,6 +2548,605 @@ function renderAlbum(){
   });
 }
 
+/* ===================================================================
+   THEME 3: Nova's Number Workshop (rounding, subtracting across zeros, decimals)
+   =================================================================== */
+const LV4 = () => Math.max(0, ['basic','medium','advanced','master'].indexOf(G.level));
+function fmtNum(v, dec = 0, money = false){
+  const neg = v < 0, s = Math.abs(v).toFixed(dec), [i, d] = s.split('.');
+  const ii = i.length > 3 ? i.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : i;
+  return (neg ? '−' : '') + (money ? '$' : '') + ii + (d !== undefined ? '.' + d : '');
+}
+function smartNum(v, money = false, maxDec = 4){
+  if (money) return fmtNum(v, Math.abs(v - Math.round(v)) < 1e-9 ? 0 : 2, true);
+  for (let d = 0; d <= maxDec; d++) if (Math.abs(Math.round(v * 10**d) - v * 10**d) < 1e-7) return fmtNum(v, d);
+  return fmtNum(v, maxDec);
+}
+const PLACE = {
+  ten:{K:10, name:'ten'}, hundred:{K:100, name:'hundred'}, thousand:{K:1000, name:'thousand'}, tenthousand:{K:10000, name:'ten thousand'},
+  whole:{K:1, name:'whole number'}, dollar:{K:1, name:'dollar', money:true}, tenth:{K:0.1, name:'tenth'}, hundredth:{K:0.01, name:'hundredth'},
+};
+
+/* ---------- Rounding Hills ---------- */
+/* spec: value v (real), place key, dec = digits shown for the number */
+function hillQ(v, placeKey, dec, opts = {}){
+  const P = PLACE[placeKey], money = !!P.money;
+  const s = 10 ** Math.max(dec, 0), N = Math.round(v * s), K = Math.round(P.K * s);
+  const L = Math.floor(N / K) * K, R = L + K, H = L + K/2, ans = N >= H ? R : L;
+  const decK = P.K >= 1 ? 0 : Math.round(-Math.log10(P.K));
+  const f1 = x => fmtNum(x / s, dec, money), fp = x => fmtNum(x / s, decK, money), fh = x => smartNum(x / s, money);
+  const q = {type:'hill', N, s, K, L, R, H, ans, f1, fp, fh, place: P.name, money, findPosts: !!opts.findPosts, showHalf: !!opts.showHalf, hintStep:0,
+    phase: opts.findPosts ? 'posts' : 'pick', text: `Round ${f1(N)} to the nearest ${P.name}.`};
+  if (q.findPosts){
+    const pairs = [[L, R]];
+    if (K >= 10){ const K2 = K/10, Lf = Math.floor(N/K2)*K2; if (Lf !== L) pairs.push([Lf, Lf + K2, true]); }
+    pairs.push([L + K, R + K]); if (L - K >= 0) pairs.push([L - K, L]);
+    const lab = p => p[2] ? `${fh(p[0])} and ${fh(p[1])}` : `${fp(p[0])} and ${fp(p[1])}`;
+    q.postOpts = shuffle(pairs.slice(0, 3).map(p => ({label: lab(p), ok: p[0] === L && p[1] === R && !p[2]})));
+    q.hints = [`Rounding to the nearest ${P.name} means landing on a ${P.name} post. Which two ${P.name} posts is ${f1(N)} between? One is just below it and one is just above it.`,
+               `${f1(N)} is bigger than ${fp(L)} and smaller than ${fp(R)}.`];
+  } else q.hints = pickHints(q);
+  return q;
+}
+function pickHints(q){
+  const where = q.N < q.H ? 'before the hilltop' : q.N === q.H ? 'exactly on the hilltop' : 'past the hilltop';
+  return [`The hilltop is halfway between the posts: ${q.fh(q.H)}.`, `${q.f1(q.N)} is ${where}.`,
+          q.N === q.H ? 'Exactly halfway always rounds UP to the bigger post.' : `So ${S.uname} slides down to ${q.fp(q.ans)}.`];
+}
+function hillFig(q){
+  const X0 = 40, X1 = 320, BY = 172, PK = 70, C = 2*PK - BY;
+  const at = t => [X0 + (X1-X0)*t, (1-t)**2*BY + 2*(1-t)*t*C + t*t*BY];
+  const known = q.phase !== 'posts' || q.done;
+  let s = `<path d="M${X0} ${BY} Q180 ${C} ${X1} ${BY} Z" fill="#B7E3A8" stroke="#7FC07A" stroke-width="3"/><line x1="10" y1="${BY}" x2="350" y2="${BY}" stroke="#7FC07A" stroke-width="4" stroke-linecap="round"/>`;
+  for (let k=1; k<10; k++){ const [x,y] = at(k/10); s += `<circle cx="${f(x)}" cy="${f(y)}" r="${k === 5 ? 4.5 : 3}" fill="${k === 5 ? '#F5B04C' : '#5FAE5A'}"/>`; }
+  const post = (x, label) => `${RAINBOW.map((c,i) => `<rect x="${x-4}" y="${BY-96+i*16}" width="8" height="16" fill="${c}"/>`).join('')}<rect x="${x-34}" y="${BY-126}" width="68" height="30" rx="9" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/><text x="${x}" y="${BY-111}" class="lbl" style="font-size:${label.length > 6 ? 13 : 17}px" text-anchor="middle" dominant-baseline="middle">${label}</text>`;
+  s += post(X0, known ? q.fp(q.L) : '?') + post(X1, known ? q.fp(q.R) : '?');
+  if (known && (q.showHalf || q.done)){ s += `<line x1="180" y1="${PK-4}" x2="180" y2="${BY}" stroke="#F5B04C" stroke-width="2.5" stroke-dasharray="6 5"/><text x="180" y="${BY+20}" class="lbl" style="font-size:13px;fill:var(--muted)" text-anchor="middle">halfway ${q.fh(q.H)}</text>`; }
+  const t = Math.max(0, Math.min(1, (q.N - q.L) / q.K));
+  let [nx, ny] = at(t);
+  if (q.done){ nx = q.ans === q.L ? X0 + 34 : X1 - 34; ny = BY; }
+  s += unicorn(q.done ? 'happy' : 'plain').replace('<svg ', `<svg x="${f(nx-31)}" y="${f(ny-50)}" width="62" height="52" style="width:62px;height:52px" `);
+  const lab = q.f1(q.N), lw = Math.max(54, lab.length * 10 + 14);
+  s += `<rect x="${f(nx - lw/2)}" y="${f(ny-84)}" width="${lw}" height="28" rx="9" fill="${PINK}"/><text x="${f(nx)}" y="${f(ny-70)}" class="lbl" style="font-size:16px;fill:#fff" text-anchor="middle" dominant-baseline="middle">${lab}</text>`;
+  return `<svg viewBox="0 30 360 168" role="img" aria-label="Rounding hill">${s}</svg>`;
+}
+function renderHillAnswers(box, q){
+  const mk = (html, fn, cls = '') => { const b = document.createElement('button'); b.className = 'opt ' + cls; b.innerHTML = html; b.addEventListener('click', () => fn(b)); box.appendChild(b); return b; };
+  if (q.phase === 'posts'){
+    q.postOpts.forEach(o => mk(esc(o.label), b => {
+      if (q.done) return;
+      if (o.ok){
+        q.phase = 'pick'; q.hints = pickHints(q); q.hintStep = 0;
+        $('#hintbox').innerHTML = ''; $('#hintbox').hidden = true; $('#hintBtn').disabled = false;
+        renderFigure(); renderAnswers();
+        setBubble(`Yes! ${q.f1(q.N)} is between ${q.fp(q.L)} and ${q.fp(q.R)}. Now: which post is closer?`, false, 'plain');
+      } else { q.tries++; b.classList.add('no'); b.disabled = true; while (q.hintStep < Math.min(q.tries, q.hints.length)) showHint(); setBubble(`Not those posts. ${q.f1(q.N)} has to be between them.`, false, 'think'); }
+    }));
+    return;
+  }
+  [q.L, q.R].forEach((p, i) => mk(`${i === 0 ? '← ' : ''}${esc(q.fp(p))}${i === 1 ? ' →' : ''}`, b => {
+    if (q.done) return;
+    if (p === q.ans){ b.classList.add('yes'); correct(`Yes! ${q.f1(q.N)} rounds to ${q.fp(q.ans)}.` + (q.N === q.H ? ' It was exactly halfway, so it rounds up.' : '')); return; }
+    q.tries++; b.classList.add('no'); b.disabled = true; q.showHalf = true; renderFigure();
+    while (q.hintStep < Math.min(q.tries, q.hints.length)) showHint();
+    const dL = q.fh(q.N - q.L), dR = q.fh(q.R - q.N);
+    setBubble(q.N === q.H ? `${q.f1(q.N)} is exactly halfway. The rule: exactly halfway rounds UP to ${q.fp(q.R)}.` : `${q.f1(q.N)} is ${dL} away from ${q.fp(q.L)} and ${dR} away from ${q.fp(q.R)}. Pick the closer post.`, false, 'think');
+  }));
+}
+function genRound(){
+  const L = LV4();
+  if (L === 0){
+    const kind = ['two','three','half','two','three','four'][G.i];
+    let v; if (kind === 'two'){ do { v = rand(11, 98); } while (v % 10 === 0); }
+    else if (kind === 'three'){ do { v = rand(101, 989); } while (v % 10 === 0); }
+    else if (kind === 'half') v = rand(1, 98) * 10 + 5; else { do { v = rand(1001, 9989); } while (v % 10 === 0); }
+    return hillQ(v, 'ten', 0, {showHalf:true});
+  }
+  if (L === 1){
+    const kind = ['hundred','hundred','thousand','halfH','thousand','tenthou'][G.i];
+    let v, p;
+    if (kind === 'hundred'){ p = 'hundred'; do { v = rand(110, 9890); } while (v % 100 === 0); }
+    else if (kind === 'halfH'){ p = 'hundred'; v = rand(1, 98) * 100 + 50; }
+    else if (kind === 'thousand'){ p = 'thousand'; do { v = rand(1100, 98900); } while (v % 1000 === 0); }
+    else { p = 'tenthousand'; do { v = rand(11000, 989000); } while (v % 10000 === 0); }
+    return hillQ(v, p, 0, {findPosts:true, showHalf:true});
+  }
+  if (L === 2){
+    const kind = ['whole','tenth','dollar','hundredth','tenth','whole'][G.i];
+    if (kind === 'whole'){ let v; do { v = rand(101, 2999) / 100; } while (Math.round(v*100) % 100 === 0); return hillQ(v, 'whole', 2, {findPosts:true}); }
+    if (kind === 'tenth'){ let v; do { v = rand(101, 9999) / 100; } while (Math.round(v*100) % 10 === 0); return hillQ(v, 'tenth', 2, {findPosts:true}); }
+    if (kind === 'dollar'){ let v; do { v = rand(101, 4999) / 100; } while (Math.round(v*100) % 100 === 0); return hillQ(v, 'dollar', 2, {findPosts:true}); }
+    let v; do { v = rand(1001, 9999) / 1000; } while (Math.round(v*1000) % 10 === 0); return hillQ(v, 'hundredth', 3, {findPosts:true});
+  }
+  const kind = ['big','nines','est','hundredth','nines','est'][G.i];
+  if (kind === 'big'){ if (Math.random() < 0.5){ let v; do { v = rand(100000, 999999); } while (v % 1000 === 0); return hillQ(v, 'thousand', 0, {findPosts:true}); } let v; do { v = rand(100000, 999999); } while (v % 10000 === 0); return hillQ(v, 'tenthousand', 0, {findPosts:true}); }
+  if (kind === 'nines'){
+    const c = pick(['tenth','hund','dollar','tenth']);
+    if (c === 'tenth') return hillQ(rand(1, 19) + pick([0.96, 0.97, 0.98, 0.95]), 'tenth', 2, {findPosts:true});
+    if (c === 'dollar') return hillQ(rand(1, 19) + pick([0.5, 0.51, 0.49, 0.99]), 'dollar', 2, {findPosts:true});
+    return hillQ(rand(1, 9) * 1000 + pick([950, 960, 970, 980, 949]), 'hundred', 0, {findPosts:true});
+  }
+  if (kind === 'hundredth'){ let v; do { v = rand(1001, 19999) / 1000; } while (Math.round(v*1000) % 10 === 0); return hillQ(v, 'hundredth', 3, {findPosts:true}); }
+  const e = pick(['sumH', 'diffW', 'money', 'sumT']);
+  let a, b, c = null, place, text, ra, rb, rc = 0, ans, op = '+';
+  if (e === 'sumH'){ a = rand(101, 949); b = rand(101, 949); place = 100; text = `Estimate ${a} + ${b} by rounding each number to the nearest hundred first.`; }
+  else if (e === 'sumT'){ a = rand(1100, 8900); b = rand(1100, 8900); place = 1000; text = `Estimate ${fmtNum(a)} + ${fmtNum(b)} by rounding each number to the nearest thousand first.`; }
+  else if (e === 'diffW'){ a = rand(51, 199) / 10; b = rand(11, Math.floor(a*10) - 20) / 10; op = '−'; place = 1; text = `Estimate ${a} − ${b} by rounding each number to the nearest whole number first.`; }
+  else { a = rand(101, 999) / 100; b = rand(101, 999) / 100; c = rand(101, 499) / 100; place = 1; text = `Estimate $${a.toFixed(2)} + $${b.toFixed(2)} + $${c.toFixed(2)} by rounding each price to the nearest dollar first.`; }
+  const r = x => Math.floor(x / place + 0.5 + 1e-9) * place;
+  ra = r(a); rb = r(b); if (c !== null) rc = r(c);
+  ans = op === '+' ? ra + rb + rc : ra - rb;
+  const parts = [ra, rb, ...(c !== null ? [rc] : [])].map(x => fmtNum(x));
+  return PADQ({text, ans, unit:'', pre: e === 'money' ? '$' : '', fig: () => null,
+    hints:[`Round each number. ${fmtNum(a, e === 'money' ? 2 : (a % 1 ? 1 : 0))} → ${fmtNum(ra)}, ${fmtNum(b, e === 'money' ? 2 : (b % 1 ? 1 : 0))} → ${fmtNum(rb)}${c !== null ? `, ${c.toFixed(2)} → ${rc}` : ''}.`, `Now ${op === '+' ? 'add' : 'take away'} the rounded numbers: ${parts.join(` ${op} `)} = ?`],
+    right:`Yes! ${parts.join(` ${op} `)} = ${fmtNum(ans)}. A quick estimate helps you check a real answer.`});
+}
+
+/* ---------- Rounding Balloons ---------- */
+function rangeSVG(T, K, f2, nextLabel){
+  let s = `<line x1="20" y1="60" x2="340" y2="60" stroke="var(--ink)" stroke-width="3"/>`;
+  s += `<rect x="100" y="48" width="160" height="24" rx="6" fill="${PINK}" opacity=".45"/>`;
+  [[20, f2(T-K)], [180, f2(T)], [340, f2(T+K)]].forEach(([x, l]) => { s += `<line x1="${x}" y1="44" x2="${x}" y2="76" stroke="var(--ink)" stroke-width="3"/><text x="${x}" y="96" class="lbl" style="font-size:14px" text-anchor="middle">${l}</text>`; });
+  s += `<circle cx="100" cy="60" r="7" fill="var(--ink)"/><circle cx="260" cy="60" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="3"/>`;
+  s += `<text x="100" y="32" class="lbl" style="font-size:13px" text-anchor="middle">${f2(T-K/2)} (yes)</text><text x="260" y="32" class="lbl" style="font-size:13px" text-anchor="middle">${f2(T+K/2)} (no)</text>`;
+  return `<svg viewBox="0 10 360 96" role="img" aria-label="The numbers that round to ${f2(T)}">${s}</svg>`;
+}
+function genRBalloon(){
+  const L = LV4();
+  const specs = [[['ten',0]], [['hundred',0],['thousand',0]], [['whole',2],['tenth',2],['dollar',2]], [['tenth',3],['thousand',0],['hundredth',3],['tenthousand',0],['tenth',2]]][L];
+  const [pk, dec] = pick(specs), P = PLACE[pk], money = !!P.money, s = 10 ** dec, K = Math.round(P.K * s), unit = 1;
+  const decK = P.K >= 1 ? 0 : Math.round(-Math.log10(P.K));
+  const mult = L === 0 ? rand(2, 98) : L === 1 ? (pk === 'hundred' ? rand(2, 98) : rand(2, 98)) : rand(2, 30);
+  const T = mult * K, lo = T - K/2, hi = T + K/2;
+  const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const goodsSet = new Set(), badsSet = new Set();
+  if (L >= 1) goodsSet.add(lo);
+  while (goodsSet.size < 3) { const g = rnd(lo, hi - unit); if (g !== T) goodsSet.add(g); }
+  [hi, lo - unit].forEach(b => badsSet.add(b));
+  while (badsSet.size < 3) { const b = Math.random() < 0.5 ? rnd(hi + unit, hi + K - unit) : rnd(Math.max(1, lo - K), lo - unit); if (b > 0) badsSet.add(b); }
+  const lab = x => fmtNum(x / s, dec, money);
+  const all = [...goodsSet].map(x => ({label: lab(x), v:x, ok:true})).concat([...badsSet].map(x => ({label: lab(x), v:x, ok:false})));
+  const seen = new Set(), balloons = shuffle(all.filter(b => { if (seen.has(b.label)) return false; seen.add(b.label); return true; }));
+  const need = balloons.filter(b => b.ok).length, f2 = x => fmtNum(x / s, decK, money), fh = x => smartNum(x / s, money);
+  const roundOf = x => Math.floor((x + K/2) / K) * K;
+  return {type:'balloon', text:`Pop all the numbers that round to ${f2(T)} (to the nearest ${P.name}). There are ${need}.`, balloons, need, got:0, hintStep:0,
+    hints:[{t:`Numbers from ${fh(lo)} up to just below ${fh(hi)} round to ${f2(T)}. ${fh(hi)} itself is a hilltop number, so it rounds UP to ${f2(T+K)}.`, pic: rangeSVG(T, K, fh)}],
+    why: b => `${b.label} rounds to ${f2(roundOf(b.v))}, not ${f2(T)}.`, right:`Yes! You found every number that rounds to ${f2(T)}.`};
+}
+
+/* ---------- Zero Trading Post ---------- */
+const PLACE_NAMES = ['Ten thousands','Thousands','Hundreds','Tens','Ones'];
+const digitsOf = (n, cols) => String(n).padStart(cols, '0').split('').map(Number);
+function tradeQ(A, B, master){
+  const cols = String(A).length, a = digitsOf(A, cols), b = digitsOf(B, cols), names = PLACE_NAMES.slice(5 - cols);
+  const q = {type:'trade', A, B, cols, names, orig: a.slice(), cnt: a.slice(), bd: b, phase:'trade', hintStep:0, unit:'', entry:'', ans: A - B,
+    text:`${fmtNum(A)} − ${fmtNum(B)}: tap a block to trade it for 10 of the next smaller block, until every column has enough.`,
+    text2:`Every column has enough now. What is ${fmtNum(A)} − ${fmtNum(B)}?`};
+  q.hints = [`Start with the ones. You need ${b[cols-1]} ones, but you only have ${a[cols-1]}.`,
+    `To get more ones, you trade a ten. If there are no tens, trade a bigger block first: it turns into 10 of the next block.`,
+    `Keep trading to the right, one column at a time, until every top number is at least as big as the number under it.`];
+  return q;
+}
+function tradeReady(q){ return q.cnt.every((c, i) => c >= q.bd[i]); }
+function writtenHTML(q, showAns){
+  const cell = (i) => { const changed = q.cnt[i] !== q.orig[i]; return `<td class="${q.cnt[i] >= 10 ? 'two' : ''}">${changed ? `<s>${q.orig[i]}</s><b>${q.cnt[i]}</b>` : q.orig[i]}</td>`; };
+  const lead = (arr, i) => arr.slice(0, i + 1).every(d => d === 0) && i < q.cols - 1;
+  const ansD = digitsOf(q.ans, q.cols);
+  return `<table class="written"><tr><td></td>${q.names.map(n => `<th>${n}</th>`).join('')}</tr>
+    <tr><td></td>${q.cnt.map((_, i) => cell(i)).join('')}</tr>
+    <tr class="minus"><td>−</td>${q.bd.map((d, i) => `<td>${lead(q.bd, i) ? '' : d}</td>`).join('')}</tr>
+    <tr class="ans"><td>=</td>${ansD.map((d, i) => `<td>${showAns ? (lead(ansD, i) ? '' : d) : ''}</td>`).join('')}</tr></table>`;
+}
+function tradeFig(q){
+  const blk = c => ['tt','th','hu','te','on'][5 - q.cols + c];
+  const colHTML = q.cnt.map((n, c) => `<div class="tcol"><div class="tname">${q.names[c]}</div><div class="tblocks">${Array.from({length:n}, () => `<button class="blk ${blk(c)}"${c === q.cols - 1 || q.phase !== 'trade' ? ' disabled' : ''} data-c="${c}" aria-label="${q.names[c]} block"></button>`).join('')}</div><div class="tcount">${n}</div></div>`).join('');
+  return `<div class="trade">${writtenHTML(q, q.done)}<div class="tcols" style="--n:${q.cols}">${colHTML}</div></div>`;
+}
+function wireTrade(){
+  const q = G.q;
+  document.querySelectorAll('#figure .blk').forEach(el => el.addEventListener('click', () => {
+    const c = +el.dataset.c; if (q.phase !== 'trade' || q.cnt[c] <= 0 || c >= q.cols - 1) return;
+    q.cnt[c]--; q.cnt[c+1] += 10;
+    if (tradeReady(q)){
+      q.phase = 'ask'; q.text = q.text2; $('#qtext').innerHTML = fmtFr(esc(q.text));
+      const cols = q.cnt.map((n, i) => `${q.names[i]}: ${n} − ${q.bd[i]} = ${n - q.bd[i]}`).reverse();
+      q.hints = ['Subtract each column, starting with the ones on the right.', cols.join('. ') + '.', 'Read the answer digits from left to right.'];
+      q.hintStep = 0; $('#hintbox').innerHTML = ''; $('#hintbox').hidden = true; $('#hintBtn').disabled = false;
+      renderFigure(); renderAnswers();
+      setBubble('Great trading! Every column has enough now. Subtract each column.', true, 'happy');
+    } else { renderFigure(); setBubble(`You traded 1 ${q.names[c].toLowerCase().replace(/s$/, '')} for 10 ${q.names[c+1].toLowerCase()}.`, false, 'plain'); }
+  }));
+}
+function genZero(){
+  const L = LV4();
+  const r3 = () => { let h = rand(2,9); return h; };
+  if (L === 0){
+    if (G.i % 2 === 0){ const h = rand(2,9), o = rand(0,5); const A = h*100 + o; let B; do { B = rand(101, A - 1); } while (B % 10 <= o || Math.floor(B/10) % 10 === 0); return tradeQ(A, B); }
+    const h = rand(2,9), t = rand(1,9), A = h*100 + t*10; let B; do { B = rand(101, A - 1); } while (B % 10 === 0 || Math.floor(B/10) % 10 >= t); return tradeQ(A, B);
+  }
+  if (L === 1){
+    if ([2,4].includes(G.i)){ const A = rand(2,9)*1000 + rand(1,9)*10; let B; do { B = rand(1001, A - 1); } while (B % 10 === 0 || Math.floor(B/100) % 10 === 0); return tradeQ(A, B); }
+    const A = rand(2,9)*100; let B; do { B = rand(101, A - 1); } while (B % 10 === 0); return tradeQ(A, B);
+  }
+  if (L === 2){
+    const kind = ['x00y','x000','x0y0','x00y','x000','x0y0'][G.i], th = rand(2,9);
+    const A = kind === 'x00y' ? th*1000 + rand(1,4) : kind === 'x000' ? th*1000 : th*1000 + rand(1,9)*10;
+    let B; do { B = rand(1001, A - 1); } while (B % 10 <= A % 10 || Math.floor(B/10) % 10 === 0); return tradeQ(A, B);
+  }
+  const kind = ['trade4','story','mistake','trade4','check','story'][G.i];
+  if (kind === 'trade4'){ const th = rand(3,9), A = th*1000 + pick([0, rand(1,3)]); let B; do { B = rand(1001, A - 1); } while (B % 10 <= A % 10 || Math.floor(B/10) % 10 === 0 || Math.floor(B/100) % 10 === 0); return tradeQ(A, B); }
+  if (kind === 'story'){
+    const A = pick([10000, 20000, 30005, 50000, 40020, 100000]); let B; do { B = rand(Math.floor(A/5), A - 1); } while (B % 10 === 0);
+    const ctx = pick([[`The rainbow bakery had ${fmtNum(A)} sprinkles. ${S.uname} used ${fmtNum(B)} of them.`, 'How many sprinkles are left?'], [`${S.uname} wants to save ${fmtNum(A)} gems. She has ${fmtNum(B)} so far.`, 'How many more gems does she need?'], [`The rainbow path is ${fmtNum(A)} steps long. ${S.uname} has walked ${fmtNum(B)} steps.`, 'How many steps are left?']]);
+    const easy = A % 10000 === 0;
+    return PADQ({text: ctx.join(' '), ans: A - B, unit:'', fig: () => null,
+      hints: easy ? [`This is ${fmtNum(A)} − ${fmtNum(B)}.`, `A trick for zeros: ${fmtNum(A)} − 1 = ${fmtNum(A-1)}, which has no zeros. Work out ${fmtNum(A-1)} − ${fmtNum(B)} = ${fmtNum(A-1-B)}.`, `Then add the 1 back: ${fmtNum(A-1-B)} + 1 = ?`]
+                   : [`This is ${fmtNum(A)} − ${fmtNum(B)}. Line up the columns.`, 'Where there are zeros, trade from the next column to the left that has blocks, then keep trading to the right.', `Check: your answer + ${fmtNum(B)} should make ${fmtNum(A)}.`],
+      right:`Yes! ${fmtNum(A)} − ${fmtNum(B)} = ${fmtNum(A - B)}.`});
+  }
+  const h = rand(3,9), A = h*100 + pick([0, 0, rand(1,3)]); let B; do { B = rand(101, A - 1); } while (B % 10 <= A % 10 || Math.floor(B/10) % 10 === 0 || Math.floor(B/100) >= h);
+  if (kind === 'mistake'){
+    const da = digitsOf(A, 3), db = digitsOf(B, 3), wrong = +da.map((d, i) => Math.abs(d - db[i])).join('');
+    const opts = shuffle(['He took the smaller digit away from the bigger digit in each column, instead of trading', 'He forgot to take away the hundreds', 'He added instead of taking away']);
+    return MCQ({text:`Pip worked out ${A} − ${B} = ${wrong}. What went wrong?`, opts, a: opts.indexOf('He took the smaller digit away from the bigger digit in each column, instead of trading'),
+      fig: () => `<table class="written solo"><tr><td></td><td>${da.join('</td><td>')}</td></tr><tr class="minus"><td>−</td><td>${db.join('</td><td>')}</td></tr><tr class="ans wrong"><td>=</td><td>${String(wrong).padStart(3, ' ').split('').join('</td><td>')}</td></tr></table>`,
+      hint:`<p>Look at the ones: ${da[2]} − ${db[2]}. You can not take ${db[2]} away from ${da[2]} without trading. What did Pip write instead?</p>`,
+      wrong: () => 'Not this one. Look at the ones column very carefully.', right:`Yes! You can not flip the digits. With trading, ${A} − ${B} = ${A - B}.`});
+  }
+  const real = A - B; let shown = Math.random() < 0.5 ? real : real + pick([10, 100, -10]); if (shown <= 0) shown = real + 10;
+  const ok = shown === real, opts = ['Yes, it is right', 'No, it is wrong'];
+  return MCQ({text:`Is this right? ${A} − ${B} = ${shown}`, opts, a: ok ? 0 : 1, fig: () => null,
+    hint:`<p>Check by adding: ${shown} + ${B} should give ${A}.</p>`, wrong: () => `Check by adding: ${shown} + ${B} = ${shown + B}.`,
+    right: ok ? `Yes! ${shown} + ${B} = ${A}, so it is right.` : `Yes! ${shown} + ${B} = ${shown + B}, not ${A}. The right answer is ${real}.`});
+}
+
+/* ---------- Decimal Bakery Shop ---------- */
+const decCount = x => { const s = String(x); return s.includes('.') ? s.split('.')[1].length : 0; };
+function decColHTML(nums, op, opts = {}){
+  const money = !!opts.money, D = Math.max(...nums.map(n => n.d)), ints = nums.map(n => String(Math.floor(Math.round(n.v * 10**n.d) / 10**n.d)));
+  const showAns = opts.ans != null, ansS = showAns ? opts.ans.toFixed(D) : '', I = Math.max(...ints.map(s => s.length), showAns ? ansS.split('.')[0].length : 0);
+  const decNames = ['1/10','1/100','1/1000'];
+  const head = `<tr><td></td>${Array.from({length:I}, (_, i) => `<th>${['','1','10','100','1000'][I - i] || ''}</th>`).join('')}${D ? `<th></th>${decNames.slice(0, D).map((n, i) => `<th class="d${i}">${n}</th>`).join('')}` : ''}</tr>`;
+  const row = (n, sym, cls = '') => {
+    const s = n.v.toFixed(n.d), [ip, dp = ''] = s.split('.');
+    const intCells = ip.padStart(I, ' ').split('').map(c => `<td>${c.trim()}</td>`).join('');
+    const decCells = D ? `<td class="pt">${n.d || opts.zeros ? '.' : ''}</td>` + Array.from({length:D}, (_, i) => i < dp.length ? `<td class="d${i}">${dp[i]}</td>` : `<td class="d${i} pz">${opts.zeros ? '0' : ''}</td>`).join('') : '';
+    return `<tr class="${cls}"><td>${sym}</td>${intCells}${decCells}</tr>`;
+  };
+  let h = head + nums.map((n, i) => row(n, i === 0 ? (money ? '$' : '') : op)).join('');
+  h += showAns ? row({v: opts.ans, d: D}, '=', 'ans') : `<tr class="ans"><td>=</td>${Array.from({length: I + (D ? D + 1 : 0)}, () => '<td></td>').join('')}</tr>`;
+  return `<table class="written dec">${h}</table>`;
+}
+function colStepsText(a, b, op){
+  const D = Math.max(decCount(a), decCount(b)), A = Math.round(a * 10**D), B = Math.round(b * 10**D);
+  const names = ['thousandths','hundredths','tenths'].slice(3 - D).concat(['ones','tens','hundreds']);
+  const da = String(A).split('').reverse().map(Number), db = String(B).split('').reverse().map(Number), out = [];
+  let carry = 0;
+  for (let i = 0; i < Math.max(da.length, db.length) && i < names.length; i++){
+    const x = da[i] || 0, y = db[i] || 0;
+    if (op === '+'){ const t = x + y + carry; out.push(`${cap(names[i])}: ${x} + ${y}${carry ? ' + 1 carried' : ''} = ${t}${t > 9 ? `, write ${t % 10} and carry 1` : ''}`); carry = t > 9 ? 1 : 0; }
+    else { let xx = x - carry; if (xx < y){ out.push(`${cap(names[i])}: ${xx} is less than ${y}, so trade 1 from the next column: ${xx + 10} − ${y} = ${xx + 10 - y}`); carry = 1; } else { out.push(`${cap(names[i])}: ${xx} − ${y} = ${xx - y}`); carry = 0; } }
+  }
+  return out.join('. ') + '.';
+}
+const r2 = x => Math.round(x * 1000) / 1000;
+function decQ(text, nums, op, ans, money, extra = {}){
+  const D = Math.max(...nums.map(n => n.d)), ansEntry = ans.toFixed(Math.max(D, money ? 2 : 0)).replace(/\.?0+$/, m => money ? m : '') ;
+  const q = PADQ(Object.assign({text, ans: r2(ans), decimal:true, pre: money ? '$' : '', unit:'', zeros:false, ansEntry: money ? ans.toFixed(2) : String(r2(ans)),
+    ansText: money ? fmtNum(ans, 2, true) : String(r2(ans)),
+    fig: q => decColHTML(nums, op, {money, zeros: q.zeros || q.done, ans: q.done ? ans : null}),
+    onHint: k => { if (k === 1) q.zeros = true; }}, extra));
+  return q;
+}
+function genDec(){
+  const L = LV4(), U = S.uname;
+  const ITEMS = ['cupcake','rainbow cookie','cake slice','muffin','lemonade','cinnamon roll','fruit tart','juice'];
+  const price = (lo, hi) => rand(lo, hi) / 100;
+  if (L === 0){
+    const kind = ['add','add','sub','add','sub','add'][G.i];
+    let a, b;
+    if (kind === 'add'){ const d = [rand(1,4), rand(0,4), rand(0,4)], e = [rand(1,4), rand(0, 9 - d[1]), rand(0, 9 - d[2])]; a = d[0] + d[1]/10 + d[2]/100; b = e[0] + e[1]/10 + e[2]/100; }
+    else { const d = [rand(4,9), rand(3,9), rand(3,9)], e = [rand(1, d[0]-1), rand(0, d[1]), rand(0, d[2])]; a = d[0] + d[1]/10 + d[2]/100; b = e[0] + e[1]/10 + e[2]/100; }
+    a = r2(a); b = r2(b);
+    const [i1, i2] = shuffle(ITEMS);
+    const text = kind === 'add' ? `A ${i1} costs $${a.toFixed(2)} and a ${i2} costs $${b.toFixed(2)}. How much do they cost together?` : `${U} has $${a.toFixed(2)}. She spends $${b.toFixed(2)} on a ${i1}. How much money does she have left?`;
+    const op = kind === 'add' ? '+' : '−', ans = kind === 'add' ? a + b : a - b;
+    return decQ(text, [{v:a, d:2}, {v:b, d:2}], op, ans, true, {hints:['Line up the decimal points, so dollars sit under dollars and cents under cents.', colStepsText(a, b, op), 'Put the decimal point in the answer right under the other decimal points.'],
+      right:`Yes! $${a.toFixed(2)} ${op} $${b.toFixed(2)} = ${fmtNum(ans, 2, true)}.`});
+  }
+  if (L === 1){
+    const kind = ['carry','change','three','borrow','change','carry'][G.i];
+    if (kind === 'carry' || kind === 'borrow'){
+      let a, b; if (kind === 'carry'){ a = price(105, 899); b = price(105, 899); } else { a = price(500, 999); do { b = price(105, Math.floor(a*100) - 50); } while ((Math.round(b*100) % 10) <= (Math.round(a*100) % 10)); }
+      const op = kind === 'carry' ? '+' : '−', ans = kind === 'carry' ? a + b : a - b, [i1, i2] = shuffle(ITEMS);
+      const text = kind === 'carry' ? `${U} buys a ${i1} for $${a.toFixed(2)} and a ${i2} for $${b.toFixed(2)}. What is the total?` : `${U} has $${a.toFixed(2)}. A ${i1} costs $${b.toFixed(2)}. How much will she have left?`;
+      return decQ(text, [{v:a, d:2}, {v:b, d:2}], op, ans, true, {hints:['Line up the decimal points.', colStepsText(a, b, op), 'Put the decimal point in the answer under the others.'], right:`Yes! ${fmtNum(ans, 2, true)}.`});
+    }
+    if (kind === 'change'){
+      const pay = pick([5, 10, 20]), cost = price(105, pay*100 - 55), ans = pay - cost, it = pick(ITEMS);
+      return decQ(`A ${it} cake costs $${cost.toFixed(2)}. ${U} pays with a $${pay} bill. How much change does she get?`, [{v:pay, d:2}, {v:cost, d:2}], '−', ans, true,
+        {hints:[`$${pay} is the same as $${pay}.00. Write the zeros so the columns line up.`, colStepsText(pay, cost, '−'), `Check: ${fmtNum(ans, 2, true)} + $${cost.toFixed(2)} should make $${pay}.00.`], right:`Yes! The change is ${fmtNum(ans, 2, true)}.`});
+    }
+    const ps = [price(105, 499), price(105, 499), price(105, 499)], ans = ps.reduce((x, y) => x + y), its = shuffle(ITEMS).slice(0, 3);
+    return decQ(`${U} buys a ${its[0]} ($${ps[0].toFixed(2)}), a ${its[1]} ($${ps[1].toFixed(2)}) and a ${its[2]} ($${ps[2].toFixed(2)}). What is the total?`, ps.map(v => ({v, d:2})), '+', ans, true,
+      {hints:['Line up all three decimal points.', `Add two first: $${ps[0].toFixed(2)} + $${ps[1].toFixed(2)} = ${fmtNum(ps[0]+ps[1], 2, true)}.`, `Then add the third: ${fmtNum(ps[0]+ps[1], 2, true)} + $${ps[2].toFixed(2)} = ?`], right:`Yes! The total is ${fmtNum(ans, 2, true)}.`});
+  }
+  if (L === 2){
+    const kind = ['addLen','subLen','whole','addLen','subLen','three'][G.i];
+    let a, b, op, da, db;
+    if (kind === 'addLen'){ da = pick([1, 2, 3]); db = pick([1, 2, 3].filter(x => x !== da)); a = rand(10, 999) / 10**da; b = rand(10, 999) / 10**db; op = '+'; }
+    else if (kind === 'subLen'){ da = 1; db = 2; a = rand(50, 299) / 10; do { b = rand(101, Math.floor(a*100) - 10) / 100; } while (Math.round(b*100) % 10 === 0); op = '−'; }
+    else if (kind === 'whole'){ da = 0; db = 2; a = rand(3, 20); b = rand(101, a*100 - 10) / 100; op = '−'; }
+    else { da = 3; db = 1; a = rand(1001, 9999) / 1000; b = rand(11, 99) / 10; op = '+'; }
+    a = r2(a); b = r2(b);
+    const ans = op === '+' ? a + b : a - b;
+    return decQ(`${a} ${op} ${b} = ?`, [{v:a, d:decCount(a)}, {v:b, d:decCount(b)}], op, ans, false,
+      {hints:['Line up the decimal points. Fill the empty places with zeros so both numbers have the same number of digits after the point.', colStepsText(a, b, op), 'Put the decimal point in the answer right under the others.'], right:`Yes! ${a} ${op} ${b} = ${r2(ans)}.`});
+  }
+  const kind = ['multi','estimate','longSub','multi','tiny','longSub'][G.i];
+  if (kind === 'multi'){
+    const n = rand(2, 4), p = price(105, 275), j = price(150, 350), cost = r2(n*p + j), pay = cost < 9.5 ? 10 : 20, ans = r2(pay - cost);
+    return decQ(`${U} buys ${n} cupcakes at $${p.toFixed(2)} each and a juice for $${j.toFixed(2)}. She pays with $${pay}. How much change does she get?`, [{v:pay, d:2}, {v:cost, d:2}], '−', ans, true,
+      {hints:[`First the cupcakes: ${Array(n).fill('$' + p.toFixed(2)).join(' + ')} = ${fmtNum(n*p, 2, true)}.`, `Add the juice: ${fmtNum(n*p, 2, true)} + $${j.toFixed(2)} = ${fmtNum(cost, 2, true)}.`, `Change: $${pay}.00 − ${fmtNum(cost, 2, true)} = ?`], right:`Yes! The change is ${fmtNum(ans, 2, true)}.`});
+  }
+  if (kind === 'estimate'){
+    const a = rand(2, 9) + pick([0.96, 0.98, 0.02, 0.04]), b = rand(2, 9) + pick([0.97, 0.03, 0.01, 0.99]), est = Math.round(a) + Math.round(b);
+    const opts = [String(est), String(est - 1), String(est + 1), String(est * 10)].sort((x, y) => x - y);
+    return MCQ({text:`Which is the best estimate for ${r2(a)} + ${r2(b)}?`, opts, a: opts.indexOf(String(est)), fig: () => null,
+      hint:`<p>Round each number to the nearest whole number first: ${r2(a)} → ${Math.round(a)} and ${r2(b)} → ${Math.round(b)}.</p>`,
+      wrong: () => 'Not this one. Round each number to the nearest whole number, then add.', right:`Yes! ${Math.round(a)} + ${Math.round(b)} = ${est}.`});
+  }
+  if (kind === 'longSub'){
+    const a = pick([rand(10, 30), rand(1001, 3000) / 100]), b = r2(rand(101, Math.floor(a*1000) - 200) / 1000), ans = r2(a - b);
+    return decQ(`${a} − ${b} = ?`, [{v:a, d:decCount(a)}, {v:b, d:decCount(b)}], '−', ans, false,
+      {hints:['Line up the decimal points and fill every empty place with a zero.', colStepsText(a, b, '−'), `Check: ${ans} + ${b} should make ${a}.`], right:`Yes! ${a} − ${b} = ${ans}.`});
+  }
+  const a = rand(1, 9) / 100, b = rand(1, 9) / 10, c = rand(101, 999) / 1000, ans = r2(a + b + c);
+  return decQ(`${a} + ${b} + ${c} = ?`, [{v:a, d:2}, {v:b, d:1}, {v:c, d:3}], '+', ans, false,
+    {hints:['Line up all the decimal points. Fill empty places with zeros: every number gets 3 digits after the point.', `${a.toFixed(3)} + ${b.toFixed(3)} = ${r2(a+b).toFixed(3)}.`, `${r2(a+b).toFixed(3)} + ${c.toFixed(3)} = ?`], right:`Yes! The sum is ${ans}.`});
+}
+
+/* ===================================================================
+   THEME 4: Nova's Paddock (area and perimeter)
+   =================================================================== */
+const GW = 8, GH = 6;
+function shapeInfo(cells){
+  const set = new Set(cells), area = set.size; let per = 0;
+  set.forEach(i => { const r = Math.floor(i / GW), c = i % GW;
+    [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(([rr,cc]) => { if (rr < 0 || rr >= GH || cc < 0 || cc >= GW || !set.has(rr*GW+cc)) per++; }); });
+  if (!area) return {area:0, per:0, rect:false, w:0, h:0, conn:false};
+  const rs = [...set].map(i => Math.floor(i / GW)), cs = [...set].map(i => i % GW);
+  const w = Math.max(...cs) - Math.min(...cs) + 1, h = Math.max(...rs) - Math.min(...rs) + 1;
+  const seen = new Set([[...set][0]]), st = [[...set][0]];
+  while (st.length){ const i = st.pop(), r = Math.floor(i / GW), c = i % GW; [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(([rr,cc]) => { const j = rr*GW+cc; if (rr >= 0 && rr < GH && cc >= 0 && cc < GW && set.has(j) && !seen.has(j)){ seen.add(j); st.push(j); } }); }
+  return {area, per, rect: w*h === area, w, h, conn: seen.size === area};
+}
+const rectCells = (w, h, r0, c0) => { if (h > GH - 1 && w <= GH - 1) [w, h] = [h, w]; if (r0 == null) r0 = h >= GH ? 0 : 1; if (c0 == null) c0 = w >= GW ? 0 : 1; const out = []; for (let r=0;r<h;r++) for (let c=0;c<w;c++) out.push((r0+r)*GW + c0 + c); return out; };
+function fenceFig(q){
+  const S2 = 40, set = q.cells; let s = '';
+  for (let r=0;r<GH;r++) for (let c=0;c<GW;c++){ const i = r*GW+c, on = set.has(i);
+    s += `<rect x="${c*S2}" y="${r*S2}" width="${S2}" height="${S2}" fill="${on ? '#9AD48F' : 'var(--surface)'}" stroke="var(--line)" stroke-width="1.5" class="${q.done ? '' : 'pc'}" data-i="${i}"/>`;
+    if (on) s += `<path d="M${c*S2+12} ${r*S2+30} l3 -7 l3 7 M${c*S2+24} ${r*S2+24} l2.5 -6 l2.5 6" stroke="#5FAE5A" stroke-width="2" fill="none" pointer-events="none"/>`; }
+  if (q.ghost) q.sol.forEach(i => { const r = Math.floor(i / GW), c = i % GW; s += `<rect x="${c*S2+4}" y="${r*S2+4}" width="${S2-8}" height="${S2-8}" rx="6" fill="none" stroke="var(--gold)" stroke-width="3" stroke-dasharray="5 4" pointer-events="none"/>`; });
+  set.forEach(i => { const r = Math.floor(i / GW), c = i % GW, x = c*S2, y = r*S2;
+    const edge = (rr, cc, x1, y1, x2, y2) => { if (rr < 0 || rr >= GH || cc < 0 || cc >= GW || !set.has(rr*GW+cc)) s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#8A5A3C" stroke-width="6" stroke-linecap="round" pointer-events="none"/>`; };
+    edge(r-1, c, x, y, x+S2, y); edge(r+1, c, x, y+S2, x+S2, y+S2); edge(r, c-1, x, y, x, y+S2); edge(r, c+1, x+S2, y, x+S2, y+S2); });
+  if (set.size >= 4){ const first = Math.min(...set), r = Math.floor(first / GW), c = first % GW;
+    s += unicorn(q.done ? 'happy' : 'plain').replace('<svg ', `<svg x="${c*S2 + 2}" y="${r*S2 + 4}" width="36" height="30" style="width:36px;height:30px;pointer-events:none" `); }
+  return `<svg viewBox="-6 -6 ${GW*S2 + 12} ${GH*S2 + 12}" role="img" aria-label="A grid to build a paddock">${s}</svg>`;
+}
+function wireFence(){
+  const q = G.q;
+  document.querySelectorAll('#figure .pc').forEach(el => el.addEventListener('click', () => {
+    if (q.done) return; const i = +el.dataset.i;
+    if (q.cells.has(i)) q.cells.delete(i); else q.cells.add(i);
+    renderFigure(); updateFenceCount();
+  }));
+}
+function updateFenceCount(){ const el = $('#fenceCount'); if (!el) return; const I = shapeInfo([...G.q.cells]); el.innerHTML = `<span class="fc grass">Grass (area): <b>${I.area}</b> squares</span><span class="fc fencec">Fence (perimeter): <b>${I.per}</b> pieces</span>`; }
+function checkFence(){
+  const q = G.q; if (q.done) return;
+  const I = shapeInfo([...q.cells]);
+  if (!I.area){ setBubble('Tap some squares to plant grass first.', false, 'plain'); return; }
+  if (!I.conn){ setBubble('All the grass squares must touch each other side by side, so it is one paddock.', false, 'think'); return; }
+  const msg = q.test(I);
+  if (!msg){ correct(q.right(I)); return; }
+  q.tries++;
+  while (q.hintStep < Math.min(q.tries, q.hints.length)) showHint();
+  setBubble(`Your paddock has area ${I.area} and perimeter ${I.per}${I.rect ? ` (a ${I.w} by ${I.h} rectangle)` : ''}. ${msg}` + (q.tries >= 3 ? ' Look at the gold dotted squares: that is one way to do it.' : ''), false, 'think');
+}
+function fenceQ(text, test, sol, hints, right){
+  const q = {type:'fence', text, test, sol, cells:new Set(), hintStep:0, ghost:false, right};
+  q.hints = hints.concat(['Here is one way: I marked it with gold dotted squares.']);
+  q.onHint = k => { if (k === q.hints.length) q.ghost = true; };
+  return q;
+}
+function genFence(){
+  const L = LV4(), U = S.uname;
+  const rectTxt = (w, h) => `${w} by ${h}`;
+  const areaHints = ['Area is the number of grass squares inside.', 'Perimeter is the number of fence pieces all the way around the outside.'];
+  if (L === 0){
+    const kind = ['area','rect','area','rect','area','rect'][G.i];
+    if (kind === 'area'){ const A = rand(4, 10), sol = rectCells(Math.ceil(A/2), 2).slice(0, A);
+      return fenceQ(`Build a paddock for ${U} with area ${A}: exactly ${A} grass squares. Any shape is fine.`, I => I.area === A ? null : `We need ${A} squares.`, sol, ['Tap a square to plant grass. Tap it again to take it away.', `Count the green squares. You need exactly ${A}.`], I => `Yes! The area is ${A} squares. The fence is ${I.per} pieces long.`); }
+    const w = rand(2, 5), h = rand(2, 4);
+    return fenceQ(`Build a rectangle paddock ${rectTxt(w, h)}: ${w} squares long and ${h} squares tall.`, I => I.rect && ((I.w === w && I.h === h) || (I.w === h && I.h === w)) ? null : `We need a full rectangle, ${w} long and ${h} tall.`, rectCells(w, h),
+      [`Make a row of ${w} squares. Then make ${h} rows like that, one under the other.`, `A ${w} by ${h} rectangle has ${h} rows of ${w}: ${w*h} squares.`], I => `Yes! Area ${w} × ${h} = ${w*h}. Perimeter ${w} + ${h} + ${w} + ${h} = ${2*(w+h)}.`);
+  }
+  if (L === 1){
+    const kind = ['rectA','rectP','free','rectA','rectP','free'][G.i];
+    if (kind === 'rectA'){ const A = pick([6, 8, 10, 12, 15, 18]), dims = [[1,A],[2,A/2],[3,A/3],[4,A/4],[5,A/5],[6,A/6]].filter(([a,b]) => Number.isInteger(b) && a <= GH && b <= GW), [h, w] = dims[dims.length - 1];
+      return fenceQ(`Build any rectangle with area ${A}.`, I => I.rect && I.area === A ? null : I.rect ? `We need area ${A}.` : 'It must be a full rectangle with no gaps or bumps.', rectCells(w, h),
+        [...areaHints, `Think of two numbers that multiply to ${A}, like ${w} × ${h}.`], I => `Yes! ${I.w} × ${I.h} = ${A}. Its perimeter is ${I.per}.`); }
+    if (kind === 'rectP'){ const P = pick([10, 12, 14, 16]), w = P/2 - 2, h = 2;
+      return fenceQ(`Build any rectangle with perimeter ${P}: exactly ${P} fence pieces.`, I => I.rect && I.per === P ? null : I.rect ? `We need ${P} fence pieces.` : 'It must be a full rectangle.', rectCells(Math.min(w, GW-1), h),
+        [...areaHints, `Length + width is half the perimeter: ${P} ÷ 2 = ${P/2}. Try ${P/2 - 2} and 2.`], I => `Yes! ${I.w} + ${I.h} + ${I.w} + ${I.h} = ${P}.`); }
+    const sol = rectCells(2, 2, 1, 1).concat([1*GW+3, 2*GW+3].slice(0, rand(1, 2))); const SI = shapeInfo(sol);
+    return fenceQ(`Build a paddock with area ${SI.area} and perimeter ${SI.per}. It does not have to be a rectangle.`, I => I.area === SI.area && I.per === SI.per ? null : `We need area ${SI.area} and perimeter ${SI.per}.`, sol,
+      [...areaHints, `Start with ${SI.area} squares. If the fence is too short, spread the squares out. If it is too long, bunch them together.`], () => `Yes! Area ${SI.area} and perimeter ${SI.per}.`);
+  }
+  if (L === 2){
+    const kind = ['both','same','L','both','same','L'][G.i];
+    if (kind === 'both'){ const [w, h] = pick([[4,3],[5,2],[6,2],[5,3],[4,4],[6,3]]);
+      return fenceQ(`Build a rectangle with area ${w*h} and perimeter ${2*(w+h)}.`, I => I.rect && I.area === w*h && I.per === 2*(w+h) ? null : `We need area ${w*h} and perimeter ${2*(w+h)}.`, rectCells(w, h),
+        [`List rectangles with area ${w*h}: which pairs of numbers multiply to ${w*h}?`, `For each one, add all four sides. Which one makes ${2*(w+h)}?`], () => `Yes! ${w} × ${h} = ${w*h} and ${w} + ${h} + ${w} + ${h} = ${2*(w+h)}.`); }
+    if (kind === 'same'){ const [w, h, w2, h2] = pick([[3,4,2,6],[2,6,3,4],[3,6,2,9],[4,4,2,8],[2,8,4,4]]);
+      if (Math.min(w2, h2) > GH || Math.max(w2, h2) > GW){ return genFence(); }
+      return fenceQ(`A ${w} by ${h} paddock has area ${w*h} and perimeter ${2*(w+h)}. Build a different rectangle with the SAME area ${w*h} but perimeter ${2*(w2+h2)}.`, I => I.rect && I.area === w*h && I.per === 2*(w2+h2) ? null : `We need area ${w*h} and perimeter ${2*(w2+h2)}.`, rectCells(w2, h2),
+        [`Which other pairs of numbers multiply to ${w*h}?`, `A long, thin rectangle has a longer fence than a square-ish one.`], () => `Yes! Same area, ${w*h}, but a different perimeter: ${2*(w2+h2)}. Area and perimeter are different things!`); }
+    const A = rand(5, 10), bb = Math.min(3, A - 2), aa = A - bb, solFix = rectCells(aa, 1, 1, 1).concat(Array.from({length: bb}, (_, k) => (2 + k)*GW + 1)), sol = solFix;
+    return fenceQ(`Build an L-shaped paddock (NOT a rectangle) with area ${A}.`, I => !I.rect && I.area === A ? null : I.rect ? 'That is a rectangle. Make an L shape.' : `We need area ${A}.`, shapeInfo(solFix).rect ? sol : solFix,
+      ['An L shape is like a rectangle with a corner missing.', `Make a row, then add a column going down from one end. Count to ${A}.`], I => `Yes! An L shape with area ${A}. Its perimeter is ${I.per}.`);
+  }
+  const kind = ['maxA','minP','maxP','both2','maxA','minP'][G.i];
+  if (kind === 'maxA'){ const P = pick([12, 16, 20]), sd = P/4;
+    return fenceQ(`You have exactly ${P} fence pieces. Build the rectangle with the BIGGEST area you can.`, I => I.rect && I.per === P && I.area === sd*sd ? null : I.per !== P ? `Use exactly ${P} fence pieces.` : `There is a rectangle with ${P} fence pieces and more grass.`, rectCells(sd, sd),
+      [`Length + width must be ${P/2}.`, `Try all of them: ${Array.from({length: P/4}, (_, k) => `${P/2 - (k+1)} × ${k+1} = ${(P/2 - (k+1))*(k+1)}`).join(', ')}.`], () => `Yes! A ${sd} by ${sd} square gives the biggest area: ${sd*sd}. Squares are the champions!`); }
+  if (kind === 'minP'){ const sd = pick([3, 4]), A = sd*sd;
+    return fenceQ(`Build a paddock with area ${A} that uses the FEWEST fence pieces possible.`, I => I.area === A && I.per === 4*sd ? null : I.area !== A ? `We need area ${A}.` : `It can be done with fewer than ${I.per} fence pieces.`, rectCells(sd, sd),
+      ['Bunching the squares together makes the fence shorter.', `The most bunched-up shape is a square. Which square has area ${A}?`], () => `Yes! A ${sd} by ${sd} square needs only ${4*sd} fence pieces.`); }
+  if (kind === 'maxP'){ const A = rand(5, 7);
+    return fenceQ(`Build a paddock with area ${A} that uses the MOST fence pieces possible (squares must still touch side by side).`, I => I.area === A && I.per === 2*A + 2 ? null : I.area !== A ? `We need area ${A}.` : 'Spread the squares out more.', rectCells(A, 1),
+      ['Every time two squares touch, you save fence pieces.', 'A straight line or a zigzag has the fewest touching sides.', `The most fence possible is ${2*A + 2} pieces.`], () => `Yes! ${2*A + 2} fence pieces for just ${A} squares.`); }
+  const [w, h] = pick([[4,5],[3,6],[5,4],[2,7],[6,3]]);
+  if (Math.min(w, h) > GH - 1 || Math.max(w, h) > GW - 1) return genFence();
+  return fenceQ(`Build a rectangle with perimeter ${2*(w+h)} and area ${w*h}.`, I => I.rect && I.area === w*h && I.per === 2*(w+h) ? null : `We need area ${w*h} and perimeter ${2*(w+h)}.`, rectCells(w, h),
+    [`Length + width = ${2*(w+h)} ÷ 2 = ${w+h}.`, `Which two numbers add to ${w+h} and multiply to ${w*h}?`], () => `Yes! ${w} + ${h} = ${w+h} and ${w} × ${h} = ${w*h}.`);
+}
+
+/* ---------- Paddock Puzzles ---------- */
+function rectFig(w, h, o = {}){
+  const sc = Math.min(260 / w, 150 / h, 38), W = w*sc, H = h*sc;
+  let s = `<rect x="0" y="0" width="${f(W)}" height="${f(H)}" fill="#C8EBBF" stroke="#8A5A3C" stroke-width="5"/>`;
+  if (o.grid){ for (let i=1;i<w;i++) s += `<line x1="${f(i*sc)}" y1="0" x2="${f(i*sc)}" y2="${f(H)}" stroke="#7FC07A" stroke-width="1.5"/>`; for (let j=1;j<h;j++) s += `<line x1="0" y1="${f(j*sc)}" x2="${f(W)}" y2="${f(j*sc)}" stroke="#7FC07A" stroke-width="1.5"/>`; }
+  if (o.tri){ s = `<rect x="0" y="0" width="${f(W)}" height="${f(H)}" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 5"/><polygon points="0,${f(H)} ${f(W)},${f(H)} ${f(W*o.tri)},0" fill="#C8EBBF" stroke="#8A5A3C" stroke-width="4"/><line x1="${f(W*o.tri)}" y1="0" x2="${f(W*o.tri)}" y2="${f(H)}" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="5 4"/>`; }
+  if (o.hole){ const hs = o.hole*sc; s += `<rect x="${f(W/2 - hs/2)}" y="${f(H/2 - hs/2)}" width="${f(hs)}" height="${f(hs)}" fill="#9FD3F5" stroke="#3BA7C9" stroke-width="3"/><text x="${f(W/2)}" y="${f(H/2)}" class="lbl" style="font-size:13px" text-anchor="middle" dominant-baseline="middle">pond</text>`; }
+  if (o.lw != null) s += `<text x="${f(W/2)}" y="${f(H + 24)}" class="lbl" style="font-size:17px" text-anchor="middle">${o.lw}</text>`;
+  if (o.lh != null) s += `<text x="-12" y="${f(H/2)}" class="lbl" style="font-size:17px" text-anchor="end" dominant-baseline="middle">${o.lh}</text>`;
+  if (o.lhole != null) s += `<text x="${f(W/2)}" y="${f(H/2 - o.hole*sc/2 - 10)}" class="lbl" style="font-size:14px" text-anchor="middle">${o.lhole}</text>`;
+  const LM = o.lh != null ? Math.max(40, String(o.lh).length * 9 + 24) : 24;
+  return `<svg viewBox="${-LM} -14 ${f(W + LM + 24)} ${f(H + 50)}" role="img" aria-label="A paddock">${s}</svg>`;
+}
+/* L shape: W x H with the top-right corner cw x ch removed */
+function lFig(W, H, cw, ch, lab, split){
+  const sc = Math.min(250 / W, 160 / H), X = v => f(v*sc);
+  let s = `<polygon points="0,0 ${X(W-cw)},0 ${X(W-cw)},${X(ch)} ${X(W)},${X(ch)} ${X(W)},${X(H)} 0,${X(H)}" fill="#C8EBBF" stroke="#8A5A3C" stroke-width="5" stroke-linejoin="round"/>`;
+  if (split){ s = `<rect x="0" y="0" width="${X(W-cw)}" height="${X(H)}" fill="#F9B4CC"/><rect x="${X(W-cw)}" y="${X(ch)}" width="${X(cw)}" height="${X(H-ch)}" fill="#A8E3D3"/>` + s.replace('fill="#C8EBBF"', 'fill="none"') + `<line x1="${X(W-cw)}" y1="${X(ch)}" x2="${X(W-cw)}" y2="${X(H)}" stroke="var(--accent)" stroke-width="3" stroke-dasharray="6 5"/>`; }
+  const T = (x, y, t, a = 'middle') => t == null ? '' : `<text x="${f(x)}" y="${f(y)}" class="lbl" style="font-size:16px" text-anchor="${a}" dominant-baseline="middle">${t}</text>`;
+  s += T(X(W-cw)/2, -14, lab.top) + T(X(W-cw) - 8, X(ch)/2, lab.notchV, 'end') + T(X(W-cw) + X(cw)/2, X(ch) - 14, lab.notchH) + T(X(W) + 10, (X(ch) + X(H))/2, lab.right, 'start') + T(X(W)/2, X(H) + 22, lab.bottom) + T(-10, X(H)/2, lab.left, 'end');
+  return `<svg viewBox="-70 -34 ${f(W*sc + 140)} ${f(H*sc + 70)}" role="img" aria-label="An L-shaped paddock">${s}</svg>`;
+}
+function genPuzzle(){
+  const L = LV4(), U = S.uname, M = pick(['m','m','yd']), M2 = M + '²';
+  if (L === 0){
+    const kind = ['area','per','area','per','area','per'][G.i], w = rand(2, 6), h = rand(2, 5);
+    if (kind === 'area') return PADQ({text:`${U}'s paddock is drawn on squares. What is its area?`, ans: w*h, unit:' squares', fig: () => rectFig(w, h, {grid:true}),
+      hints:[`Count the squares in one row: ${w}.`, `There are ${h} rows of ${w}. That is ${h} × ${w}.`], right:`Yes! ${h} rows of ${w} make ${w*h} squares.`});
+    return PADQ({text:`How many fence pieces go all the way around this paddock? (The perimeter.)`, ans: 2*(w+h), unit:' pieces', fig: () => rectFig(w, h, {grid:true, lw: w, lh: h}),
+      hints:['Walk around the outside edge: top, right side, bottom, left side.', `${w} + ${h} + ${w} + ${h} = ?`], right:`Yes! ${w} + ${h} + ${w} + ${h} = ${2*(w+h)}.`});
+  }
+  if (L === 1){
+    const kind = ['area','per','missA','missP','area','per'][G.i], w = rand(4, 12), h = rand(2, 9);
+    if (kind === 'area') return PADQ({text:`A paddock is ${w} ${M} long and ${h} ${M} wide. What is its area?`, ans: w*h, unit:' ' + M2, fig: () => rectFig(w, h, {lw:`${w} ${M}`, lh:`${h} ${M}`}),
+      hints:['Area of a rectangle = length × width.', `${w} × ${h} = ?`], right:`Yes! ${w} × ${h} = ${w*h} ${M2}.`});
+    if (kind === 'per') return PADQ({text:`A paddock is ${w} ${M} long and ${h} ${M} wide. How long is the fence all the way around?`, ans: 2*(w+h), unit:' ' + M, fig: () => rectFig(w, h, {lw:`${w} ${M}`, lh:`${h} ${M}`}),
+      hints:['Perimeter = add all four sides.', `${w} + ${h} + ${w} + ${h}, or 2 × (${w} + ${h}).`], right:`Yes! 2 × (${w} + ${h}) = ${2*(w+h)} ${M}.`});
+    if (kind === 'missA') return PADQ({text:`A paddock has area ${w*h} ${M2}. It is ${h} ${M} wide. How long is it?`, ans: w, unit:' ' + M, fig: () => rectFig(w, h, {lw:'?', lh:`${h} ${M}`}),
+      hints:['Area = length × width.', `? × ${h} = ${w*h}. So ? = ${w*h} ÷ ${h}.`], right:`Yes! ${w*h} ÷ ${h} = ${w} ${M}.`});
+    return PADQ({text:`A paddock has a ${2*(w+h)} ${M} fence around it. It is ${w} ${M} long. How wide is it?`, ans: h, unit:' ' + M, fig: () => rectFig(w, h, {lw:`${w} ${M}`, lh:'?'}),
+      hints:[`The two long sides use ${w} + ${w} = ${2*w} ${M}.`, `That leaves ${2*(w+h)} − ${2*w} = ${2*h} ${M} for the two short sides.`, `${2*h} ÷ 2 = ?`], right:`Yes! The width is ${h} ${M}.`});
+  }
+  if (L === 2){
+    const kind = ['lArea','lPer','fenceStory','lArea','tiles','lPer'][G.i];
+    const W = rand(6, 12), H = rand(5, 10), cw = rand(2, W - 3), ch = rand(2, H - 3);
+    if (kind === 'lArea'){ const A = W*H - cw*ch;
+      const q = PADQ({text:`What is the area of this L-shaped paddock?`, ans: A, unit:' ' + M2, split:false,
+        fig: q => lFig(W, H, cw, ch, {top: W-cw, notchV: ch, notchH: cw, right: H-ch, bottom: W, left: H}, q.split || q.done),
+        hints:['Split the L into two rectangles. I colored them.', `Pink: ${W-cw} × ${H} = ${(W-cw)*H}. Green: ${cw} × ${H-ch} = ${cw*(H-ch)}.`, `${(W-cw)*H} + ${cw*(H-ch)} = ?`],
+        onHint: () => { q.split = true; }, right:`Yes! The area is ${A} ${M2}.`}); return q; }
+    if (kind === 'lPer') return PADQ({text:`How long is the fence around this L-shaped paddock? Two sides are not labeled.`, ans: 2*(W+H), unit:' ' + M,
+      fig: () => lFig(W, H, cw, ch, {top:'?', notchV: ch, notchH: cw, right:'?', bottom: W, left: H}),
+      hints:[`The top side is the bottom minus the notch: ${W} − ${cw} = ${W-cw}.`, `The right side is the left minus the notch: ${H} − ${ch} = ${H-ch}.`, `Add all six sides: ${W-cw} + ${ch} + ${cw} + ${H-ch} + ${W} + ${H}.`], right:`Yes! The fence is ${2*(W+H)} ${M}.`});
+    const w = rand(5, 15), h = rand(3, 10);
+    if (kind === 'fenceStory'){ const posts = 2*(w+h);
+      return PADQ({text:`${U}'s garden is ${w} ${M} by ${h} ${M}. She puts a fence all the way around, but leaves a ${2} ${M} gap for a gate. How much fence does she need?`, ans: posts - 2, unit:' ' + M, fig: () => rectFig(w, h, {lw:`${w} ${M}`, lh:`${h} ${M}`}),
+        hints:[`The whole way around is ${w} + ${h} + ${w} + ${h} = ${posts} ${M}.`, `Take away the gate: ${posts} − 2 = ?`], right:`Yes! ${posts} − 2 = ${posts - 2} ${M} of fence.`}); }
+    return PADQ({text:`Grass tiles are 1 ${M} by 1 ${M}. How many tiles cover a paddock that is ${w} ${M} by ${h} ${M}?`, ans: w*h, unit:' tiles', fig: () => rectFig(w, h, {grid:true, lw:`${w} ${M}`, lh:`${h} ${M}`}),
+      hints:['Each tile covers 1 square of area.', `${w} × ${h} = ?`], right:`Yes! ${w*h} tiles.`});
+  }
+  const kind = ['dec','tri','hole','compare','square','tri'][G.i];
+  if (kind === 'dec'){ const w = pick([2.5, 3.5, 4.5, 1.5]), h = pick([2, 4, 6, 3]), A = w*h;
+    return PADQ({text:`A flower bed is ${w} ${M} by ${h} ${M}. What is its area?`, ans: A, decimal:true, unit:' ' + M2, ansEntry: String(A), ansText: String(A), fig: () => rectFig(w, h, {lw:`${w} ${M}`, lh:`${h} ${M}`}),
+      hints:['Area = length × width, even with decimals.', `${w} × ${h}: first ${Math.floor(w)} × ${h} = ${Math.floor(w)*h}, then 0.5 × ${h} = ${h/2}.`, `${Math.floor(w)*h} + ${h/2} = ?`], right:`Yes! ${w} × ${h} = ${A} ${M2}.`}); }
+  if (kind === 'tri'){ const b = pick([4, 6, 8, 10, 12]), h = rand(3, 9), A = b*h/2;
+    return PADQ({text:`A triangle-shaped garden has a base of ${b} ${M} and a height of ${h} ${M}. What is its area?`, ans: A, decimal: !Number.isInteger(A), unit:' ' + M2, ansEntry: String(A), ansText: String(A),
+      fig: () => rectFig(b, h, {tri: pick([0.3, 0.5, 0.7]), lw:`base ${b} ${M}`, lh:`height ${h} ${M}`}),
+      hints:['The triangle fits inside the dashed rectangle. It is exactly half of it.', `The rectangle is ${b} × ${h} = ${b*h}.`, `Half of ${b*h} = ?`], right:`Yes! ${b} × ${h} ÷ 2 = ${A} ${M2}.`}); }
+  if (kind === 'hole'){ const w = rand(8, 14), h = rand(6, 10), p = rand(2, Math.min(4, h - 3)), A = w*h - p*p;
+    return PADQ({text:`A paddock is ${w} ${M} by ${h} ${M}. It has a square pond, ${p} ${M} by ${p} ${M}. How much grass is there?`, ans: A, unit:' ' + M2,
+      fig: () => rectFig(w, h, {hole:p, lw:`${w} ${M}`, lh:`${h} ${M}`, lhole:`${p} by ${p}`}),
+      hints:[`The whole paddock: ${w} × ${h} = ${w*h}.`, `The pond: ${p} × ${p} = ${p*p}.`, `Grass = ${w*h} − ${p*p} = ?`], right:`Yes! ${w*h} − ${p*p} = ${A} ${M2} of grass.`}); }
+  if (kind === 'compare'){ const P = pick([20, 24, 28, 16]), sd = P/4, w2 = P/2 - 2;
+    const opts = shuffle([`${sd} by ${sd}`, `${w2} by 2`, 'They have the same area']);
+    return MCQ({text:`Two paddocks both have a ${P} ${M} fence: one is ${sd} by ${sd}, the other is ${w2} by 2. Which has more grass?`, opts, a: opts.indexOf(`${sd} by ${sd}`),
+      fig: () => `<div class="two-rects">${rectFig(sd, sd, {lw:sd, lh:sd})}${rectFig(w2, 2, {lw:w2, lh:2})}</div>`,
+      hint:`<p>Work out both areas: ${sd} × ${sd} and ${w2} × 2.</p>`, wrong: () => `Compare: ${sd} × ${sd} = ${sd*sd} and ${w2} × 2 = ${w2*2}.`, right:`Yes! ${sd*sd} is more than ${w2*2}. The same fence can hold different amounts of grass.`}); }
+  const sd = rand(4, 12);
+  return PADQ({text:`A square paddock has an area of ${sd*sd} ${M2}. How long is its fence (the perimeter)?`, ans: 4*sd, unit:' ' + M, fig: () => rectFig(sd, sd, {lw:'?', lh:'?'}),
+    hints:[`A square has 4 equal sides. Side × side = ${sd*sd}.`, `Which number times itself makes ${sd*sd}? It is ${sd}.`, `The fence is 4 × ${sd} = ?`], right:`Yes! Each side is ${sd} ${M}, so the fence is ${4*sd} ${M}.`});
+}
+
+/* ---------- registry for the Number Workshop and Paddock themes ---------- */
+const NEW_GEN = {nm_round: genRound, nm_rballoon: genRBalloon, nm_zero: genZero, nm_dec: genDec, ar_fence: genFence, ar_puzzle: genPuzzle};
+const hillPic = () => hillFig(Object.assign(hillQ(47, 'ten', 0, {showHalf:true}), {}));
+const blocksPic = () => `<svg viewBox="0 0 120 90" aria-hidden="true"><rect x="6" y="14" width="44" height="44" fill="#9B7BE0" stroke="#6B4FB0" stroke-width="2"/>${Array.from({length:9}, (_, i) => `<line x1="${6 + (i+1)*4.4}" y1="14" x2="${6 + (i+1)*4.4}" y2="58" stroke="#C9B6F2" stroke-width=".8"/><line x1="6" y1="${14 + (i+1)*4.4}" x2="50" y2="${14 + (i+1)*4.4}" stroke="#C9B6F2" stroke-width=".8"/>`).join('')}${[0,1,2].map(i => `<rect x="${60 + i*10}" y="14" width="7" height="44" fill="#4FBFA8" stroke="#2E8C7A" stroke-width="1.5"/>`).join('')}${[0,1,2,3].map(i => `<rect x="${96 + (i%2)*10}" y="${40 + Math.floor(i/2)*10}" width="8" height="8" fill="#F27BA6" stroke="#C23A72" stroke-width="1.2"/>`).join('')}<text x="60" y="80" class="lbl" style="font-size:15px" text-anchor="middle">400 − 167</text></svg>`;
+const shopPic = () => `<svg viewBox="0 0 120 100" aria-hidden="true"><path d="M30 52 h40 l-6 30 h-28z" fill="#A8E3D3"/><circle cx="38" cy="48" r="11" fill="#F9B4CC"/><circle cx="50" cy="42" r="12" fill="#F9B4CC"/><circle cx="62" cy="48" r="11" fill="#F9B4CC"/><circle cx="50" cy="30" r="4" fill="#E8508A"/><path d="M76 22 h34 l6 12 l-6 12 h-34z" fill="#FFF3B0" stroke="#D9A21F" stroke-width="2"/><circle cx="82" cy="34" r="3" fill="#D9A21F"/><text x="98" y="38" class="lbl" style="font-size:13px;fill:#2B2140" text-anchor="middle">$2.45</text></svg>`;
+const fencePic = () => { const q = {cells: new Set(rectCells(3, 2, 1, 2).concat([3*GW + 2])), sol:[], done:false}; return fenceFig(q).replace('role="img"', 'aria-hidden="true"'); };
+const rballPic = () => `<svg viewBox="0 0 120 120" aria-hidden="true">${[[34,48,'#F9B4CC','47'],[84,40,'#A8E3D3','52'],[60,70,'#FFD39A','45']].map(([x,y,c,t]) => `<line x1="${x}" y1="${y+26}" x2="${x}" y2="${y+50}" stroke="var(--muted)" stroke-width="2"/><ellipse cx="${x}" cy="${y}" rx="22" ry="27" fill="${c}"/><text x="${x}" y="${y}" class="lbl" style="font-size:15px;fill:#2B2140" text-anchor="middle" dominant-baseline="middle">${t}</text>`).join('')}</svg>`;
+Object.assign(GAMES, {
+  nm_round:    {theme:'num', title:'Rounding Hills', desc:'Which rainbow post is closer? Find the posts, then see which side of the hilltop Nova is on.', pic: hillPic},
+  nm_rballoon: {theme:'num', title:'Rounding Balloons', desc:'Pop every balloon that rounds to the number.', pic: rballPic},
+  nm_zero:     {theme:'num', title:'Zero Trading Post', desc:'Subtract across zeros, like 400 − 167, by trading blocks.', pic: blocksPic},
+  nm_dec:      {theme:'num', title:'Decimal Bakery Shop', desc:'Add and take away decimals and money. Line up the decimal points.', pic: shopPic},
+  ar_fence:    {theme:'area', title:'Fence Builder', desc:'Tap squares to build a paddock. Watch the area and the perimeter change.', pic: fencePic},
+  ar_puzzle:   {theme:'area', title:'Paddock Puzzles', desc:'Area and perimeter of rectangles, L-shapes, triangles and more.', pic: () => rectFig(5, 3, {lw:'5 m', lh:'3 m'})},
+});
+Object.assign(THEMES, {
+  num: {title:'Number Workshop', tile:'4 games: rounding, subtracting across zeros, and decimals.', levels:['basic','medium','advanced','master'],
+    intro: () => `${S.uname} builds number skills in the workshop. Each game has Basic, Medium and Advanced levels, and Master Mind for a real challenge.`, pic: hillPic,
+    groups:[['Rounding',['nm_round','nm_rballoon']], ['Subtracting with zeros',['nm_zero']], ['Decimals and money',['nm_dec']]]},
+  area: {title:`Nova's Paddock`, tile:'2 games: area and perimeter.', levels:['basic','medium','advanced','master'],
+    intro: () => `${S.uname} needs a paddock! Area is the grass inside. Perimeter is the fence around it. Each game has four levels.`, pic: fencePic,
+    groups:[['Build it',['ar_fence']], ['Work it out',['ar_puzzle']]]},
+});
+const BOOK_ICON = {angles: () => angleSVG({deg:90, rot:0, mini:true}), frac: () => oneSVG(shapeG('bar', 4, {shade:1})), num: hillPic, area: fencePic};
+const BOOK_WORD = {angles:'angle', frac:'fraction', num:'number', area:'area and perimeter'};
+function numBook(){
+  const W = (pic, title, text, hook) => `<div class="word">${pic}<h3>${title}</h3><p>${fmtFr(text)}</p><p class="hook">${hook}</p></div>`;
+  return [
+    W(hillPic(), 'Rounding', 'Rounding means finding the closest post. 47 is between the posts 40 and 50. It is closer to 50, so 47 rounds to 50.', 'Step 1: find the two posts. Step 2: find the hilltop. Step 3: which side are you on?'),
+    W(hillFig(hillQ(45, 'ten', 0, {showHalf:true})), 'Exactly halfway', 'A number exactly on the hilltop, like 45, rounds UP to the bigger post: 50.', 'Halfway goes up the hill and down the other side.'),
+    W(hillFig(hillQ(3.48, 'tenth', 2, {showHalf:true})), 'Rounding decimals', 'It works the same way with decimals. 3.48 is between 3.4 and 3.5. The hilltop is 3.45. 3.48 is past it, so it rounds to 3.5.', 'Same hill, smaller steps.'),
+    W('', 'Place names', 'Ones, tens, hundreds, thousands, ten thousands. After the decimal point: tenths, hundredths, thousandths.', 'In 2,365.48 the 4 is in the tenths place.'),
+    W('', 'Estimating', 'To estimate, round the numbers first, then add or take away. 398 + 205 is about 400 + 200 = 600.', 'An estimate helps you check your real answer.'),
+    W(blocksPic(), 'Subtracting across zeros', 'When a column has 0, you can not take away from it. Trade one block from the next column to the left: 1 hundred becomes 10 tens, 1 ten becomes 10 ones.', 'Keep trading to the right until every column has enough.'),
+    W('', 'Checking a subtraction', 'Add your answer and the number you took away. You should get the top number again.', '233 + 167 = 400, so 400 − 167 = 233 is right.'),
+    W(shopPic(), 'Adding decimals', 'Line up the decimal points, so tenths sit under tenths and hundredths under hundredths. Fill empty places with zeros.', '3.5 + 1.27 is the same as 3.50 + 1.27.'),
+    W('', 'Money', 'Dollars and cents are decimals: $4.50 is 4 dollars and 50 cents. To find change, take the price away from what you paid.', '$10 is the same as $10.00.'),
+  ];
+}
+function areaBook(){
+  const W = (pic, title, text, hook) => `<div class="word">${pic}<h3>${title}</h3><p>${fmtFr(text)}</p><p class="hook">${hook}</p></div>`;
+  return [
+    W(rectFig(4, 3, {grid:true}), 'Area', 'Area is how much space is inside a shape: the number of grass squares.', 'A rectangle: length × width. 4 × 3 = 12 squares.'),
+    W(rectFig(4, 3, {grid:true, lw:4, lh:3}), 'Perimeter', 'Perimeter is the distance all the way around the outside: the fence.', 'Add all the sides: 4 + 3 + 4 + 3 = 14.'),
+    W('', 'Units', 'Perimeter is a length, like 14 m. Area is in squares, like 12 m² (square meters).', 'The little 2 means "square".'),
+    W(lFig(8, 6, 3, 2, {top:5, notchV:2, notchH:3, right:4, bottom:8, left:6}, true), 'L-shapes', 'Split an L-shape into two rectangles. Find each area, then add them.', 'The pink part plus the green part.'),
+    W(rectFig(6, 4, {tri:0.5, lw:'base 6', lh:'height 4'}), 'Triangles', 'A triangle is half of the rectangle around it. Area = base × height ÷ 2.', '6 × 4 = 24, and half of 24 is 12.'),
+    W('', 'Same fence, different grass', 'Shapes with the same perimeter can have different areas. For a fence of 16, a 4 by 4 square holds the most grass: 16 squares.', 'Squares are the champions.'),
+  ];
+}
+
 function startGame(mode, level){
   G = {mode, level, i:0, earned:0, first:0, lastType:null, termsLeft:shuffle(TERMS)};
   G.theme = (GAMES[mode] || {}).theme || 'angles'; curTheme = G.theme;
@@ -2514,6 +3156,7 @@ function startGame(mode, level){
 }
 
 function makeQ(){
+  if (NEW_GEN[G.mode]) return NEW_GEN[G.mode]();
   if (G.level === 'master' && MASTER_GEN[G.mode]) return MASTER_GEN[G.mode]();
   if (FRAC_GEN[G.mode]) return FRAC_GEN[G.mode]();
   if (G.mode === 'clock') return makeClockQ();
@@ -2586,6 +3229,10 @@ function newQuestion(){
 }
 
 function firstLine(q){
+  if (q.type === 'hill') return q.phase === 'posts' ? 'First find the two posts the number sits between.' : `Is ${S.uname} closer to the left post or the right post?`;
+  if (q.type === 'trade') return 'Tap a block to break it into 10 smaller blocks.';
+  if (q.type === 'fence') return 'Tap squares to plant grass. The fence follows the outside.';
+  if (q.type === 'padq' && q.decimal) return q.first || 'Use the dot button for the decimal point.';
   if (q.type === 'fpad') return q.first || (q.noWhole ? 'Tap a box, then type the number.' : 'Use the big box for whole numbers and the small boxes for the fraction.');
   if (q.type === 'paint') return 'Tap a piece to color it. Tap it again to take the color away.';
   if (q.type === 'path') return q.show ? `Drag ${S.uname} along the rainbow path, or use the step buttons.` : `Drag ${S.uname} along the path. The number shows after you press Check.`;
@@ -2609,9 +3256,12 @@ function renderDots(){
 function renderFigure(){
   const q = G.q, fig = $('#figure');
   fig.hidden = false;
-  fig.className = 'figure' + (q.type === 'balloon' || q.type === 'share' ? ' col' : '');
+  fig.className = 'figure' + (q.type === 'balloon' || q.type === 'share' || q.type === 'trade' ? ' col' : '');
   fig.style.touchAction = q.type === 'path' ? 'none' : '';
   if (q.type !== 'path' && fig._q){ fig._q = null; clearFigHandlers(); }
+  if (q.type === 'hill'){ fig.innerHTML = hillFig(q); return; }
+  if (q.type === 'trade'){ fig.innerHTML = tradeFig(q); wireTrade(); return; }
+  if (q.type === 'fence'){ fig.innerHTML = fenceFig(q); wireFence(); return; }
   if (q.type === 'fpad'){ const h = q.fig ? q.fig(q) : ''; if (h) fig.innerHTML = h; else fig.hidden = true; return; }
   if (q.type === 'paint'){ fig.innerHTML = paintFig(q); wirePaint(); return; }
   if (q.type === 'path'){ fig.innerHTML = pathFig(q); if (fig._q !== q){ fig._q = q; wirePathFig(); } return; }
@@ -2675,6 +3325,14 @@ function renderAnswers(){
     }));
   }
   if (q.type === 'fpad'){ renderFpad(box, q); }
+  if (q.type === 'hill'){ renderHillAnswers(box, q); }
+  if (q.type === 'fence'){
+    const c = document.createElement('p'); c.className = 'paintcount fencecount'; c.id = 'fenceCount'; box.appendChild(c);
+    const wrap = document.createElement('div'); wrap.className = 'paint-ctrls';
+    const b1 = document.createElement('button'); b1.className = 'opt'; b1.textContent = 'Clear'; b1.addEventListener('click', () => { if (!q.done){ q.cells.clear(); renderFigure(); updateFenceCount(); } });
+    const b2 = document.createElement('button'); b2.className = 'opt yes'; b2.textContent = 'Check'; b2.addEventListener('click', checkFence);
+    wrap.append(b1, b2); box.appendChild(wrap); updateFenceCount();
+  }
   if (q.type === 'paint'){
     const c = document.createElement('p'); c.className = 'paintcount'; c.id = 'paintCount'; box.appendChild(c);
     const wrap = document.createElement('div'); wrap.className = 'paint-ctrls';
@@ -2725,16 +3383,23 @@ function renderAnswers(){
     mk('Check', checkBridge, 'yes');
     box.appendChild(wrap);
   }
-  if (q.type === 'missing' || q.type === 'padq' || (q.type === 'share' && q.phase === 'ask')){
+  if (q.type === 'missing' || q.type === 'padq' || (q.type === 'share' && q.phase === 'ask') || (q.type === 'trade' && q.phase === 'ask')){
     const pad = document.createElement('div'); pad.className = 'pad';
     pad.innerHTML = `<div class="display" id="padDisplay" aria-live="polite">?</div><div class="keys" id="keys"></div>`;
     box.appendChild(pad);
     const keys = pad.querySelector('#keys');
     const key = (label, fn, cls='') => { const b = document.createElement('button'); b.className = 'opt ' + cls; b.textContent = label; b.addEventListener('click', fn); keys.appendChild(b); };
     [1,2,3,4,5,6,7,8,9].forEach(n => key(n, () => typeDigit(n)));
-    key('Delete', () => { if (!q.done){ q.entry = q.entry.slice(0,-1); updatePad(); } });
-    key('0', () => typeDigit(0));
-    key('Check', q.type === 'missing' ? checkMissing : checkPad, 'yes');
+    if (q.decimal){
+      key('.', () => { if (q.done || q.entry.includes('.')) return; q.entry = (q.entry || '0') + '.'; updatePad(); });
+      key('0', () => typeDigit(0));
+      key('Delete', () => { if (!q.done){ q.entry = q.entry.slice(0,-1); updatePad(); } });
+      const cb = document.createElement('button'); cb.className = 'opt yes fcheck'; cb.textContent = 'Check'; cb.addEventListener('click', checkPad); pad.appendChild(cb);
+    } else {
+      key('Delete', () => { if (!q.done){ q.entry = q.entry.slice(0,-1); updatePad(); } });
+      key('0', () => typeDigit(0));
+      key('Check', q.type === 'missing' ? checkMissing : checkPad, 'yes');
+    }
     updatePad();
   }
 }
@@ -2798,17 +3463,18 @@ function checkBridge(){
   else { q.tries++; setBubble(msg, false, 'think'); }
 }
 
-function typeDigit(n){ const q = G.q; if (q.done || q.entry.length >= 4) return; q.entry += String(n); updatePad(); }
-function updatePad(){ const d = $('#padDisplay'); if (d) d.textContent = G.q.entry ? G.q.entry + (G.q.unit ?? '°') : '?'; }
+function typeDigit(n){ const q = G.q; if (q.done || q.entry.length >= 8) return; q.entry += String(n); updatePad(); }
+function updatePad(){ const d = $('#padDisplay'); if (d) d.textContent = G.q.entry ? (G.q.pre || '') + G.q.entry + (G.q.unit ?? '°') : '?'; }
 
 function checkPad(){
   const q = G.q; if (q.done || !q.entry) return;
-  const v = parseInt(q.entry, 10), u = q.unit ?? '°';
-  if (v === q.ans){ correct(q.right); return; }
+  const v = q.decimal ? parseFloat(q.entry) : parseInt(q.entry, 10), u = q.unit ?? '°', shown = (q.pre || '') + q.entry + u;
+  if (Math.abs(v - q.ans) < 1e-6){ correct(q.right); return; }
   q.tries++; q.entry = ''; updatePad();
   while (q.hintStep < Math.min(q.tries, q.hints.length)) showHint();
-  if (q.tries >= 3) setBubble(`${v}${u} is not it. The answer is ${q.ans}${u}. Type ${q.ans}.`, false, 'think');
-  else setBubble(`${v}${u} is not it yet. Look at the hint and try again.`, false, 'think');
+  const at = q.ansText != null ? q.ansText : (q.pre || '') + q.ans;
+  if (q.tries >= 3) setBubble(`${shown} is not it. The answer is ${at}${u}. Type ${q.ansEntry != null ? q.ansEntry : q.ans}.`, false, 'think');
+  else setBubble(`${shown} is not it yet. Look at the hint and try again.`, false, 'think');
 }
 
 function checkMissing(){
@@ -2876,10 +3542,11 @@ function correct(msg){
   updateGems(true, rw);
   const cheer = nextCheer();
   renderFigure();
-  if (q.type === 'missing' || q.type === 'padq' || q.type === 'share') { q.entry = String(q.ans); updatePad(); }
+  if (q.type === 'missing' || q.type === 'padq' || q.type === 'share' || q.type === 'trade') { q.entry = q.ansEntry != null ? String(q.ansEntry) : String(q.ans); updatePad(); }
+  if (q.type === 'fence') updateFenceCount();
   if (q.type === 'fpad') updateFpad();
   if (q.type === 'paint') updatePaintCount();
-  document.querySelectorAll('#answers button').forEach(b => { if (!b.classList.contains('yes') || ['missing','padq','bridge','fpad','paint','path','share'].includes(q.type)) b.disabled = true; });
+  document.querySelectorAll('#answers button').forEach(b => { if (!b.classList.contains('yes') || ['missing','padq','bridge','fpad','paint','path','share','hill','trade','fence'].includes(q.type)) b.disabled = true; });
   setBubble(msg + (rw === 1 ? ' You earned a gem.' : ` You earned ${rw} gems.`), true, 'happy', cheer);
   if (S.sound) speak(cheer, 1.25);
   $('#hintBtn').hidden = true;
@@ -2931,6 +3598,8 @@ function petLine(){
     '2/4 and 1/2 are the same amount of cake. Fractions are tricky and fun!',
     'Master Mind questions make my horn sparkle. Hints are always allowed!',
     'Each sticker in the album is different. Can we collect them all?',
+    '47 rounds to 50. It is closer to the 50 post on the hill!',
+    'My paddock needs a fence. The fence is the perimeter, the grass is the area.',
   ];
   let l; do { l = pick(lines); } while (l === lastLine); lastLine = l; return l;
 }
@@ -2994,6 +3663,8 @@ function renderMap(){
 
 function renderBook(theme){
   if (theme === 'frac'){ $('#bookList').innerHTML = fracBook().join(''); return; }
+  if (theme === 'num'){ $('#bookList').innerHTML = numBook().join(''); return; }
+  if (theme === 'area'){ $('#bookList').innerHTML = areaBook().join(''); return; }
   const items = Object.values(DEF).map(d => {
     const deg = {acute:45, right:90, obtuse:130, straight:180, reflex:250}[d.name];
     return `<div class="word">${angleSVG({deg, rot:0, mini:true})}<h3>${cap(d.name)} angle</h3><p>${d.long}</p><p class="hook">${d.hook}</p></div>`;
